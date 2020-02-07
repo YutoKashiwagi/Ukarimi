@@ -22,9 +22,9 @@ gem 'sass-rails', '5.0.6'
 gem 'turbolinks', '5.0.1'
 gem 'uglifier', '3.2.0'
 gem 'mysql2'
-#検索用
+# 検索用
 gem 'ransack'
-#フォント用
+# フォント用
 gem 'font-awesome-sass'
 # slimのジェネレーターを提供してくれるslim-rails
 gem 'slim-rails'
