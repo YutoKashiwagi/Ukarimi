@@ -5,10 +5,12 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'bootstrap', '~> 4.4.1'
+gem 'bootstrap',    '~> 4.4.1'
 gem 'carrierwave'
 gem 'coffee-rails', '4.2.2'
 gem 'devise'
+gem 'devise-i18n'       # devise日本語化のため
+gem 'devise-i18n-views' # devise日本語化のため
 gem 'dotenv-rails'
 gem 'faker'
 gem 'jbuilder',     '2.7.0'
@@ -18,9 +20,9 @@ gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'puma', '3.9.1'
 gem 'rails', '5.1.7'
-gem 'sass-rails', '5.0.6'
-gem 'turbolinks', '5.0.1'
-gem 'uglifier', '3.2.0'
+gem 'sass-rails',   '5.0.6'
+gem 'turbolinks',   '5.0.1'
+gem 'uglifier',     '3.2.0'
 gem 'mysql2'
 # 検索用
 gem 'ransack'
@@ -35,14 +37,14 @@ gem 'html2slim'
 gem 'kaminari'
 
 group :development, :test do
-  gem 'byebug', '9.0.6', platform: :mri
+  gem 'byebug',  '9.0.6', platform: :mri
   gem 'spring-commands-rspec'
   gem 'sqlite3', '1.3.13'
 end
 
 group :development do
   gem 'rubocop-airbnb'
-  gem 'listen', '3.1.5'
+  gem 'listen',                '3.1.5'
   gem 'pry-byebug'
   gem 'pry-doc'
   gem 'pry-rails'
@@ -52,11 +54,11 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '~> 2.13'
+  gem 'capybara',                 '~> 2.13'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
-  gem 'guard', '2.13.0'
-  gem 'guard-minitest', '2.4.4'
+  gem 'guard',                    '2.13.0'
+  gem 'guard-minitest',           '2.4.4'
   gem 'launchy'
   gem 'minitest-reporters',       '1.1.14'
   gem 'rails-controller-testing', '1.0.2'
