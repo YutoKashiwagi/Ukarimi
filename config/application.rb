@@ -11,7 +11,10 @@ module QuestionBox
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
+    #自動生成の設定
     config.generators do |g|
+      g.helper false
+      g.assets false
       g.test_framework :rspec,
         fixtures: true,
         view_specs: false,
