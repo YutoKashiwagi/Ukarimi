@@ -6,6 +6,9 @@ h1
     = f.label :email
     = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
   .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+  .form-group
     = f.label :password
     = f.password_field :password, autocomplete: 'current-password', class: 'form-control'
     - if @minimum_password_length
