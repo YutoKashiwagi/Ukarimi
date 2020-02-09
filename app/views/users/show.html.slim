@@ -1,2 +1,8 @@
 h1 Users#show
 p Find me in app/views/users/show.html.slim
+
+.user_info.text-center
+  = @user.name
+  br
+  - if user_signed_in?
+    = link_to 'Log out', destroy_user_session_path, method: :delete
