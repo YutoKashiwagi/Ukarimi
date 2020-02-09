@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "SignUps", type: :feature do
   it '正常にサインアップできること' do
-    visit new_user_registration_paht
+    visit new_user_registration_path
     fill_in 'Name', with: 'foobar'
     fill_in 'Email', with: 'foobar@foobar.com'
     fill_in 'Password', with: 'foobar'
