@@ -40,7 +40,7 @@ gem 'kaminari'
 gem 'rack-mini-profiler', require: false
 
 group :development, :test do
-  gem 'byebug',  '9.0.6', platform: :mri
+  gem 'byebug', '9.0.6', platform: :mri
   gem 'spring-commands-rspec'
   gem 'sqlite3', '1.3.13'
 end
@@ -60,9 +60,9 @@ group :development do
 end
 
 group :test do
-  gem 'capybara',                 '~> 2.13'
+  gem 'capybara', '~> 2.13'
   gem 'database_cleaner'
-  gem 'factory_bot_rails' 
+  gem 'factory_bot_rails'
   gem 'guard',                    '2.13.0'
   gem 'guard-minitest',           '2.4.4'
   gem 'minitest-reporters',       '1.1.14'
