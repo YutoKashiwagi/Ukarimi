@@ -5,10 +5,12 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-gem 'bootstrap',    '~> 4.4.1'
+# gem 'ast', '2.4.0'
+gem 'bootstrap-sass'
 gem 'carrierwave'
 gem 'coffee-rails', '4.2.2'
 gem 'devise'
+gem 'devise-bootstrap-views', '~> 1.0'
 gem 'devise-i18n'       # devise日本語化のため
 gem 'devise-i18n-views' # devise日本語化のため
 gem 'dotenv-rails'
@@ -30,11 +32,12 @@ gem 'ransack'
 gem 'font-awesome-sass'
 # slimのジェネレーターを提供してくれるslim-rails
 gem 'slim-rails'
-
 # erb→slim記法に変換するためのgem
 gem 'html2slim'
 # ページネーション(will_pagenateより操作性とカスタマイズ性で優れている)
 gem 'kaminari'
+# SQL、パフォーマンスのチェック
+gem 'rack-mini-profiler', require: false
 
 group :development, :test do
   gem 'byebug',  '9.0.6', platform: :mri
@@ -45,22 +48,25 @@ end
 group :development do
   gem 'rubocop-airbnb'
   gem 'listen',                '3.1.5'
-  gem 'pry-byebug'
-  gem 'pry-doc'
-  gem 'pry-rails'
   gem 'spring',                '2.0.2'
   gem 'spring-watcher-listen', '2.0.1'
   gem 'web-console',           '3.5.1'
+  # debug
+  gem "better_errors"
+  gem "binding_of_caller"
+  gem 'pry-byebug'
+  gem 'pry-doc'
+  gem 'pry-rails'
 end
 
 group :test do
   gem 'capybara',                 '~> 2.13'
   gem 'database_cleaner'
-  gem 'factory_bot_rails'
+  gem 'factory_bot_rails' 
   gem 'guard',                    '2.13.0'
   gem 'guard-minitest',           '2.4.4'
-  gem 'launchy'
   gem 'minitest-reporters',       '1.1.14'
+  gem 'launchy'
   gem 'rails-controller-testing', '1.0.2'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
