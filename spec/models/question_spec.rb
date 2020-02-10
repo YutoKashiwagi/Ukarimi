@@ -8,6 +8,21 @@ RSpec.describe Question, type: :model do
   end
 
   describe 'バリデーション' do
+    context 'title' do
+      subject { question.errors[:title] }
+      it 'presence: true' do
+        question.title = ''
+        question.valid?
+        is_expected.to include("can't be blank")
+      end
+
+      it 'length: { maximum: 50 }' do
+        question.title = 'a' * 51
+        question.valid?
+        is_expected.to include("is too long (maximum is 50 characters)")
+      end
+    end
+
     context 'content' do
       subject { question.errors[:content] }
       it 'presence: true' do

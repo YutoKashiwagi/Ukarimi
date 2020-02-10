@@ -1,2 +1,9 @@
-h1 Questions#show
-p Find me in app/views/questions/show.html.slim
+.question_container.text-center
+  .question_title
+  .question.body
+    = @question.user.name 
+    br
+    = @question.title
+    br
+    = @question.content
+    hr
