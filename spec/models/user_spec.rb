@@ -21,5 +21,19 @@ RSpec.describe User, type: :model do
         expect(user.errors[:name]).to include("is too long (maximum is 20 characters)")
       end
     end
+
+    context 'password' do
+      it 'maximum: 30' do
+        user.password = 'a' * 31
+        user.valid?
+        expect(user.errors[:password]).to include("is too long (maximum is 30 characters)")
+      end
+
+      it 'minimum: 6' do
+        user.password = 'a' * 5
+        user.valid?
+        expect(user.errors[:password]).to include("is too short (minimum is 6 characters)")
+      end
+    end
   end
 end
