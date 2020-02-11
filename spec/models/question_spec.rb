@@ -10,6 +10,7 @@ RSpec.describe Question, type: :model do
   describe 'バリデーション' do
     context 'title' do
       subject { question.errors[:title] }
+
       it 'presence: true' do
         question.title = ''
         question.valid?
@@ -25,6 +26,7 @@ RSpec.describe Question, type: :model do
 
     context 'content' do
       subject { question.errors[:content] }
+
       it 'presence: true' do
         question.content = ''
         question.valid?

@@ -10,7 +10,7 @@ RSpec.feature "Questions", type: :feature do
       visit questions_path
       fill_in 'Title', with: 'title'
       fill_in 'Content', with: 'content'
-      expect{ click_on '投稿する' }.to change{ user.questions.count }.by(1)
+      expect { click_on '投稿する' }.to change { user.questions.count }.by(1)
     end
   end
 end

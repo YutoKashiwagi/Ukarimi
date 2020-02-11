@@ -9,7 +9,7 @@ class QuestionsController < ApplicationController
     @user = @question.user
   end
 
-  def create 
+  def create
     @question = current_user.questions.build(question_params)
     if @question.save
       flash[:success] = '投稿しました'
@@ -19,8 +19,9 @@ class QuestionsController < ApplicationController
       redirect_back(fallback_location: root_path)
     end
   end
-  
+
   private
+
   def question_params
     params.require(:question).permit(:title, :content)
   end

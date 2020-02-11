@@ -9,7 +9,8 @@ RSpec.describe User, type: :model do
 
   describe 'バリデーション' do
     context 'name' do
-      subject{ user.errors[:name] }
+      subject { user.errors[:name] }
+
       it 'presense :true' do
         user.name = ''
         user.valid?
@@ -24,7 +25,8 @@ RSpec.describe User, type: :model do
     end
 
     context 'password' do
-      subject{ user.errors[:password] }
+      subject { user.errors[:password] }
+
       it 'maximum: 30' do
         user.password = 'a' * 31
         user.valid?
