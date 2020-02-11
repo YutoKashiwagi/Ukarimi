@@ -1,2 +1,5 @@
-h1 StaticPages#home
-p Find me in app/views/static_pages/home.html.slim
+.text-center
+  p.display-1 Question Box
+  hr
+  - if user_signed_in?
+    = link_to 'ユーザーページ', user_path(current_user.id)
