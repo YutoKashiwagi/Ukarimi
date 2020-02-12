@@ -8,8 +8,8 @@ RSpec.feature "Questions", type: :feature do
     it '正常に投稿が出来ること' do
       login_as user, scope: :user
       visit questions_path
-      fill_in 'Title', with: 'title'
-      fill_in 'Content', with: 'content'
+      fill_in 'question[title]', with: 'title'
+      fill_in 'question[content]', with: 'content'
       expect { click_on '投稿する' }.to change { user.questions.count }.by(1)
     end
   end
