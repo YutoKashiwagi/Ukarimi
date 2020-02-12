@@ -5,5 +5,5 @@ class Answer < ApplicationRecord
   # バリデーション
   validates :content, 
             presence: true,
-            length: { maximum: 1000 },
+            length: { maximum: 1000 }
 end
