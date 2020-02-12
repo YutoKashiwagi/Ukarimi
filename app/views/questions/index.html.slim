@@ -1,15 +1,6 @@
-h1 Questions#index
-p Find me in app/views/questions/index.html.slim
-- if user_signed_in?
-  - @question = Question.new
-  = form_for(@question, url: { controller: :questions, action: :create }) do |f|
-    = render 'shared/error_messages', model: f.object
-    .form-group
-      = f.label :title
-      = f.text_field :title
-    .form-group
-      = f.label :content
-      = f.text_area :content
-    .form-group
-      = f.submit '投稿する', class: 'btn btn-primary'
-  
+h1 質問一覧
+hr
+- @questions.each do |q|
+  = link_to "#{q.title}", question_path(q.id)
+  hr
+= render 'questions/form'

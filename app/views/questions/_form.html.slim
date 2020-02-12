@@ -1,0 +1,11 @@
+- if user_signed_in?
+  = form_with model: @question do |f|
+    = render 'shared/error_messages', model: f.object
+    .form-group
+      = f.label :title
+      = f.text_field :title
+    .form-group
+      = f.label :content
+      = f.text_area :content
+    .form-group
+      = f.submit '投稿する', class: 'btn btn-primary'

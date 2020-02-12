@@ -2,6 +2,7 @@ class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :destroy]
   def index
     @questions = Question.all
+    @question = Question.new
   end
 
   def show
