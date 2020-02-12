@@ -1,9 +1,9 @@
 .question_container.text-center
-  .question_title
-  .question.body
-    = @question.user.name 
-    br
-    = @question.title
-    br
-    = @question.content
-    hr
+  p
+    | 投稿者:#{@question.user.name}
+  br
+  p
+    | タイトル:#{@question.title}
+  br
+  p
+    | 内容:#{@question.content}
