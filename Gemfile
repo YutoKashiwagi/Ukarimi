@@ -6,7 +6,10 @@ git_source(:github) do |repo_name|
 end
 
 # gem 'ast', '2.4.0'
+gem 'bootstrap', '~> 4.4.1'
+gem 'jquery-rails', '4.3.1'
 gem 'bootstrap-sass'
+gem 'sass-rails', '5.0.6'
 gem 'carrierwave'
 gem 'coffee-rails', '4.2.2'
 gem 'devise'
@@ -15,14 +18,12 @@ gem 'devise-i18n'       # devise日本語化のため
 gem 'devise-i18n-views' # devise日本語化のため
 gem 'dotenv-rails'
 gem 'faker'
-gem 'jbuilder',     '2.7.0'
-gem 'jquery-rails', '4.3.1'
+gem 'jbuilder', '2.7.0'
 gem 'mini_magick'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'puma', '3.9.1'
 gem 'rails', '5.1.7'
-gem 'sass-rails',   '5.0.6'
 gem 'turbolinks',   '5.0.1'
 gem 'uglifier',     '3.2.0'
 gem 'mysql2'
