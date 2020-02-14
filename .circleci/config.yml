@@ -5,13 +5,9 @@ jobs:
    - image: circleci/ruby:2.6.1-node
      environment:
        RAILS_ENV: test
-       DB_HOST: 127.0.0.1
    - image: circleci/mysql:5.7-ram
      environment:
-       MYSQL_DATABASE: db
        MYSQL_ALLOW_EMPTY_PASSWORD: true
-       MYSQL_ROOT_HOST: '%'
-       MYSQL_USER: root
    working_directory: ~/repo
    steps:
    - checkout
@@ -28,11 +24,13 @@ jobs:
        paths:
        - ./vendor/bundle
        key: v1-dependencies-{{ checksum "Gemfile.lock" }}
+   - run:
+       command: mv ./config/database.yml.ci ./config/database.yml
    # Database setup
    - run:
        name: Prepare db
        command: |
-         bundle exec rails db:schema:load 
+         bin/rails db:create db:migrate
    # run tests!
    - run:
        name: Run rspec
