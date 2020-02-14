@@ -12,10 +12,14 @@ services:
     tty: true
     stdin_open: true
   db:
+    restart: always
     image: mysql:5.7
     volumes:
       - db-volume:/var/lib/mysql
     environment:
       MYSQL_ROOT_PASSWORD: password
 volumes:
+  bundle:
+    driver: local
   db-volume:
+    driver: local
