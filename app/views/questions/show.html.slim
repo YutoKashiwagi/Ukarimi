@@ -1,9 +1,24 @@
 .question_container.text-center
-  p
-    | 投稿者:#{@question.user.name}
+  p= link_to @question.user.name, user_path(@question.user.id)
   br
   p
     | タイトル:#{@question.title}
   br
   p
     | 内容:#{@question.content}
+
+/回答送信フォーム
+- if user_signed_in?
+  .text-center
+    = form_for [@question, @answer] do |f|
+      = render 'shared/error_messages', model: f.object
+      .form-group
+        = f.text_area :content
+      .form-group
+        = f.submit '回答する', class: 'btn btn-primary'
+
+/回答表示
+= @answers&.each do |answer|
+  .answer_container.text-center
+    p= link_to answer.user.name, user_path(answer.user.id)
+    p= answer.content

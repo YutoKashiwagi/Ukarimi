@@ -8,7 +8,6 @@ end
 # gem 'ast', '2.4.0'
 gem 'bootstrap', '~> 4.4.1'
 gem 'jquery-rails', '4.3.1'
-gem 'bootstrap-sass'
 gem 'sass-rails', '5.0.6'
 gem 'carrierwave'
 gem 'coffee-rails', '4.2.2'

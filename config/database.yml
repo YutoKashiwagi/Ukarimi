@@ -47,8 +47,13 @@ test:
 #   production:
 #     url: <%= ENV['DATABASE_URL'] %>
 #
+# production:
+#   <<: *default
+#   database: question_box_production
+#   username: question_box
+#   password: <%= ENV['QUESTION_BOX_DATABASE_PASSWORD'] %>
+
+# heroku環境
 production:
   <<: *default
-  database: question_box_production
-  username: question_box
-  password: <%= ENV['QUESTION_BOX_DATABASE_PASSWORD'] %>
+  url: <%= ENV['JAWSDB_URL']&.sub('mysql://', 'mysql2://') %>
