@@ -6,12 +6,26 @@
   padding: 0.5em 1em;
   margin: auto;
   font-weight: bold;
-  color: #6091d3;
   background: #FFF;
   border: solid 3px #6091d3;
   border-radius: 10px;
 }
+
 .question_container p {
+  margin: 0; 
+  padding: 0;
+}
+
+.answer_container {
+  width: 700px;
+  padding: 0.5em 1em;
+  margin: auto;
+  font-weight: bold;
+  background: #FFF;
+  border: solid 3px #ff9999;
+  border-radius: 10px;
+}
+.answer_container p {
   margin: 0; 
   padding: 0;
 }
@@ -34,7 +48,6 @@ body {
   height: 60px;
   background-color: #f5f5f5;
 }
- 
  
 /* Custom page CSS
 -------------------------------------------------- */
