@@ -23,5 +23,5 @@
     p= link_to answer.user.name, user_path(answer.user.id)
     p= answer.content
     - if current_user == answer.user
-      = link_to 'delete',question_answer_path(id: answer.id, 
+      = link_to icon('fas', 'trash-alt'),question_answer_path(id: answer.id, 
                                               question_id: @question.id),method: :delete, class: "delete-#{answer.id}"
