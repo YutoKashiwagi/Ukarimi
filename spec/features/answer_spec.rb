@@ -56,14 +56,14 @@ RSpec.feature "Answers", type: :feature do
       # user_thirdがuser_firstの回答を削除しようとする
       login_as user_third, scope: :user
       visit question_path(taro_q.id)
-      expect(page).not_to have_selector ".delete-#{answer_first.id}"
+      expect(page).not_to have_selector ".delete-a-#{answer_first.id}"
     end
 
     it '回答者は自分の投稿を削除できること' do
       login_as user_first, scope: :user
       visit question_path(taro_q.id)
       expect(page).to have_content '一番目の回答'
-      expect { find(".delete-#{answer_first.id}").click }.to change { taro_q.answers.count }.by(-1)
+      expect { find(".delete-a-#{answer_first.id}").click }.to change { taro_q.answers.count }.by(-1)
       expect(page).not_to have_content '一番目の回答'
     end
 
@@ -74,7 +74,7 @@ RSpec.feature "Answers", type: :feature do
       create(:answer, user: user_third, question: taro_q, content: 'answer_thirdの回答2')
       login_as user_third, scope: :user
       visit question_path(taro_q.id)
-      expect { find(".delete-#{answer_third.id}").click }.to change { user_third.answers.count }.by(-1)
+      expect { find(".delete-a-#{answer_third.id}").click }.to change { user_third.answers.count }.by(-1)
       expect(page).to have_content 'answer_thirdの回答2'
     end
   end
