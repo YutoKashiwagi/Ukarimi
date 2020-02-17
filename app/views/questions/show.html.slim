@@ -1,5 +1,11 @@
 .question_container.text-center
-  p= link_to @question.user.name, user_path(@question.user.id)
+  .container
+    .row
+      .col-8
+        = link_to @question.user.name, user_path(@question.user.id)
+      .col-4
+        -if current_user == @question.user
+          = link_to icon('fas', 'trash-alt'), question_path(@question.id), method: :delete, class: "delete-q-#{@question.id}"
   br
   p
     | タイトル:#{@question.title}
@@ -23,5 +29,5 @@
     p= link_to answer.user.name, user_path(answer.user.id)
     p= answer.content
     - if current_user == answer.user
-      = link_to icon('fas', 'trash-alt'),question_answer_path(id: answer.id, 
-                                              question_id: @question.id),method: :delete, class: "delete-#{answer.id}"
+      = link_to icon('fas', 'trash-alt'), question_answer_path(id: answer.id, 
+                                                              question_id: @question.id), method: :delete, class: "delete-a-#{answer.id}"
