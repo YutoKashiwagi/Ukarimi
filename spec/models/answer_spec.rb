@@ -24,4 +24,19 @@ RSpec.describe Answer, type: :model do
       end
     end
   end
+
+  describe 'dependent: :destroy' do
+    let!(:taro) { create(:user, name: 'taro') }
+    let!(:jiro) { create(:user, name: 'jiro') }
+    let!(:taro_q) { create(:question, user: taro) }
+    let!(:ans_jiro) { create(:answer, user: jiro, question: taro_q) }
+
+    it '質問を消去すると、紐づいた回答も消去されること' do
+      expect { taro_q.destroy }.to change(Answer, :count).by(-1)
+    end
+
+    it 'ユーザーを削除すると、紐づいた質問、回答も削除されること' do
+      expect { taro.destroy }.to change(Question, :count).by(-1).and change(Answer, :count).by(-1)
+    end
+  end
 end
