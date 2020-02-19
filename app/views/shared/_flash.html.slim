@@ -1,5 +1,3 @@
-- if flash.any?
-  = flash.each do |key, value|
-    p class=("alert alert-#{key} text-center") 
-      = value
-    
+- flash.each do |message_type, message|
+  div class=("alert alert-#{message_type} text-center") 
+    = message
