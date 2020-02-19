@@ -31,7 +31,7 @@ class AnswersController < ApplicationController
     if @answer.update(answer_params)
       redirect_to question_path(@question.id), flash: { success: '回答を編集しました' }
     else
-      redirect_to edit_question_answer_path(id: @answer.id, question_id: @question.id), flash: { danger: '編集に失敗しました'}
+      redirect_to edit_question_answer_path(id: @answer.id, question_id: @question.id), flash: { danger: '編集に失敗しました' }
     end
   end
 

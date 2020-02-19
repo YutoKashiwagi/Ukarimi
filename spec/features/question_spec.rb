@@ -60,10 +60,12 @@ RSpec.feature "Questions", type: :feature do
       find(".edit-q-#{taro_q.id}").click
       expect(current_path).to eq edit_question_path(taro_q.id)
     end
-    
+
     describe '入力系' do
-      before { visit edit_question_path(taro_q.id) }
       subject { page }
+
+      before { visit edit_question_path(taro_q.id) }
+
       context '正常値' do
         it '成功すること' do
           fill_in 'question[title]', with: '編集後のタイトル'

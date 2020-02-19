@@ -8,24 +8,25 @@ RSpec.feature "Answers", type: :feature do
   let!(:taro_q) { create(:question, user: taro) }
 
   let!(:jiro) { create(:user, name: 'jiro') }
-  let!(:jiro_ans) { create(:answer, user: jiro, question: taro_q, content: 'jiroの回答')}
-  
+  let!(:jiro_ans) { create(:answer, user: jiro, question: taro_q, content: 'jiroの回答') }
+
   let!(:saburo) { create(:user, name: 'saburo') }
-  let!(:saburo_ans) { create(:answer, user: saburo, question: taro_q, content: 'saburoの回答')}
+  let!(:saburo_ans) { create(:answer, user: saburo, question: taro_q, content: 'saburoの回答') }
 
   describe 'ログインしている時' do
+    subject { page }
+
     before do
       login_as user, scope: :user
       visit question_path(taro_q.id)
     end
-    subject { page }
 
     it '正常に回答できること' do
       fill_in 'answer[content]', with: ' 正しい回答'
       click_button '回答する'
       is_expected.to have_content '正しい回答'
     end
-    
+
     context '異常値' do
       it 'presence: true' do
         fill_in 'answer[content]', with: ''

@@ -1,5 +1,5 @@
 class QuestionsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :destroy,:edit, :update]
+  before_action :authenticate_user!, only: [:create, :destroy, :edit, :update]
   def index
     @questions = Question.all
     @question = Question.new
@@ -16,7 +16,7 @@ class QuestionsController < ApplicationController
   def create
     @question = current_user.questions.build(question_params)
     if @question.save
-      redirect_to question_path(@question.id), flash: { success: '投稿しました'}
+      redirect_to question_path(@question.id), flash: { success: '投稿しました' }
     else
       redirect_to questions_path, flash: { danger: '投稿に失敗しました' }
     end
@@ -25,7 +25,7 @@ class QuestionsController < ApplicationController
   def destroy
     @question = Question.find(params[:id])
     @question.destroy!
-    redirect_to questions_path, flash: {success: '削除しました'}
+    redirect_to questions_path, flash: { success: '削除しました' }
   end
 
   def edit
