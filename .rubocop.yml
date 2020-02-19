@@ -15,6 +15,9 @@ AllCops:
     - 'path/ruby'
   DisplayCopNames: true
 
-  # 日本語のコメントを許可する
+# 日本語のコメントを許可する
 Style/AsciiComments:
   Enabled: false
+
+Metrics/LineLength:
+  Max: 120

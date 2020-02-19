@@ -1,0 +1,11 @@
+- if current_user == @question.user
+  = form_with model: @question, url: question_path(@question.id) do |f|
+    = render 'shared/error_messages', model: f.object
+    .form-group
+      = f.label :title
+      = f.text_field :title
+    .form-group
+      = f.label :content
+      = f.text_area :content
+    .form-group
+      = f.submit '編集内容を送信', class: 'btn btn-primary'

@@ -1,5 +1,12 @@
 .question_container.text-center
-  p= link_to @question.user.name, user_path(@question.user.id)
+  .container
+    .row
+      .col-8
+        = link_to @question.user.name, user_path(@question.user.id)
+      .col-4
+        -if current_user == @question.user
+          = link_to '削除', question_path(@question.id), method: :delete, class: "btn btn-danger delete-q-#{@question.id}"
+          = link_to '編集', edit_question_path(@question.id), class: "btn btn-primary edit-q-#{@question.id}"
   br
   p
     | タイトル:#{@question.title}
@@ -10,7 +17,7 @@
 /回答送信フォーム
 - if user_signed_in?
   .text-center
-    = form_for [@question, @answer] do |f|
+    = form_with model: [@question, @answer] do |f|
       = render 'shared/error_messages', model: f.object
       .form-group
         = f.text_area :content
@@ -22,3 +29,7 @@
   .answer_container.text-center
     p= link_to answer.user.name, user_path(answer.user.id)
     p= answer.content
+    - if current_user == answer.user
+      = link_to '削除', question_answer_path(id: answer.id, 
+      question_id: @question.id), method: :delete, class: "btn btn-danger delete-a-#{answer.id}"
+      = link_to '編集', edit_question_answer_path(id: answer.id, question_id: @question.id), class: "btn btn-primary edit-a-#{answer.id}"

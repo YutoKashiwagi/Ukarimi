@@ -1,6 +1,9 @@
 // @import "bootstrap-sprockets";
 @import "bootstrap";
 
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
+
 .question_container {
   width: 700px;
   padding: 0.5em 1em;
