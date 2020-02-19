@@ -17,7 +17,7 @@
 /回答送信フォーム
 - if user_signed_in?
   .text-center
-    = form_for [@question, @answer] do |f|
+    = form_with model: [@question, @answer] do |f|
       = render 'shared/error_messages', model: f.object
       .form-group
         = f.text_area :content
@@ -32,3 +32,4 @@
     - if current_user == answer.user
       = link_to '削除', question_answer_path(id: answer.id, 
       question_id: @question.id), method: :delete, class: "btn btn-danger delete-a-#{answer.id}"
+      = link_to '編集', edit_question_answer_path(id: answer.id, question_id: @question.id), class: "btn btn-primary edit-a-#{answer.id}"

@@ -2,80 +2,88 @@ require 'rails_helper'
 
 RSpec.feature "Answers", type: :feature do
   include Warden::Test::Helpers
-  subject { page }
+  let!(:user) { create(:user) }
 
-  let(:user) { create(:user) }
-  let(:question) { create(:question) }
+  let!(:taro) { create(:user, name: 'taro') }
+  let!(:taro_q) { create(:question, user: taro) }
 
-  describe 'ログインしていない時' do
-    it '回答フォームが存在しないこと' do
-      login_as user, scope: :user
-      visit question_path(question.id)
-      expect(page).not_to have_content '回答する'
-    end
-  end
+  let!(:jiro) { create(:user, name: 'jiro') }
+  let!(:jiro_ans) { create(:answer, user: jiro, question: taro_q, content: 'jiroの回答')}
+  
+  let!(:saburo) { create(:user, name: 'saburo') }
+  let!(:saburo_ans) { create(:answer, user: saburo, question: taro_q, content: 'saburoの回答')}
 
   describe 'ログインしている時' do
     before do
       login_as user, scope: :user
-      visit question_path(question.id)
+      visit question_path(taro_q.id)
     end
+    subject { page }
 
     it '正常に回答できること' do
       fill_in 'answer[content]', with: ' 正しい回答'
       click_button '回答する'
       is_expected.to have_content '正しい回答'
     end
+    
+    context '異常値' do
+      it 'presence: true' do
+        fill_in 'answer[content]', with: ''
+        click_button '回答する'
+        is_expected.to have_content '回答に失敗しました'
+      end
 
-    it 'presence: true' do
-      fill_in 'answer[content]', with: ''
-      click_button '回答する'
-      is_expected.to have_content '回答に失敗しました'
-    end
-
-    it 'length: { maximum: 1000 }' do
-      fill_in 'answer[content]', with: 'a' * 1001
-      click_button '回答する'
-      is_expected.to have_content '回答に失敗しました'
+      it 'length: { maximum: 1000 }' do
+        fill_in 'answer[content]', with: 'a' * 1001
+        click_button '回答する'
+        is_expected.to have_content '回答に失敗しました'
+      end
     end
   end
 
   describe '削除機能が正常に働いていること' do
     # taro = 質問者
-    let!(:taro) { create(:user, name: 'taro') }
-    let!(:taro_q) { create(:question, user: taro) }
-
-    let!(:user_first) { create(:user, name: 'first') }
-    let!(:user_second) { create(:user, name: 'second') }
-    let!(:user_third) { create(:user, name: 'third') }
-
-    let!(:answer_first) { create(:answer, content: '一番目の回答', user: user_first, question: taro_q) }
-    let!(:answer_second) { create(:answer, content: '二番目の回答', user: user_second, question: taro_q) }
-
     it '回答者しか自分の回答を削除できないこと' do
-      # user_thirdがuser_firstの回答を削除しようとする
-      login_as user_third, scope: :user
+      # saburoがjiroの回答を削除しようとする
+      login_as saburo, scope: :user
       visit question_path(taro_q.id)
-      expect(page).not_to have_selector ".delete-a-#{answer_first.id}"
+      expect(page).not_to have_selector ".delete-a-#{jiro_ans.id}"
     end
 
-    it '回答者は自分の投稿を削除できること' do
-      login_as user_first, scope: :user
+    it '回答者は自分の回答を削除できること' do
+      login_as jiro, scope: :user
       visit question_path(taro_q.id)
-      expect(page).to have_content '一番目の回答'
-      expect { find(".delete-a-#{answer_first.id}").click }.to change { taro_q.answers.count }.by(-1)
-      expect(page).not_to have_content '一番目の回答'
+      expect(page).to have_content 'jiroの回答'
+      expect { find(".delete-a-#{jiro_ans.id}").click }.to change { taro_q.answers.count }.by(-1)
+      expect(page).not_to have_content 'jiroの回答'
     end
 
     # 一つの回答に対して、同一人物が複数の回答を投稿している時
     # その人物が一つの回答を削除すると、残りも削除されてしまう
     it 'バグ再現テスト' do
-      answer_third = create(:answer, user: user_third, question: taro_q, content: 'answer_thirdの回答1')
-      create(:answer, user: user_third, question: taro_q, content: 'answer_thirdの回答2')
-      login_as user_third, scope: :user
+      create(:answer, user: jiro, question: taro_q, content: 'jiroの回答2')
+      login_as jiro, scope: :user
       visit question_path(taro_q.id)
-      expect { find(".delete-a-#{answer_third.id}").click }.to change { user_third.answers.count }.by(-1)
-      expect(page).to have_content 'answer_thirdの回答2'
+      expect { find(".delete-a-#{jiro_ans.id}").click }.to change { jiro.answers.count }.from(2).to(1)
+    end
+  end
+
+  describe '編集機能が正常に働いていること' do
+    before do
+      login_as jiro, scope: :user
+      visit edit_question_answer_path(id: jiro_ans.id, question_id: taro_q.id)
+    end
+
+    it '正常値' do
+      fill_in 'answer[content]', with: '編集後の回答'
+      click_on '編集内容を送信'
+      expect(page).to have_content '編集後の回答'
+    end
+
+    it '異常値' do
+      fill_in 'answer[content]', with: ''
+      click_on '編集内容を送信'
+      expect(page).to have_content '編集に失敗しました'
     end
   end
 end
