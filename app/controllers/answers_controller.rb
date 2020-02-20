@@ -4,7 +4,6 @@ class AnswersController < ApplicationController
 
   def create
     @answer = current_user.answers.build(answer_params)
-    @answer.question_id = @question.id
     if @answer.save
       flash[:success] = '回答しました'
       redirect_back(fallback_location: root_path)
@@ -41,6 +40,6 @@ class AnswersController < ApplicationController
   end
 
   def answer_params
-    params.require(:answer).permit(:content)
+    params.require(:answer).permit(:content).merge(question_id: @question.id)
   end
 end
