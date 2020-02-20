@@ -1,9 +1,10 @@
 class AnswersController < ApplicationController
+  before_action :set_answer, only: [:destroy, :edit, :update]
+  before_action :set_question, only: [:create, :edit, :destroy, :update]
+
   def create
-    @answer = Answer.new(answer_params)
-    @answer.user_id = current_user.id
-    @answer.question_id = params[:question_id]
-    @question = @answer.id
+    @answer = current_user.answers.build(answer_params)
+    @answer.question_id = @question.id
     if @answer.save
       flash[:success] = '回答しました'
       redirect_back(fallback_location: root_path)
@@ -14,20 +15,14 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    @question = Question.find(params[:question_id])
-    @answer = Answer.find(params[:id])
     @answer.destroy!
     redirect_to question_path(@question.id), flash: { success: '削除しました' }
   end
 
   def edit
-    @question = Question.find(params[:question_id])
-    @answer = Answer.find(params[:id])
   end
 
   def update
-    @question = Question.find(params[:question_id])
-    @answer = Answer.find(params[:id])
     if @answer.update(answer_params)
       redirect_to question_path(@question.id), flash: { success: '回答を編集しました' }
     else
@@ -36,6 +31,14 @@ class AnswersController < ApplicationController
   end
 
   private
+
+  def set_question
+    @question = Question.find(params[:question_id])
+  end
+
+  def set_answer
+    @answer = current_user.answers.find(params[:id])
+  end
 
   def answer_params
     params.require(:answer).permit(:content)

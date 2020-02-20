@@ -1,15 +1,16 @@
 class QuestionsController < ApplicationController
   before_action :authenticate_user!, only: [:create, :destroy, :edit, :update]
+  before_action :set_answer, only: [:index, :show]
+  before_action :set_question, only: [:edit, :update, :destroy]
+
   def index
     @questions = Question.all
-    @question = Question.new
-    @answer = Answer.new
+    @question = current_user.questions.build
   end
 
   def show
     @question = Question.find(params[:id])
     @user = @question.user
-    @answer = Answer.new
     @answers = @question.answers.all
   end
 
@@ -23,17 +24,14 @@ class QuestionsController < ApplicationController
   end
 
   def destroy
-    @question = Question.find(params[:id])
     @question.destroy!
     redirect_to questions_path, flash: { success: '削除しました' }
   end
 
   def edit
-    @question = Question.find(params[:id])
   end
 
   def update
-    @question = Question.find(params[:id])
     if @question.update(question_params)
       redirect_to question_path(@question.id), flash: { success: '質問を編集しました' }
     else
@@ -45,5 +43,13 @@ class QuestionsController < ApplicationController
 
   def question_params
     params.require(:question).permit(:title, :content)
+  end
+
+  def set_question
+    @question = current_user.questions.find(params[:id])
+  end
+
+  def set_answer
+    @answer = current_user.answers.new
   end
 end
