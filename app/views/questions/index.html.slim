@@ -1,6 +1,6 @@
+= render 'questions/form'
 h1 質問一覧
 hr
 - @questions.each do |q|
   = link_to "#{q.title}", question_path(q.id)
   hr
-= render 'questions/form'
