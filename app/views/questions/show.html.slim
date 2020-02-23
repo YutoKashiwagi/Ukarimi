@@ -17,8 +17,9 @@
 /回答送信フォーム
 - if user_signed_in?
   .text-center
-    = form_with model: [@question, @answer] do |f|
+    = form_with model: @answer, url: question_answers_path(question_id: @question.id) do |f|
       = render 'shared/error_messages', model: f.object
+      = f.hidden_field :question_id, value: @question.id
       .form-group
         = f.text_area :content
       .form-group
