@@ -1,6 +1,10 @@
 require 'rails_helper'
 
-RSpec.feature "SignUps", type: :feature do
+RSpec.describe "Signups", type: :system do
+  before do
+    driven_by(:rack_test)
+  end
+
   it '正常にサインアップできること' do
     visit new_user_registration_path
     fill_in 'Name', with: 'foobar'
