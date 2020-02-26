@@ -28,9 +28,16 @@
 /回答表示
 = @answers&.each do |answer|
   .answer_container.text-center
+    - if answer.best_answer?(@question)
+      p ベストアンサー！！
     p= link_to answer.user.name, user_path(answer.user.id)
     p= answer.content
     - if current_user == answer.user
       = link_to '削除', question_answer_path(id: answer.id, 
       question_id: @question.id), method: :delete, class: "btn btn-danger delete-a-#{answer.id}"
       = link_to '編集', edit_question_answer_path(id: answer.id, question_id: @question.id), class: "btn btn-primary edit-a-#{answer.id}"
+    - if current_user == @question.user
+      = form_with model: @question.build_best_answer, url: best_answers_path, method: :post do |f|
+        = f.hidden_field :question_id, value: @question.id
+        = f.hidden_field :answer_id, value: answer.id
+        = f.submit 'ベストアンサーにする', class: 'btn btn-primary'

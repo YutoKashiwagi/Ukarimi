@@ -9,4 +9,5 @@ Rails.application.routes.draw do
   resources :questions, only: [:index, :show, :create, :destroy, :edit, :update] do
     resources :answers, only: [:create, :destroy, :edit, :update]
   end
+  resources :best_answers, only: [:create, :destroy]
 end
