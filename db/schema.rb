@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200211153353) do
+ActiveRecord::Schema.define(version: 20200226190228) do
 
   create_table "answers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text "content"
@@ -28,6 +28,8 @@ ActiveRecord::Schema.define(version: 20200211153353) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "title"
+    t.bigint "best"
+    t.index ["best"], name: "fk_rails_dd35f91b0c"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
@@ -46,5 +48,6 @@ ActiveRecord::Schema.define(version: 20200211153353) do
 
   add_foreign_key "answers", "questions"
   add_foreign_key "answers", "users"
+  add_foreign_key "questions", "answers", column: "best"
   add_foreign_key "questions", "users"
 end
