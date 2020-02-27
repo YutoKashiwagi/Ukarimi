@@ -49,4 +49,32 @@ RSpec.describe Question, type: :model do
       expect { taro.destroy }.to change(Question, :count).by(-1)
     end
   end
+
+  describe 'メソッドのテスト' do
+    before { question.save }
+
+    let!(:answer) { create(:answer, question: question) }
+
+    describe 'has_best_answer?' do
+      example 'trueを返すこと' do
+        question.best = answer.id
+        expect(question.has_best_answer?).to eq true
+      end
+
+      example 'falseを返すこと' do
+        expect(question.has_best_answer?).to eq false
+      end
+    end
+
+    describe 'best_answer' do
+      example 'ベストアンサーを返すこと' do
+        question.best = answer.id
+        expect(question.best_answer).to eq answer
+      end
+
+      example 'nilを返すこと' do
+        expect(question.best_answer).to eq nil
+      end
+    end
+  end
 end
