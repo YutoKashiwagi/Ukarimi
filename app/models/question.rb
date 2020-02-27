@@ -16,6 +16,6 @@ class Question < ApplicationRecord
   end
 
   def best_answer
-    Answer.find(best) if best.present?
+    answers.find(best) if best.present?
   end
 end

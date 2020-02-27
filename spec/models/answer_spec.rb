@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Answer, type: :model do
-  let(:answer) { build(:answer) }
+  let(:question) { create(:question) }
+  let(:answer) { build(:answer, question: question) }
 
   it '有効なファクトリを持つこと' do
     expect(answer.valid?).to eq true
@@ -37,6 +38,21 @@ RSpec.describe Answer, type: :model do
 
     it 'ユーザーを削除すると、紐づいた質問、回答も削除されること' do
       expect { taro.destroy }.to change(Question, :count).by(-1).and change(Answer, :count).by(-1)
+    end
+  end
+
+  describe 'メソッド' do
+    before { answer.save }
+
+    describe 'is_best_answer?()' do
+      example 'trueを返すこと' do
+        question.best = answer.id
+        expect(answer.is_best_answer?(question)).to eq true
+      end
+
+      example 'falseを返すこと' do
+        expect(answer.is_best_answer?(question)).to eq false
+      end
     end
   end
 end
