@@ -15,28 +15,7 @@
     | 内容:#{@question.content}
 
 /回答送信フォーム
-- if user_signed_in?
-  .text-center
-    = form_with model: @answer, url: question_answers_path(question_id: @question.id) do |f|
-      = render 'shared/error_messages', model: f.object
-      = f.hidden_field :question_id, value: @question.id
-      .form-group
-        = f.text_area :content
-      .form-group
-        = f.submit '回答する', class: 'btn btn-primary'
+= render partial: 'answers/submit_form', locals: { question: @question }
 
 /回答表示
-= @answers&.each do |answer|
-  .answer_container.text-center
-    p= link_to answer.user.name, user_path(answer.user.id)
-    p= answer.content
-    - if current_user == answer.user
-      = link_to '削除', question_answer_path(id: answer.id, 
-      question_id: @question.id), method: :delete, class: "btn btn-danger delete-a-#{answer.id}"
-      = link_to '編集', edit_question_answer_path(id: answer.id, question_id: @question.id), class: "btn btn-primary edit-a-#{answer.id}"
-    - if answer.is_best_answer?(@question)
-      p ベストアンサー！
-    - elsif current_user == @question.user
-      = form_with model: @question, url: question_best_answer_path(id: answer.id, question_id: @question.id), method: :patch do |f|
-       = f.hidden_field :best, value: answer.id
-       = f.submit 'ベストアンサー', class: 'btn btn-primary'
+= render partial: 'answers/index', collection: @answers, as: :answer
