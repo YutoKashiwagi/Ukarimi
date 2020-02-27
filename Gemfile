@@ -38,6 +38,8 @@ gem 'html2slim'
 gem 'kaminari'
 # SQL、パフォーマンスのチェック
 gem 'rack-mini-profiler', require: false
+# data: { confirm: }のダイアログをbootstrapを使ってカスタマイズするジェム
+gem 'data-confirm-modal'
 
 group :development, :test do
   gem 'byebug', '9.0.6', platform: :mri
