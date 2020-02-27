@@ -6,7 +6,7 @@ class Answer < ApplicationRecord
   validates :content,
             presence: true,
             length: { maximum: 1000 }
-  
+
   def best_answer?(question)
     self == question.best_answer&.answer
   end
