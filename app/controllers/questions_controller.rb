@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.all
-    @question = current_user.questions.build
+    @question = current_user.questions.build if current_user
   end
 
   def show
@@ -50,6 +50,6 @@ class QuestionsController < ApplicationController
   end
 
   def set_answer
-    @answer = current_user.answers.new
+    @answer = current_user.answers.new if current_user
   end
 end
