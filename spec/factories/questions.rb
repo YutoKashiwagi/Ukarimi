@@ -3,5 +3,6 @@ FactoryBot.define do
     title { 'Title' }
     content { "MyString" }
     user { create(:user) }
+    best { nil }
   end
 end
