@@ -10,4 +10,4 @@
   - if current_user == answer.question.user && !answer.question.has_best_answer?
     = form_with model: answer.question, url: question_best_answer_path(id: answer.id, question_id: answer.question.id), method: :patch do |f|
       = f.hidden_field :best, value: answer.id
-      = f.submit 'ベストアンサー', class: "btn btn-primary best_answer_btn_#{answer.id}"
+      = f.submit 'ベストアンサー', class: "btn btn-primary best_answer_btn_#{answer.id}", data: { confirm: "一度ベストアンサーを決定すると変更できません。ベストアンサーに決定しますか？", cancel: 'やめる', commit: '決定' }, title: 'ベストアンサーの確認'
