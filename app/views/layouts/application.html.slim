@@ -1,0 +1,13 @@
+doctype html
+html
+  head
+    title
+      | QuestionBox
+    = csrf_meta_tags
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
+    = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
+  body
+    = render 'layouts/header'
+    = render 'shared/flash'
+    = yield
+    = render 'layouts/footer'

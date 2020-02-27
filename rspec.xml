@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="rspec" tests="13" skipped="1" failures="0" errors="0" time="3.589938" timestamp="2020-02-14T05:08:41+00:00" hostname="84e9df1c8324">
+<properties>
+<property name="seed" value="50814"/>
+</properties>
+<testcase classname="spec.features.question_spec" name="Questions 質問の投稿 正常に投稿が出来ること" file="./spec/features/question_spec.rb" time="3.176659"></testcase>
+<testcase classname="spec.features.sign_up_spec" name="SignUps 正常にサインアップできること" file="./spec/features/sign_up_spec.rb" time="0.274797"></testcase>
+<testcase classname="spec.models.answer_spec" name="Answer add some examples to (or delete) /question_box/spec/models/answer_spec.rb" file="./spec/models/answer_spec.rb" time="0.000021"><skipped/></testcase>
+<testcase classname="spec.models.question_spec" name="Question 有効なファクトリを持つこと" file="./spec/models/question_spec.rb" time="0.022090"></testcase>
+<testcase classname="spec.models.question_spec" name="Question バリデーション title presence: true" file="./spec/models/question_spec.rb" time="0.019831"></testcase>
+<testcase classname="spec.models.question_spec" name="Question バリデーション title length: { maximum: 50 }" file="./spec/models/question_spec.rb" time="0.011607"></testcase>
+<testcase classname="spec.models.question_spec" name="Question バリデーション content presence: true" file="./spec/models/question_spec.rb" time="0.011551"></testcase>
+<testcase classname="spec.models.question_spec" name="Question バリデーション content length: { maximum: 1000 }" file="./spec/models/question_spec.rb" time="0.011166"></testcase>
+<testcase classname="spec.models.user_spec" name="User 有効なファクトリを持つこと" file="./spec/models/user_spec.rb" time="0.004962"></testcase>
+<testcase classname="spec.models.user_spec" name="User バリデーション name presense :true" file="./spec/models/user_spec.rb" time="0.005283"></testcase>
+<testcase classname="spec.models.user_spec" name="User バリデーション name length: {maximum: 20}" file="./spec/models/user_spec.rb" time="0.005269"></testcase>
+<testcase classname="spec.models.user_spec" name="User バリデーション password maximum: 30" file="./spec/models/user_spec.rb" time="0.006624"></testcase>
+<testcase classname="spec.models.user_spec" name="User バリデーション password minimum: 6" file="./spec/models/user_spec.rb" time="0.006473"></testcase>
+</testsuite>

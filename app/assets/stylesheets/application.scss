@@ -1,0 +1,66 @@
+// @import "bootstrap-sprockets";
+@import "bootstrap";
+
+@import 'font-awesome-sprockets';
+@import 'font-awesome';
+
+.question_container {
+  width: 700px;
+  padding: 0.5em 1em;
+  margin: auto;
+  font-weight: bold;
+  background: #FFF;
+  border: solid 3px #6091d3;
+  border-radius: 10px;
+}
+
+.question_container p {
+  margin: 0; 
+  padding: 0;
+}
+
+.answer_container {
+  width: 700px;
+  padding: 0.5em 1em;
+  margin: auto;
+  font-weight: bold;
+  background: #FFF;
+  border: solid 3px #ff9999;
+  border-radius: 10px;
+}
+.answer_container p {
+  margin: 0; 
+  padding: 0;
+}
+
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+ 
+/* Custom page CSS
+-------------------------------------------------- */
+/* Not required for template or sticky footer method. */
+ 
+.container {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
