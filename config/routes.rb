@@ -8,5 +8,6 @@ Rails.application.routes.draw do
   resources :users, only: [:show]
   resources :questions, only: [:index, :show, :create, :destroy, :edit, :update] do
     resources :answers, only: [:create, :destroy, :edit, :update]
+    resources :best_answers, only: :update
   end
 end

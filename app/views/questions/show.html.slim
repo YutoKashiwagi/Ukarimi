@@ -34,3 +34,9 @@
       = link_to '削除', question_answer_path(id: answer.id, 
       question_id: @question.id), method: :delete, class: "btn btn-danger delete-a-#{answer.id}"
       = link_to '編集', edit_question_answer_path(id: answer.id, question_id: @question.id), class: "btn btn-primary edit-a-#{answer.id}"
+    - if answer.is_best_answer?(@question)
+      p ベストアンサー！
+    - elsif current_user == @question.user
+      = form_with model: @question, url: question_best_answer_path(id: answer.id, question_id: @question.id), method: :patch do |f|
+       = f.hidden_field :best, value: answer.id
+       = f.submit 'ベストアンサー', class: 'btn btn-primary'
