@@ -10,4 +10,12 @@ class Question < ApplicationRecord
   validates :title,
             presence: true,
             length: { maximum: 50 }
+
+  def has_best_answer?
+    best.present?
+  end
+
+  def best_answer
+    Answer.find(best) if best.present?
+  end
 end
