@@ -1,0 +1,5 @@
+.row
+  .col-6
+    p #{user.name}
+  .col-6
+    = render partial: 'shared/follow_button', locals: { user: user }

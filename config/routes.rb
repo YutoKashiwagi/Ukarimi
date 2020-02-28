@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 
   resources :users, only: [:show], shallow: true do
     resources :stocks, only: [:index, :create, :destroy]
+    resources :followees, only: [:index, :create, :destroy]
+    resources :followers, only: [:index]
   end
   resources :questions do
     resources :answers, only: [:create, :destroy, :edit, :update]
