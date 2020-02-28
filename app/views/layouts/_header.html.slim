@@ -16,3 +16,6 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
       li.nav-item
         - if user_signed_in?
           = link_to '質問する', new_question_path, class: 'nav-link'
+      li.nav-item
+        - if user_signed_in?
+          = link_to 'ストック一覧', user_stocks_path(current_user.id), class: 'nav-link'

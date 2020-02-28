@@ -2,6 +2,8 @@ class Question < ApplicationRecord
   belongs_to :user
 
   has_many :answers, dependent: :destroy
+  has_many :stocks, dependent: :destroy
+  has_many :stocked_users, through: :stocks, source: :user
 
   # バリデーション
   validates :content,
