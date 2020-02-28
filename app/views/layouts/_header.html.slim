@@ -13,3 +13,6 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
           = link_to 'ログイン', new_user_session_path, class: 'nav-link'
           li.nav-item
             = link_to '登録', new_user_registration_path, class: 'nav-link'
+      li.nav-item
+        - if user_signed_in?
+          = link_to '質問する', new_question_path, class: 'nav-link'
