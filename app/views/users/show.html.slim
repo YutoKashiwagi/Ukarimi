@@ -1,9 +1,9 @@
-h1 Users#show
-p Find me in app/views/users/show.html.slim
-
 .user_info.text-center
-  = @user.name
-  br
-  - if user_signed_in?
-    = link_to 'Log out', destroy_user_session_path, method: :delete
-    
+  p.display-3 #{@user.name}
+  hr
+  = render partial: 'shared/follow_button', locals: { user: @user }
+  .row
+    .col-6
+      = link_to "#{@user.followees.count}フォロー", user_followees_path(@user.id)
+    .col-6
+      = link_to "#{@user.followers.count}フォロワー", user_followers_path(@user.id)
