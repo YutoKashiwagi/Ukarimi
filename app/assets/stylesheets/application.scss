@@ -4,6 +4,7 @@
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
 
+// 質問ページのスタイリング
 .question_container {
   width: 700px;
   padding: 0.5em 1em;
@@ -31,6 +32,17 @@
 .answer_container p {
   margin: 0; 
   padding: 0;
+}
+
+// 質問一覧ページのスタイリング
+.question_index_container {
+  margin: auto;
+  width: 880px;
+}
+
+.question_each_container {
+  width: 880px;
+  height: 128px;
 }
 
 /* Sticky footer styles
