@@ -52,3 +52,9 @@ Question.ids.each do |q_id|
     content: '頑張ってください'
   )
 end
+
+users = User.all
+user1 = User.first
+users.each do |user|
+  user.follow(user1)
+end
