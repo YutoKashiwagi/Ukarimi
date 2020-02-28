@@ -42,7 +42,7 @@ RSpec.describe User, type: :model do
     end
   end
 
-  describe 'ストック' do
+  describe 'ストック関連' do
     before { user.save }
 
     describe 'stocked?(question)' do
@@ -76,6 +76,51 @@ RSpec.describe User, type: :model do
 
       example 'ストックしていない場合、nilを返すこと' do
         expect(user.unstock(question)).to eq nil
+      end
+    end
+  end
+
+  describe 'フォロー関連' do
+    before { user.save }
+
+    let(:other_user) { create(:user) }
+
+    describe 'following?(other_user)' do
+      example 'フォローしていない場合、falseを返すこと' do
+        expect(user.following?(other_user)).to eq false
+      end
+
+      example 'フォローしている場合、trueを返すこと' do
+        user.followees << other_user
+        expect(user.following?(other_user)).to eq true
+      end
+    end
+
+    describe 'follow(other_user)' do
+      example 'フォローしていない場合、フォローできること' do
+        user.follow(other_user)
+        expect(user.following?(other_user)).to eq true
+      end
+
+      example 'フォローしている場合、nilを返すこと' do
+        user.follow(other_user)
+        expect(user.follow(other_user)).to eq nil
+      end
+
+      example '自分自身をフォローできないこと' do
+        expect(user.follow(user)).to eq nil
+      end
+    end
+
+    describe 'unfollow(other_user)' do
+      example 'フォローしていない場合、nilを返すこと' do
+        expect(user.unfollow(other_user)).to eq nil
+      end
+
+      example 'フォローしている場合、フォロー解除できること' do
+        user.follow(other_user)
+        user.unfollow(other_user)
+        expect(user.following?(other_user)).to eq false
       end
     end
   end
