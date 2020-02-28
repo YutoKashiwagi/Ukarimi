@@ -1,7 +1,17 @@
 .question_container.text-center
   .container
     .row
-      .col-8
+      .col-2
+        - if user_signed_in?
+          - if current_user.stocked?(@question)
+            = form_with model: current_user.stocks.find_by(question_id: @question.id), method: :delete do |f|
+              = f.hidden_field :question_id, value: @question.id
+              = f.submit 'ストック済み', class: 'btn btn-success'
+          - else
+            = form_with model: current_user.stocks.new(question_id: @question.id), url: user_stocks_path(current_user.id), method: :post do |f|
+              = f.hidden_field :question_id, value: @question.id
+              = f.submit 'ストック', class: 'btn btn-secondary'
+      .col-6
         = link_to @question.user.name, user_path(@question.user.id)
       .col-4
         -if current_user == @question.user
