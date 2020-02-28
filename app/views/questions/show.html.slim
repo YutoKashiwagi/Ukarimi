@@ -8,6 +8,8 @@
           = link_to '削除', question_path(@question.id), method: :delete, class: "btn btn-danger delete-q-#{@question.id}"
           = link_to '編集', edit_question_path(@question.id), class: "btn btn-primary edit-q-#{@question.id}"
   br
+  -if @question.has_best_answer?
+    p.text-success 解決済み
   p
     | タイトル:#{@question.title}
   br

@@ -1,0 +1,14 @@
+.question_each_container
+  .row
+    .col-2.text-center
+      - if question.has_best_answer?
+        p.text-success 解決済み
+      - else
+        p 未解決
+      p 回答数
+      p.display-4.text-danger
+        | #{question.answers.count}
+    .col-10
+      .text-center
+        = link_to "#{question.title}", question_path(question.id)
+hr
