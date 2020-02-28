@@ -10,6 +10,8 @@
   br
   -if @question.has_best_answer?
     p.text-success 解決済み
+  - else
+    p 未解決
   p
     | タイトル:#{@question.title}
   br
