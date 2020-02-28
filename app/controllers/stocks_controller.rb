@@ -9,12 +9,12 @@ class StocksController < ApplicationController
     current_user.stock(@question) if current_user
     redirect_back(fallback_location: root_path)
   end
-  
+
   def destroy
     current_user.unstock(@question) if current_user
     redirect_back(fallback_location: root_path)
   end
-  
+
   private
 
   def set_question
