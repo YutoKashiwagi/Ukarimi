@@ -14,6 +14,10 @@ class QuestionsController < ApplicationController
     @answers = @question.answers.all
   end
 
+  def new
+    @question = current_user.questions.build
+  end
+
   def create
     @question = current_user.questions.build(question_params)
     if @question.save
