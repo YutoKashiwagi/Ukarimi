@@ -48,18 +48,18 @@ RSpec.describe Comment, type: :model do
   describe 'dependent: :destroy' do
     example 'questionに紐づいて削除されること' do
       comment.save
-      expect{ question.destroy }.to change{ Comment.count }.by(-1)
+      expect { question.destroy }.to change(Comment, :count).by(-1)
     end
 
     example 'answerに紐づいて削除されること' do
       comment.commentable = answer
       comment.save
-      expect{ answer.destroy }.to change{ Comment.count }.by(-1)
+      expect { answer.destroy }.to change(Comment, :count).by(-1)
     end
 
     example 'userに紐づいて削除されること' do
       comment.save
-      expect{ user.destroy }.to change{ Comment.count }.by(-1)
+      expect { user.destroy }.to change(Comment, :count).by(-1)
     end
   end
 end
