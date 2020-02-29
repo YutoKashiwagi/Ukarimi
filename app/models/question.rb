@@ -4,6 +4,7 @@ class Question < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :stocks, dependent: :destroy
   has_many :stocked_users, through: :stocks, source: :user
+  has_many :comments, as: :commentable, dependent: :destroy
 
   # バリデーション
   validates :content,

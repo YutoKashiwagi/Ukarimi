@@ -1,0 +1,7 @@
+- if user_signed_in?
+  = form_with model: [commentable.try(:question), commentable, comment] do |f|
+    = f.hidden_field :user_id, value: current_user.id
+    .form-group
+      = f.text_area :content, placeholder: 'コメントを入力', class: "comment_form_#{commentable.id}"
+    .form-group
+      = f.submit 'コメントする', class: 'btn btn-primary'

@@ -9,6 +9,8 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
       li.nav-item
         - if user_signed_in?
           = link_to 'User', user_path(current_user.id), class: 'nav-link'
+          li.nav-item
+            = link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link'
         - else 
           = link_to 'ログイン', new_user_session_path, class: 'nav-link'
           li.nav-item

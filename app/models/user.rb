@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :answers, dependent: :destroy
   has_many :stocks, dependent: :destroy
   has_many :stocked_questions, through: :stocks, source: :question
+  has_many :comments, dependent: :destroy
 
   # フォロー周り
   has_many :active_relationships, foreign_key: :follower_id, class_name: 'Relationship', dependent: :destroy
