@@ -27,9 +27,14 @@
   br
   p
     | 内容:#{@question.content}
+  /質問のコメント表示
+  = render partial: 'comments/index', locals: { comments: @question.comments }
+  /コメント入力フォーム
+  - if user_signed_in?
+    = render partial: 'comments/form', locals: { commentable: @question, comment: current_user.comments.build }
 
 /回答送信フォーム
 = render partial: 'answers/submit_form', locals: { question: @question }
 
 /回答表示
-= render partial: 'answers/index', collection: @answers, as: :answer
+= render partial: 'answers/index', collection: @answers, as: :answer, locals: { question: @question }
