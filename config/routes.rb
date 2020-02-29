@@ -11,7 +11,10 @@ Rails.application.routes.draw do
     resources :followers, only: [:index]
   end
   resources :questions do
-    resources :answers, only: [:create, :destroy, :edit, :update]
+    resources :comments, only: [:create, :destroy], module: :questions
+    resources :answers, only: [:create, :destroy, :edit, :update] do
+      resources :comments, only: [:create, :destroy], module: :answers
+    end
     resources :best_answers, only: :update
   end
 end
