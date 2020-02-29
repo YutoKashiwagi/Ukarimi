@@ -78,6 +78,14 @@ RSpec.describe User, type: :model do
         expect(user.unstock(question)).to eq nil
       end
     end
+
+    describe 'dependent: :destrou' do
+      before { user.stock(question) }
+
+      example 'ユーザーを削除すると、紐づいたストックも削除されること' do
+        expect { user.destroy }.to change(Stock, :count).by(-1)
+      end
+    end
   end
 
   describe 'フォロー関連' do
