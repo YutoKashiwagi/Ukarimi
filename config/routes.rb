@@ -12,8 +12,10 @@ Rails.application.routes.draw do
   end
   resources :questions do
     resources :comments, only: [:create, :destroy], module: :questions
+    resources :likes, only: [:create, :destroy], module: :questions
     resources :answers, only: [:create, :destroy, :edit, :update] do
       resources :comments, only: [:create, :destroy], module: :answers
+      resources :likes, only: [:create, :destroy], module: :answers
     end
     resources :best_answers, only: :update
   end
