@@ -1,37 +1,41 @@
-.question_container.text-center
-  .container
+.question_container
+  / 高評価
+  = render partial: 'likes/likes_count', locals: { likable: @question }
+  - if user_signed_in?
+    = render partial: 'likes/form', locals: { likable: @question }
+  /ストックボタン
+  - if user_signed_in?
+    - if current_user.stocked?(@question)
+      = form_with model: current_user.stocks.find_by(question_id: @question.id), method: :delete do |f|
+        = f.hidden_field :question_id, value: @question.id
+        = f.submit 'ストック済み', class: 'btn btn-success'
+    - else
+      = form_with model: current_user.stocks.new(question_id: @question.id), url: user_stocks_path(current_user.id) do |f|
+        = f.hidden_field :question_id, value: @question.id
+        = f.submit 'ストック', class: 'btn btn-secondary'
+  .container.text-center
     .row
-      .col-2
-        - if user_signed_in?
-          - if current_user.stocked?(@question)
-            = form_with model: current_user.stocks.find_by(question_id: @question.id), method: :delete do |f|
-              = f.hidden_field :question_id, value: @question.id
-              = f.submit 'ストック済み', class: 'btn btn-success'
-          - else
-            = form_with model: current_user.stocks.new(question_id: @question.id), url: user_stocks_path(current_user.id), method: :post do |f|
-              = f.hidden_field :question_id, value: @question.id
-              = f.submit 'ストック', class: 'btn btn-secondary'
-      .col-6
+      .col-8
         = link_to @question.user.name, user_path(@question.user.id)
       .col-4
         -if current_user == @question.user
           = link_to '削除', question_path(@question.id), method: :delete, class: "btn btn-danger delete-q-#{@question.id}"
           = link_to '編集', edit_question_path(@question.id), class: "btn btn-primary edit-q-#{@question.id}"
-  br
-  -if @question.has_best_answer?
-    p.text-success 解決済み
-  - else
-    p 未解決
-  p
-    | タイトル:#{@question.title}
-  br
-  p
-    | 内容:#{@question.content}
-  /質問のコメント表示
-  = render partial: 'comments/index', locals: { comments: @question.comments }
-  /コメント入力フォーム
-  - if user_signed_in?
-    = render partial: 'comments/form', locals: { commentable: @question, comment: current_user.comments.build }
+      br
+    -if @question.has_best_answer?
+      p.text-success 解決済み
+    - else
+      p 未解決
+    p
+      | タイトル:#{@question.title}
+    br
+    p
+      | 内容:#{@question.content}
+    /質問のコメント表示
+    = render partial: 'comments/index', locals: { comments: @question.comments }
+    /コメント入力フォーム
+    - if user_signed_in?
+      = render partial: 'comments/form', locals: { commentable: @question, comment: current_user.comments.build }
 
 /回答送信フォーム
 = render partial: 'answers/submit_form', locals: { question: @question }
