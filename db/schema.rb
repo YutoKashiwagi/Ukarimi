@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200302114022) do
+ActiveRecord::Schema.define(version: 20200302124730) do
 
   create_table "answers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text "content"
@@ -80,6 +80,16 @@ ActiveRecord::Schema.define(version: 20200302114022) do
     t.index ["user_id"], name: "index_stocks_on_user_id"
   end
 
+  create_table "tag_relationships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "category_id"
+    t.string "taggable_type"
+    t.bigint "taggable_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["category_id"], name: "index_tag_relationships_on_category_id"
+    t.index ["taggable_type", "taggable_id"], name: "index_tag_relationships_on_taggable_type_and_taggable_id"
+  end
+
   create_table "users", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -101,4 +111,5 @@ ActiveRecord::Schema.define(version: 20200302114022) do
   add_foreign_key "questions", "users"
   add_foreign_key "stocks", "questions"
   add_foreign_key "stocks", "users"
+  add_foreign_key "tag_relationships", "categories"
 end
