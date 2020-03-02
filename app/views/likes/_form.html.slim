@@ -1,0 +1,9 @@
+- if likable.liked?(current_user)
+  / unlike
+  = form_with model: [likable.try(:question), likable, likable.likes.find_by(user: current_user)], method: :delete do |f|
+    = f.hidden_field :user_id, value: current_user.id
+    = f.submit '高評価済み', class: 'btn btn-primary'
+- else
+  / like
+  = form_with model: [likable.try(:question), likable, likable.likes.new], method: :post do |f|
+    = f.submit '高評価', class: 'btn btn-primary'
