@@ -114,5 +114,17 @@ RSpec.feature "Questions", type: :feature do
         end
       end
     end
+
+    describe 'タグ機能' do
+      let!(:category) { create(:category, name: 'category') }
+
+      before { visit edit_question_path(taro_q.id) }
+
+      example 'タグを編集できること' do
+        check category.name
+        expect { click_button '編集内容を送信' }.to change { taro_q.categories.count }.by(1)
+        expect(page).to have_content category.name
+      end
+    end
   end
 end
