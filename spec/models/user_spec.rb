@@ -132,4 +132,58 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe 'タグ、カテゴリー関連' do
+    let!(:category) { create(:category, name: 'category') }
+
+    before { user.save }
+
+    describe 'following_category?(category)' do
+      context 'フォローしている時' do
+        before { user.categories << category }
+
+        example 'trueを返すこと' do
+          expect(user.following_category?(category)).to eq true
+        end
+      end
+
+      context 'フォローしていない時' do
+        example 'falseを返すこと' do
+          expect(user.following_category?(category)).to eq false
+        end
+      end
+    end
+
+    describe 'follow_category(category)' do
+      context 'フォローしている時' do
+        before { user.categories << category }
+
+        example '再度フォローできないこと' do
+          expect { user.follow_category(category) }.to change { user.categories.count }.by(0)
+        end
+      end
+
+      context 'フォローしていない時' do
+        example 'フォローできること' do
+          expect { user.follow_category(category) }.to change { user.categories.count }.by(1)
+        end
+      end
+    end
+
+    describe 'unfollow_category(category)' do
+      context 'フォローしている時' do
+        before { user.follow_category(category) }
+
+        example 'フォロー解除できること' do
+          expect { user.unfollow_category(category) }.to change { user.categories.count }.by(-1)
+        end
+      end
+
+      context 'フォローしていない時' do
+        example '再度フォロー解除できないこと' do
+          expect { user.unfollow_category(category) }.to change { user.categories.count }.by(0)
+        end
+      end
+    end
+  end
 end
