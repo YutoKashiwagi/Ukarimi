@@ -1,5 +1,6 @@
 class Question < ApplicationRecord
   include Liked
+  include Taggable
 
   belongs_to :user
 
@@ -8,6 +9,8 @@ class Question < ApplicationRecord
   has_many :stocked_users, through: :stocks, source: :user
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :likes, as: :likable, dependent: :destroy
+  has_many :tag_relationships, as: :taggable, dependent: :destroy
+  has_many :categories, through: :tag_relationships, source: :category
 
   # バリデーション
   validates :content,
@@ -24,4 +27,10 @@ class Question < ApplicationRecord
   def best_answer
     answers.find(best) if best.present?
   end
+
+  # def set_taggable
+  #   self.tag_relationships.each do |relationship|
+  #     relationship.taggable = self
+  #   end
+  # end
 end
