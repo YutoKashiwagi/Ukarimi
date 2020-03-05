@@ -1,2 +1,6 @@
-h1 Categories#index
-p Find me in app/views/categories/index.html.slim
+h1.text-center カテゴリー一覧
+hr
+.text-center
+  - @categories.each do |category|
+    = link_to category.name, category_path(category.id)
+    hr
