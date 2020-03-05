@@ -18,6 +18,28 @@ RSpec.feature "Questions", type: :feature do
       expect { click_on '投稿する' }.to change { taro.questions.count }.by(1)
     end
 
+    describe 'カテゴリー' do
+      let!(:category) { create(:category, name: 'category') }
+      let!(:other_category) { create(:category, name: 'other_category') }
+
+      before do
+        visit questions_path
+        fill_in 'question[title]', with: 'title'
+        fill_in 'question[content]', with: 'content'
+        check category.name
+      end
+
+      example 'タグを付けて質問できること' do
+        click_on '投稿する'
+        expect(page).to have_content category.name
+      end
+
+      example '選択していないタグがついていないこと' do
+        click_on '投稿する'
+        expect(page).not_to have_content other_category.name
+      end
+    end
+
     it 'titleが空白の場合、失敗すること' do
       fill_in 'question[title]', with: ''
       fill_in 'question[content]', with: 'content'
