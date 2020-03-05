@@ -2,5 +2,9 @@ h1.text-center カテゴリー一覧
 hr
 .text-center
   - @categories.each do |category|
-    = link_to category.name, category_category_path(category.id)
+    .row
+      .col-6
+        = link_to category.name, category_category_path(category.id)
+      .col-6
+        = render partial: 'category/follow_button', locals: { category: category }
     hr

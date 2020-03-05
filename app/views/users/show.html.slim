@@ -7,3 +7,6 @@
       = link_to "#{@user.followees.count}フォロー", user_followees_path(@user.id)
     .col-6
       = link_to "#{@user.followers.count}フォロワー", user_followers_path(@user.id)
+  hr
+  P.display-4 フォロー中のカテゴリー
+  = render partial: 'category/tag', locals: { taggable: @user }

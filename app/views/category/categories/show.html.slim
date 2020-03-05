@@ -1,3 +1,5 @@
 h1.text-center #{@category.name}
 
 p.text-center  質問数：#{@category.questions.count}
+
+= render partial: 'category/follow_button', locals: { category: @category }
