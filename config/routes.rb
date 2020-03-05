@@ -22,6 +22,8 @@ Rails.application.routes.draw do
   end
 
   namespace :category do
-    resources :categories, only: [:index, :show]
+    resources :categories, only: [:index, :show] do
+      resources :follow_categories, only: [:create, :destroy]
+    end
   end
 end

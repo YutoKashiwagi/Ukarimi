@@ -6,10 +6,16 @@ class User < ApplicationRecord
 
   has_many :questions, dependent: :destroy
   has_many :answers, dependent: :destroy
-  has_many :stocks, dependent: :destroy
-  has_many :stocked_questions, through: :stocks, source: :question, dependent: :destroy
   has_many :comments, dependent: :destroy
   has_many :likes, dependent: :destroy
+
+  # ストック周り
+  has_many :stocks, dependent: :destroy
+  has_many :stocked_questions, through: :stocks, source: :question, dependent: :destroy
+
+  #  タグ、カテゴリー周り
+  has_many :tag_relationships, as: :taggable, dependent: :destroy
+  has_many :categories, through: :tag_relationships, source: :category
 
   # フォロー周り
   has_many :active_relationships, foreign_key: :follower_id, class_name: 'Relationship', dependent: :destroy
@@ -48,5 +54,18 @@ class User < ApplicationRecord
 
   def following?(other_user)
     followees.include?(other_user)
+  end
+
+  # タグ、カテゴリー周り
+  def follow_category(category)
+    categories << category unless following_category?(category)
+  end
+
+  def unfollow_category(category)
+    tag_relationships.find_by(category_id: category.id).destroy if following_category?(category)
+  end
+
+  def following_category?(category)
+    categories.include?(category)
   end
 end
