@@ -1,0 +1,10 @@
+- if user_signed_in?
+  .text-center
+    - if current_user.following_category?(category)
+      / unfollow
+      = form_with url: category_category_follow_category_path(category.id, id: TagRelationship.find_by(taggable_id: current_user.id).id), method: :delete do |f|
+        = f.submit 'フォロー解除', class: 'btn btn-primary'
+    - else
+      / follow
+      = form_with url: category_category_follow_categories_path(category.id), method: :post do |f|
+        = f.submit 'フォローする', class: 'btn btn-primary'

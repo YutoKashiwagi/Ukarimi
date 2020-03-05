@@ -23,6 +23,8 @@
     br
     p
       | 内容:#{@question.content}
+    /カテゴリー表示
+    = render partial: 'category/tag', locals: { taggable: @question }
     /質問のコメント表示
     = render partial: 'comments/index', locals: { comments: @question.comments }
     /コメント入力フォーム

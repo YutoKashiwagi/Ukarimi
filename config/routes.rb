@@ -10,6 +10,7 @@ Rails.application.routes.draw do
     resources :followees, only: [:index, :create, :destroy]
     resources :followers, only: [:index]
   end
+
   resources :questions do
     resources :comments, only: [:create, :destroy], module: :questions
     resources :likes, only: [:create, :destroy], module: :questions
@@ -18,5 +19,11 @@ Rails.application.routes.draw do
       resources :likes, only: [:create, :destroy], module: :answers
     end
     resources :best_answers, only: :update
+  end
+
+  namespace :category do
+    resources :categories, only: [:index, :show] do
+      resources :follow_categories, only: [:create, :destroy]
+    end
   end
 end

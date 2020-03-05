@@ -58,3 +58,11 @@ user1 = User.first
 users.each do |user|
   user.follow(user1)
 end
+
+# Category
+subjects = %w[現代文 漢文 古文 世界史 日本史 地理 現代社会 倫理 政治 経済 数学I・A 数学II・B 数学III 物理 化学 生物 地学 英語]
+subjects.each do |subject|
+  Category.create(
+    name: subject
+  )
+end

@@ -5,7 +5,7 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.all
-    @question = current_user.questions.build if current_user
+    @question = current_user.questions.new if current_user
   end
 
   def show
@@ -15,11 +15,12 @@ class QuestionsController < ApplicationController
   end
 
   def new
-    @question = current_user.questions.build
+    @question = current_user.questions.new
   end
 
   def create
-    @question = current_user.questions.build(question_params)
+    @question = current_user.questions.new(question_params)
+    @question.set_taggable
     if @question.save
       redirect_to question_path(@question.id), flash: { success: '投稿しました' }
     else
@@ -37,6 +38,7 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update(question_params)
+      @question.set_taggable
       redirect_to question_path(@question.id), flash: { success: '質問を編集しました' }
     else
       redirect_to edit_question_path(@question.id), flash: { danger: '編集に失敗しました' }
@@ -46,7 +48,7 @@ class QuestionsController < ApplicationController
   private
 
   def question_params
-    params.require(:question).permit(:title, :content)
+    params.require(:question).permit(:title, :content, category_ids: [])
   end
 
   def set_question
