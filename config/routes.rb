@@ -21,5 +21,7 @@ Rails.application.routes.draw do
     resources :best_answers, only: :update
   end
 
-  resources :categories, only: [:index, :show]
+  namespace :category do
+    resources :categories, only: [:index, :show]
+  end
 end
