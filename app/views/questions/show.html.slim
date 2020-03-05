@@ -23,6 +23,10 @@
     br
     p
       | 内容:#{@question.content}
+    /カテゴリー表示
+    ul
+      - @question.try(:categories).each do |category|
+        li.badge.badge-secondary #{category.name}
     /質問のコメント表示
     = render partial: 'comments/index', locals: { comments: @question.comments }
     /コメント入力フォーム

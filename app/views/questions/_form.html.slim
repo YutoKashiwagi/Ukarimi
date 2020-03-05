@@ -11,4 +11,11 @@
         br
         = f.text_area :content
       .form-group
+        = f.label :category, 'カテゴリ'
+        = f.collection_check_boxes(:category_ids, Category.all, :id, :name, include_hidden: false) do |category|
+          = category.label do
+            = category.check_box
+            .badge.badge-secondary
+              = category.text
+      .form-group
         = f.submit '投稿する', class: 'btn btn-primary'
