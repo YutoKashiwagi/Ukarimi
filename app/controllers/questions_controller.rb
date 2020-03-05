@@ -38,6 +38,7 @@ class QuestionsController < ApplicationController
 
   def update
     if @question.update(question_params)
+      @question.set_taggable
       redirect_to question_path(@question.id), flash: { success: '質問を編集しました' }
     else
       redirect_to edit_question_path(@question.id), flash: { danger: '編集に失敗しました' }

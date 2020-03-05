@@ -8,4 +8,10 @@
       = f.label :content
       = f.text_area :content
     .form-group
-      = f.submit '編集内容を送信', class: 'btn btn-primary'
+      = f.label :category, 'カテゴリ'
+      = f.collection_check_boxes(:category_ids, Category.all, :id, :name, include_hidden: false) do |category|
+        = category.label do
+          = category.check_box
+          .badge.badge-secondary
+            = category.text
+    = f.submit '編集内容を送信', class: 'btn btn-primary'
