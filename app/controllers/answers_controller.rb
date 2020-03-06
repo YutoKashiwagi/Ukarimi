@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :set_answer, only: [:destroy, :edit, :update]
-  before_action :set_question, only: [:create, :edit, :destroy, :update]
+  before_action :set_question, only: [:create]
 
   def create
     @answer = current_user.answers.build(answer_params)
@@ -15,7 +15,8 @@ class AnswersController < ApplicationController
 
   def destroy
     @answer.destroy!
-    redirect_to question_path(@question.id), flash: { success: '削除しました' }
+    flash[:success] = '削除しました'
+    redirect_back(fallback_location: root_path)
   end
 
   def edit
@@ -23,9 +24,10 @@ class AnswersController < ApplicationController
 
   def update
     if @answer.update(answer_params)
-      redirect_to question_path(@question.id), flash: { success: '回答を編集しました' }
+      redirect_to question_path(@answer.question.id), flash: { success: '回答を編集しました' }
     else
-      redirect_to edit_question_answer_path(id: @answer.id, question_id: @question.id), flash: { danger: '編集に失敗しました' }
+      flash[:danger] = '編集に失敗しました'
+      redirect_back(fallback_location: root_path)
     end
   end
 

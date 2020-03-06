@@ -9,13 +9,12 @@
     p= link_to answer.user.name, user_path(answer.user.id)
     p= answer.content
     - if current_user == answer.user
-      = link_to '削除', question_answer_path(id: answer.id, 
-      question_id: answer.question.id), method: :delete, class: "btn btn-danger delete-a-#{answer.id}"
-      = link_to '編集', edit_question_answer_path(id: answer.id, question_id: answer.question.id), class: "btn btn-primary edit-a-#{answer.id}"
+      = link_to '削除', answer_path(answer.id), method: :delete, class: "btn btn-danger delete-a-#{answer.id}"
+      = link_to '編集', edit_answer_path(answer.id), class: "btn btn-primary edit-a-#{answer.id}"
 
     / ベストアンサーボタン
     - if current_user == answer.question.user && !answer.question.has_best_answer?
-      = form_with model: answer.question, url: question_best_answer_path(id: answer.id, question_id: answer.question.id), method: :patch do |f|
+      = form_with model: answer.question, url: best_answer_path(answer.question.id), method: :patch do |f|
         = f.hidden_field :best, value: answer.id
         = f.submit 'ベストアンサー', class: "btn btn-primary best_answer_btn_#{answer.id}", data: { confirm: "一度ベストアンサーを決定すると変更できません。ベストアンサーに決定しますか？", cancel: 'やめる', commit: '決定' }, title: 'ベストアンサーの確認'
     

@@ -1,5 +1,5 @@
 class CommentsController < ApplicationController
-  prepend_before_action :set_commentable
+  prepend_before_action :set_commentable, only: :create
   before_action :authenticate_user!
 
   def create
@@ -14,7 +14,7 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    @comment = @commentable.comments.find(params[:id])
+    @comment = Comment.find(params[:id])
     if @comment.destroy
       flash[:success] = 'コメントを削除しました'
       redirect_back(fallback_location: root_path)
