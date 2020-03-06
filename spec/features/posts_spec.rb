@@ -4,6 +4,7 @@ RSpec.feature "Posts", type: :feature do
   include Warden::Test::Helpers
   let!(:user) { create(:user) }
   let!(:category) { create(:category) }
+  let(:post) { build(:post, user: user) }
 
   before do
     login_as user, scope: :user
@@ -27,12 +28,24 @@ RSpec.feature "Posts", type: :feature do
         expect { click_button '投稿する' }.to change { user.posts.count }.by(1)
       end
     end
+
+    context '異常値' do
+      example '空白の場合、投稿できないこと' do
+        expect { click_button '投稿する' }.to change { user.posts.count }.by(0)
+      end
+
+      example '1001文字以上の場合、投稿できないこと' do
+        fill_in 'post[content]', with: 'a' * 1001
+        expect { click_button '投稿する' }.to change { user.posts.count }.by(0)
+      end
+    end
   end
 
   describe 'update' do
-    let!(:post) { create(:post, user: user) }
-
-    before { visit edit_post_path(post.id) }
+    before do
+      post.save
+      visit edit_post_path(post.id)
+    end
 
     example '編集できること' do
       fill_in 'post[content]', with: '編集後'
@@ -42,12 +55,27 @@ RSpec.feature "Posts", type: :feature do
   end
 
   describe 'destory' do
-    let!(:post) { create(:post, user: user) }
-
-    before { visit user_posts_path(user.id) }
+    before do
+      post.save
+      visit user_posts_path(user.id)
+    end
 
     example '削除できること' do
       expect { click_link '削除' }.to change { user.posts.count }.by(-1)
+    end
+
+    describe '本人でない場合' do
+      let(:other_user) { create(:user) }
+
+      before do
+        login_as other_user, scope: :user
+        post.save
+        visit user_posts_path(user.id)
+      end
+
+      example '削除ボタンが表示されていないこと' do
+        expect(page).not_to have_link '削除'
+      end
     end
   end
 end
