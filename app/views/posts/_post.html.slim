@@ -1,0 +1,15 @@
+div class="post_container text-center post_#{post.id}"
+  - if current_user == post.user
+    .row
+      .col-8
+        = link_to post.user.name, user_path(post.user.id)
+      .col-2
+        = link_to '編集', edit_post_path(post.id), class: 'btn btn-primary'
+      .col-2
+        = link_to '削除', post_path(post.id), method: :delete, class: 'btn btn-danger'
+  - else
+    = link_to post.user.name, user_path(post.user.id)
+  = link_to post_path(post.id) do
+    p= post.content 
+  = render partial: 'category/tag', locals: { taggable: post }
+  hr

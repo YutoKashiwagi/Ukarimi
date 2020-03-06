@@ -1,0 +1,7 @@
+h1.text-center #{@user.name}さんの投稿
+
+.text-center
+  = render partial: 'posts/form', locals: { user: @user }
+- unless @posts.blank?
+  hr
+  = render partial: 'posts/post', collection: @posts
