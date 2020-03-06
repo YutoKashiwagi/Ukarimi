@@ -1,12 +1,13 @@
 class PostsController < ApplicationController
-  before_action :authenticate_user!, only: [:create, :destroy]
+  before_action :authenticate_user!, only: [:create, :edit, :destroy]
   before_action :set_user, only: [:index, :create]
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :set_post, only: [:edit, :update, :destroy]
   def index
     @posts = @user.posts
   end
 
   def show
+    @post = Post.find(params[:id])
   end
 
   def create

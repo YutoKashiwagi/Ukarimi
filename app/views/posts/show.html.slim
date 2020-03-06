@@ -1,1 +1,6 @@
 = render partial: 'posts/post', locals: { post: @post }
+.text-center
+  = render partial: 'comments/index', locals: { comments: @post.comments }
+  / コメント入力フォーム
+  - if user_signed_in?
+    = render partial: 'comments/form', locals: { commentable: @post, comment: current_user.comments.build }
