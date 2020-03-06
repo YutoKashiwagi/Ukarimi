@@ -6,6 +6,10 @@ Rails.application.routes.draw do
   }
 
   resources :users, only: [:show], shallow: true do
+    resources :posts do
+      resources :comments, only: [:create, :destroy], module: :posts
+      resources :likes, only: [:create, :destroy], module: :posts
+    end
     resources :stocks, only: [:index, :create, :destroy]
     resources :followees, only: [:index, :create, :destroy]
     resources :followers, only: [:index]
