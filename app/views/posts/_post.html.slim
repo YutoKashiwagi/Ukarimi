@@ -12,4 +12,28 @@ div class="post_container text-center post_#{post.id}"
   = link_to post_path(post.id) do
     p= post.content 
   = render partial: 'category/tag', locals: { taggable: post }
+  .row
+    .col-6
+      .row
+        .co-6
+          = icon('far', 'comment')
+        .co-6
+          = post.comments.count
+    .col-6
+      .row
+        .col-6
+          - if user_signed_in?
+            - if post.liked?(current_user)
+              / unlike
+              = form_with model: [post.likes.find_by(user: current_user)], method: :delete do |f|
+                = f.hidden_field :user_id, value: current_user.id
+                = f.submit 'いいね済', class: 'btn btn-success'
+            - else
+              / like
+              = form_with model: [post, post.likes.new], method: :post do |f|
+                = f.submit 'いいね', class: 'btn btn-secondary'
+          - else
+            p いいね
+        .col-6
+          = post.likes.count
   hr
