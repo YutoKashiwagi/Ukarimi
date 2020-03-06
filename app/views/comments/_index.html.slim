@@ -8,7 +8,7 @@
         = link_to comment.user.name, user_path(comment.user)
       .col-6
         - if comment.user == current_user
-          = form_with model: [comment.commentable.try(:question), comment.commentable, comment], method: :delete do |f|
+          = form_with model: [comment], method: :delete do |f|
             = f.submit '削除', class: "btn btn-danger delete_comment_#{comment.id}"
     p #{comment.content}
     hr

@@ -15,7 +15,7 @@ Rails.application.routes.draw do
     resources :followers, only: [:index]
   end
 
-  resources :questions do
+  resources :questions, shallow: true do
     resources :comments, only: [:create, :destroy], module: :questions
     resources :likes, only: [:create, :destroy], module: :questions
     resources :answers, only: [:create, :destroy, :edit, :update] do

@@ -72,7 +72,7 @@ RSpec.feature "Answers", type: :feature do
   describe '編集機能が正常に働いていること' do
     before do
       login_as jiro, scope: :user
-      visit edit_question_answer_path(id: jiro_ans.id, question_id: taro_q.id)
+      visit edit_answer_path(jiro_ans.id)
     end
 
     it '正常値' do
