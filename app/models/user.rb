@@ -14,7 +14,7 @@ class User < ApplicationRecord
   has_many :stocks, dependent: :destroy
   has_many :stocked_questions, through: :stocks, source: :question, dependent: :destroy
 
-  #  タグ、カテゴリー周り
+  # タグ、カテゴリー周り
   has_many :tag_relationships, as: :taggable, dependent: :destroy
   has_many :categories, through: :tag_relationships, source: :category
 

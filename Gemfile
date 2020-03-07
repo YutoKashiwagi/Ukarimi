@@ -5,7 +5,6 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-# gem 'ast', '2.4.0'
 gem 'bootstrap', '~> 4.4.1'
 gem 'jquery-rails', '4.3.1'
 gem 'sass-rails', '5.0.6'
@@ -54,6 +53,7 @@ group :development do
   gem 'spring',                '2.0.2'
   gem 'spring-watcher-listen', '2.0.1'
   gem 'web-console',           '3.5.1'
+  gem 'guard-rspec', require: false
   # debug
   gem "better_errors"
   gem "binding_of_caller"
@@ -66,11 +66,7 @@ group :test do
   gem 'capybara', '~> 2.13'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
-  gem 'guard',                    '2.13.0'
-  gem 'guard-minitest',           '2.4.4'
-  gem 'minitest-reporters',       '1.1.14'
   gem 'launchy'
-  gem 'rails-controller-testing', '1.0.2'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
 end
