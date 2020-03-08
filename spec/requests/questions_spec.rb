@@ -52,7 +52,7 @@ RSpec.describe "Questions", type: :request do
       before do
         sign_in user
       end
-      
+
       example '正常に質問を作成できること' do
         expect do
           post questions_path, params: { question: question_params }
@@ -73,7 +73,7 @@ RSpec.describe "Questions", type: :request do
         before do
           sign_in user
         end
-        
+
         example '正常に削除できること' do
           expect do
             delete question_path(question.id)
