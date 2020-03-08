@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_answer, only: [:destroy, :edit, :update]
-  before_action :set_question, only: [:create]
 
   def create
     @answer = current_user.answers.build(answer_params)
@@ -32,10 +32,6 @@ class AnswersController < ApplicationController
   end
 
   private
-
-  def set_question
-    @question = Question.find(params[:question_id])
-  end
 
   def set_answer
     @answer = current_user.answers.find(params[:id])
