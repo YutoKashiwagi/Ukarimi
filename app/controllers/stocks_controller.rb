@@ -1,4 +1,5 @@
 class StocksController < ApplicationController
+  before_action :authenticate_user!, only: [:create, :destroy]
   before_action :set_question, only: [:create, :destroy]
   def index
     @user = User.find(params[:user_id])
@@ -6,12 +7,12 @@ class StocksController < ApplicationController
   end
 
   def create
-    current_user.stock(@question) if current_user
+    current_user.stock(@question)
     redirect_back(fallback_location: root_path)
   end
 
   def destroy
-    current_user.unstock(@question) if current_user
+    current_user.unstock(@question)
     redirect_back(fallback_location: root_path)
   end
 
