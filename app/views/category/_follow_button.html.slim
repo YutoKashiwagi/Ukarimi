@@ -2,11 +2,11 @@
   .text-center
     - if current_user.following_category?(category)
       / unfollow
-      = form_with url: follow_category_path(current_user.tag_relationships.find_by(category_id: category.id).id), method: :delete do |f|
+      = form_with url: unfollow_category_path, method: :delete do |f|
         = f.hidden_field :category_id, value: category.id
         = f.submit 'フォロー解除', class: 'btn btn-primary'
     - else
       / follow
-      = form_with url: follow_categories_path, method: :post do |f|
+      = form_with url: follow_category_path, method: :post do |f|
         = f.hidden_field :category_id, value: category.id
         = f.submit 'フォローする', class: 'btn btn-primary'

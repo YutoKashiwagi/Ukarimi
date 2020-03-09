@@ -29,5 +29,7 @@ Rails.application.routes.draw do
     resources :categories, only: [:index, :show]
   end
 
-  resources :follow_categories, only: [:create, :destroy]
+  # ユーザーがカテゴリーをフォローする時のルーティング
+  post '/follow_category', to: "follow_categories#create"
+  delete '/unfollow_category', to: "follow_categories#destroy"
 end
