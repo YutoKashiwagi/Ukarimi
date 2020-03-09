@@ -4,22 +4,20 @@ RSpec.describe "Likes", type: :request do
   let!(:user) { create(:user) }
   let!(:other_user) { create(:user) }
 
-  describe 'question' do
-    let!(:question) { create(:question) }
-
+  shared_examples 'like#create, destroy' do
     describe 'create' do
       context 'ログインしている時' do
         before { sign_in user }
 
         example '正常にいいね出来ること' do
           expect do
-            post question_likes_path(question.id), params: { question: question }
-          end.to change { question.likes.count }.by(1)
+            post create_likes_path, params: likable_params
+          end.to change { likable.likes.count }.by(1)
         end
       end
 
       context 'ログインしていない時' do
-        before { post question_likes_path(question.id), params: { question: question } }
+        before { post create_likes_path, params: likable_params }
 
         example 'サインイン画面へリダイレクトされること' do
           expect(response).to redirect_to new_user_session_path
@@ -28,7 +26,7 @@ RSpec.describe "Likes", type: :request do
     end
 
     describe 'destroy' do
-      let!(:like) { create(:like, user: user, likable: question) }
+      let!(:like) { create(:like, user: user, likable: likable) }
 
       context 'ログインしている時' do
         context '本人の場合' do
@@ -37,7 +35,7 @@ RSpec.describe "Likes", type: :request do
           example 'いいね解除できること' do
             expect do
               delete like_path(like.id), params: { like: { user_id: user.id } }
-            end.to change { question.likes.count }.by(-1)
+            end.to change { likable.likes.count }.by(-1)
           end
         end
 
@@ -59,6 +57,30 @@ RSpec.describe "Likes", type: :request do
           expect(response).to redirect_to new_user_session_path
         end
       end
+    end
+  end
+
+  describe 'likable => question' do
+    include_examples 'like#create, destroy' do
+      let!(:likable) { create(:question, user: user) }
+      let(:create_likes_path) { question_likes_path(likable.id) }
+      let(:likable_params) { { question: likable } }
+    end
+  end
+
+  describe 'likable => answer' do
+    include_examples 'like#create, destroy' do
+      let!(:likable) { create(:answer, user: user) }
+      let(:create_likes_path) { answer_likes_path(likable.id) }
+      let(:likable_params) { { answer: likable } }
+    end
+  end
+
+  describe 'likable => post' do
+    include_examples 'like#create, destroy' do
+      let!(:likable) { create(:post, user: user) }
+      let(:create_likes_path) { post_likes_path(likable.id) }
+      let(:likable_params) { { post: likable } }
     end
   end
 end
