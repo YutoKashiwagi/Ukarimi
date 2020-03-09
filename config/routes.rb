@@ -25,9 +25,9 @@ Rails.application.routes.draw do
     resources :best_answers, only: :update
   end
 
-  namespace :category do
-    resources :categories, only: [:index, :show] do
-      resources :follow_categories, only: [:create, :destroy]
-    end
+  namespace :category, shallow: true do
+    resources :categories, only: [:index, :show]
   end
+
+  resources :follow_categories, only: [:create, :destroy]
 end
