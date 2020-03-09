@@ -1,5 +1,6 @@
 class FolloweesController < ApplicationController
   before_action :set_user
+  before_action :authenticate_user!, only: [:create, :destroy]
   def index
     @followees = @user.followees
   end
