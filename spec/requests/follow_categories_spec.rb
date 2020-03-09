@@ -12,7 +12,7 @@ RSpec.describe "Category::FollowCategories", type: :request do
       context 'フォローしていない場合' do
         example 'フォロー出来ること' do
           expect do
-            post category_category_follow_categories_path(category.id)
+            post follow_category_path, params: { category_id: category.id }
           end.to change { user.categories.count }.by(1)
         end
       end
@@ -24,14 +24,14 @@ RSpec.describe "Category::FollowCategories", type: :request do
 
         example '再度フォロー出来ないこと' do
           expect do
-            post category_category_follow_categories_path(category.id)
+            post follow_category_path, params: { category_id: category.id }
           end.not_to change { user.categories.count }
         end
       end
     end
 
     context 'ログインしていない場合' do
-      before { post category_category_follow_categories_path(category.id) }
+      before { post follow_category_path, params: { category_id: category.id } }
 
       example 'サインイン画面へリダイレクトされること' do
         expect(response).to redirect_to new_user_session_path
@@ -43,23 +43,31 @@ RSpec.describe "Category::FollowCategories", type: :request do
     context 'ログインしている時' do
       before { sign_in user }
 
-      context 'フォローしていない場合' do
-        xexample 'フォロー解除できないこと' do
-        end
-      end
-
-      context 'フォローしている時' do
+      context 'フォローしている場合' do
         before { user.follow_category(category) }
 
         example 'フォロー解除できること' do
           expect do
-            delete category_category_follow_category_path(category_id: category.id, id: user.tag_relationships.last.id)
+            delete unfollow_category_path, params: { category_id: category.id }
           end.to change { user.categories.count }.by(-1)
+        end
+      end
+
+      context 'フォローしていない場合' do
+        example '再度フォロー解除できないこと' do
+          expect do
+            delete unfollow_category_path, params: { category_id: category.id }
+          end.not_to change { user.categories.count }
         end
       end
     end
 
     context 'ログインしていない場合' do
+      before { delete unfollow_category_path, params: { category_id: category.id } }
+
+      example 'サインイン画面へリダイレクトされること' do
+        expect(response).to redirect_to new_user_session_path
+      end
     end
   end
 end
