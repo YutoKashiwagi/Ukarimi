@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Questions", type: :feature do
+RSpec.describe "Questions", type: :system do
   include Warden::Test::Helpers
   let(:taro) { create(:user, name: 'taro') }
   let(:jiro) { create(:user, name: 'jiro') }

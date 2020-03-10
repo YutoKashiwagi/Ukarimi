@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Likes::Answers", type: :feature do
+RSpec.describe "Likes::Answers", type: :system do
   include Warden::Test::Helpers
 
   let!(:user) { create(:user) }

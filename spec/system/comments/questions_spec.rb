@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Comments::Questions", type: :feature do
+RSpec.describe "Comments::Questions", type: :system do
   include Warden::Test::Helpers
 
   let!(:user) { create(:user) }

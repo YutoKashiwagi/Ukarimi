@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Follows", type: :feature do
+RSpec.describe "Follows", type: :system do
   include Warden::Test::Helpers
 
   let(:taro) { create(:user) }
