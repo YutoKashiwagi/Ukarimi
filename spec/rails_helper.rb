@@ -65,6 +65,13 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
+  # chromeをヘッドレスモードで起動するための設定
+  config.before(:each) do |example|
+    if example.metadata[:type] == :system
+      driven_by :selenium_chrome_headless, screen_size: [1400, 1400]
+    end
+  end
+
   # データベースクリーナーの設定
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
