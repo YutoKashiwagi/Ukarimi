@@ -2,7 +2,7 @@ version: 2.0
 jobs:
  build:
    docker:
-   - image: circleci/ruby:2.6.1-node
+   - image: circleci/ruby:2.6.1-node-browsers
      environment:
        RAILS_ENV: test
    - image: circleci/mysql:5.7-ram
@@ -11,6 +11,14 @@ jobs:
    working_directory: ~/repo
    steps:
    - checkout
+   - run:
+       name: Install System Dependencies
+       command: |
+         sudo apt-get update
+         sudo apt-get install -y libappindicator1 fonts-liberation
+         export CHROME_BIN=/usr/bin/google-chrome
+         wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+         sudo dpkg -i google-chrome*.deb
    - restore_cache:
        keys:
        - v1-dependencies-{{ checksum "Gemfile.lock" }}

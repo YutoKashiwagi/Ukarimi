@@ -33,6 +33,7 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
 RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :request
   # FactoryBotの省略
@@ -64,6 +65,16 @@ RSpec.configure do |config|
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+
+  # system_specの設定
+  # 速度面を考慮して、jsを使わないものはrack_testで行う
+  config.before(:each, type: :system) do
+    driven_by :rack_test
+  end
+
+  config.before(:each, type: :system, js: true) do
+    driven_by :headless_chrome, screen_size: [1920, 1080]
+  end
 
   # データベースクリーナーの設定
   config.before(:suite) do

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "BestAnswers", type: :feature do
+RSpec.describe "BestAnswers", type: :system do
   include Warden::Test::Helpers
 
   let!(:taro) { create(:user) }
@@ -14,7 +14,7 @@ RSpec.feature "BestAnswers", type: :feature do
       visit question_path(taro_q.id)
     end
 
-    xexample 'ベストアンサーを決定できること' do
+    example 'ベストアンサーを決定できること', js: true do
       expect(page).not_to have_content 'ベストアンサー！'
       click_button 'ベストアンサー'
       sleep 1
@@ -22,7 +22,7 @@ RSpec.feature "BestAnswers", type: :feature do
       expect(page).to have_content 'ベストアンサー！'
     end
 
-    xcontext '一度ベストアンサーを決めた場合' do
+    context '一度ベストアンサーを決めた場合', js: true do
       let!(:answer) { create(:answer, question: taro_q) }
 
       before { visit question_path(taro_q.id) }

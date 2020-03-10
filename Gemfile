@@ -63,12 +63,13 @@ group :development do
 end
 
 group :test do
-  gem 'capybara', '~> 2.13'
+  gem 'capybara', '3.25.0'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'launchy'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
+  gem 'webdrivers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
