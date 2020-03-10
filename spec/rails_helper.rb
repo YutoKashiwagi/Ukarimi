@@ -33,6 +33,7 @@ rescue ActiveRecord::PendingMigrationError => e
   puts e.to_s.strip
   exit 1
 end
+
 RSpec.configure do |config|
   config.include Devise::Test::IntegrationHelpers, type: :request
   # FactoryBotの省略
@@ -65,11 +66,8 @@ RSpec.configure do |config|
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
 
-  # chromeをヘッドレスモードで起動するための設定
-  config.before(:each) do |example|
-    if example.metadata[:type] == :system
-      driven_by :selenium_chrome_headless, screen_size: [1400, 1400]
-    end
+  config.before(:each, type: :system) do
+    driven_by :headless_chrome, screen_size: [1920, 1080]
   end
 
   # データベースクリーナーの設定
