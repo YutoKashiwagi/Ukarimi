@@ -5,3 +5,4 @@ h1.text-center #{@user.name}さんの投稿
 - unless @posts.blank?
   hr
   = render partial: 'posts/post', collection: @posts
+= paginate @posts
