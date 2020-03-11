@@ -4,7 +4,7 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: [:edit, :update, :destroy]
 
   def index
-    @questions = Question.all
+    @questions = Question.all.page(params[:page]).per(10)
     @question = current_user.questions.new if current_user
   end
 
