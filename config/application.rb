@@ -12,6 +12,8 @@ module QuestionBox
     config.load_defaults 5.1
 
     config.time_zone = 'Tokyo'
+    
+    config.i18n.default_locale = :ja # 日本語化
 
     #自動生成の設定
     config.generators do |g|
