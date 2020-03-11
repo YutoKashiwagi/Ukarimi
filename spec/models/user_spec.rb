@@ -15,13 +15,13 @@ RSpec.describe User, type: :model do
       it 'presense :true' do
         user.name = ''
         user.valid?
-        is_expected.to include("can't be blank")
+        is_expected.to include("を入力してください")
       end
 
       it 'length: {maximum: 20}' do
         user.name = 'a' * 21
         user.valid?
-        is_expected.to include("is too long (maximum is 20 characters)")
+        is_expected.to include("は20文字以内で入力してください")
       end
     end
 
@@ -31,13 +31,13 @@ RSpec.describe User, type: :model do
       it 'maximum: 30' do
         user.password = 'a' * 31
         user.valid?
-        is_expected.to include("is too long (maximum is 30 characters)")
+        is_expected.to include("は30文字以内で入力してください")
       end
 
       it 'minimum: 6' do
         user.password = 'a' * 5
         user.valid?
-        is_expected.to include("is too short (minimum is 6 characters)")
+        is_expected.to include("は6文字以上で入力してください")
       end
     end
   end

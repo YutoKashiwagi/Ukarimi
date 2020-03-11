@@ -15,13 +15,13 @@ RSpec.describe Answer, type: :model do
       it 'presence: true' do
         answer.content = ''
         answer.valid?
-        is_expected.to include("can't be blank")
+        is_expected.to include("を入力してください")
       end
 
       it 'length: { maximum: 1000 }' do
         answer.content = 'a' * 1001
         answer.valid?
-        is_expected.to include("is too long (maximum is 1000 characters)")
+        is_expected.to include("は1000文字以内で入力してください")
       end
     end
   end

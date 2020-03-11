@@ -16,19 +16,19 @@ RSpec.describe Comment, type: :model do
     example 'userがいなければいけないこと' do
       comment.user = nil
       comment.valid?
-      expect(comment.errors[:user]).to include('must exist')
+      expect(comment.errors[:user]).to include('を入力してください')
     end
 
     example 'commentableがなければならないこと' do
       comment.commentable = nil
       comment.valid?
-      expect(comment.errors[:commentable]).to include('must exist')
+      expect(comment.errors[:commentable]).to include('を入力してください')
     end
 
     example 'contentが空白ではいけないこと' do
       comment.content = ''
       comment.valid?
-      expect(comment.errors[:content]).to include("can't be blank")
+      expect(comment.errors[:content]).to include("を入力してください")
     end
 
     describe 'contentの文字数' do
@@ -40,7 +40,7 @@ RSpec.describe Comment, type: :model do
       example '1001文字以上' do
         comment.content = 'a' * 1001
         comment.valid?
-        expect(comment.errors[:content]).to include('is too long (maximum is 1000 characters)')
+        expect(comment.errors[:content]).to include("は1000文字以内で入力してください")
       end
     end
   end
