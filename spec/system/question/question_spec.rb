@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Questions", type: :system do
-  include Warden::Test::Helpers
   let(:taro) { create(:user, name: 'taro') }
   let(:jiro) { create(:user, name: 'jiro') }
   let!(:taro_q) { create(:question, user: taro) }

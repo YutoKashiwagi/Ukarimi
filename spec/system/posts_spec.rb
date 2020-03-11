@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Posts", type: :system do
-  include Warden::Test::Helpers
   let!(:user) { create(:user) }
   let!(:category) { create(:category) }
   let(:post) { build(:post, user: user) }

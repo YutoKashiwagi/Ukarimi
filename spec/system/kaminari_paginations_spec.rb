@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "KaminariPaginations", type: :system do
-  include Warden::Test::Helpers
-
   let(:user) { create(:user) }
 
   shared_examples 'ページネーションが機能していること' do

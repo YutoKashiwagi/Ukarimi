@@ -1,8 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "Category::Shows", type: :feature do
-  include Warden::Test::Helpers
-
+RSpec.describe "Category::Shows", type: :system do
   let!(:user) { create(:user) }
   let!(:category) { create(:category, name: 'category') }
 
