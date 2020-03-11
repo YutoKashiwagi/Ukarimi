@@ -11,6 +11,8 @@ module QuestionBox
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.1
 
+    config.time_zone = 'Tokyo'
+
     #自動生成の設定
     config.generators do |g|
       g.helper false
