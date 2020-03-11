@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Likes::Posts", type: :system do
-  include Warden::Test::Helpers
-
   let!(:user) { create(:user) }
   let!(:post) { create(:post, user: user) }
 

@@ -1,8 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "BestAnswers", type: :system do
-  include Warden::Test::Helpers
-
   let!(:taro) { create(:user) }
   let!(:taro_q) { create(:question, user: taro) }
   let!(:jiro) { create(:user) }

@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 RSpec.describe "Stocks", type: :system do
-  include Warden::Test::Helpers
   let(:user) { create(:user) }
   let(:question) { create(:question) }
 
