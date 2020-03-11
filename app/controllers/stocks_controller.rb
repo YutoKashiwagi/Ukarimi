@@ -3,7 +3,7 @@ class StocksController < ApplicationController
   before_action :set_question, only: [:create, :destroy]
   def index
     @user = User.find(params[:user_id])
-    @questions = @user.stocked_questions.page(params[:page]).per(10)
+    @questions = @user.stocked_questions.recent.page(params[:page]).per(10)
   end
 
   def create
