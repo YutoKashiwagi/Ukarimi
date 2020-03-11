@@ -1,6 +1,7 @@
 class Post < ApplicationRecord
   include Taggable
   include Liked
+  include CommonScope
 
   belongs_to :user
 
