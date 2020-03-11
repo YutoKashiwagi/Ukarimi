@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :stock do
     user { nil }
-    question { nil }
+    question { create(:question) }
   end
 end

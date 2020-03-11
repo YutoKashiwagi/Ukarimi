@@ -1,10 +1,14 @@
 .question_container
-  / 高評価
-  = render partial: 'likes/likes_count', locals: { likable: @question }
-  - if user_signed_in?
-    = render partial: 'likes/form', locals: { likable: @question }
-  /ストックボタン
-  = render partial: 'stocks/form', locals: { question: @question }
+  .row
+    .col-6
+      / 高評価
+      = render partial: 'likes/likes_count', locals: { likable: @question }
+      - if user_signed_in?
+        = render partial: 'likes/form', locals: { likable: @question }
+      /ストックボタン
+      = render partial: 'stocks/form', locals: { question: @question }
+    .col-6
+      = distance_of_time_in_words_to_now(@question.created_at)
   .container.text-center
     .row
       .col-8

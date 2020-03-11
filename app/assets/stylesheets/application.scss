@@ -4,8 +4,12 @@
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
 
-// 投稿ページのスタイリング
+// kaminariを中央寄せに
+.pagination {
+  justify-content: center;
+}
 
+// 投稿ページのスタイリング
 .post_container {
   width: 800px;
   margin: auto;
