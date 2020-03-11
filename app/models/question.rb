@@ -1,6 +1,7 @@
 class Question < ApplicationRecord
   include Liked
   include Taggable
+  include CommonScope
 
   belongs_to :user
 
