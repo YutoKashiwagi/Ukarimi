@@ -35,6 +35,7 @@ rescue ActiveRecord::PendingMigrationError => e
 end
 
 RSpec.configure do |config|
+  config.include Warden::Test::Helpers, type: :system
   config.include Devise::Test::IntegrationHelpers, type: :request
   # FactoryBotの省略
   config.include FactoryBot::Syntax::Methods
