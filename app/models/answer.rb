@@ -12,6 +12,6 @@ class Answer < ApplicationRecord
             length: { maximum: 1000 }
 
   def is_best_answer?
-    self == self.question.best_answer
+    self == question.best_answer
   end
 end
