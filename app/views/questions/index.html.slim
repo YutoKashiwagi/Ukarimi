@@ -1,5 +1,6 @@
 = render partial: 'questions/form'
 h1.text-center 質問一覧
 hr
-= render partial: 'shared/question_index', collection: @questions, as: :question
-= paginate @questions
+.question_index_container
+  = render partial: 'shared/question_index', collection: @questions, as: :question
+  = paginate @questions
