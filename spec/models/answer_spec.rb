@@ -44,14 +44,14 @@ RSpec.describe Answer, type: :model do
   describe 'メソッド' do
     before { answer.save }
 
-    describe 'is_best_answer?()' do
+    describe 'is_best_answer?' do
       example 'trueを返すこと' do
         question.best = answer.id
-        expect(answer.is_best_answer?(question)).to eq true
+        expect(answer.is_best_answer?).to eq true
       end
 
       example 'falseを返すこと' do
-        expect(answer.is_best_answer?(question)).to eq false
+        expect(answer.is_best_answer?).to eq false
       end
     end
   end

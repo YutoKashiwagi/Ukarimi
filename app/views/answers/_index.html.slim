@@ -4,7 +4,7 @@
   - if user_signed_in?
     = render partial: 'likes/form', locals: { likable: answer }
   .text-center
-    - if answer.is_best_answer?(answer.question)
+    - if answer.is_best_answer?
       p.text-danger ベストアンサー！
     p= link_to answer.user.name, user_path(answer.user.id)
     p= answer.content
