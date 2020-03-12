@@ -1,19 +1,18 @@
-.question_index_container
-  .question_each_container
-    .row
-      .col-2.text-center
-        - if question.has_best_answer?
-          p.text-success 解決済み
-        - else
-          p 未解決
-        p 回答数
-        p.display-4.text-danger
-          | #{question.answers.count}
-      .col-10
-        .text-center
-          .row
-            .col-8
-              = link_to "#{question.title}", question_path(question.id)
-            .col-4
-              = distance_of_time_in_words_to_now(question.created_at)
-  hr
+.question_each_container
+  .row
+    .col-2.text-center
+      - if question.has_best_answer?
+        p.text-success 解決済み
+      - else
+        p 未解決
+      p 回答数
+      p.display-4.text-danger
+        | #{question.answers.count}
+    .col-10
+      .text-center
+        .row
+          .col-8
+            = link_to "#{question.title}", question_path(question.id)
+          .col-4
+            = distance_of_time_in_words_to_now(question.created_at)
+hr

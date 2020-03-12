@@ -1,4 +1,3 @@
-ul
-  - taggable.try(:categories).each do |category|
-    li.badge.badge-secondary
-      = link_to category.name, category_category_path(category.id), class: 'category_link'
+- taggable.try(:categories).each do |category|
+  .badge.badge-secondary
+    = link_to category.name, category_category_path(category.id), class: 'category_link'

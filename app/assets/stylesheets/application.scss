@@ -56,6 +56,17 @@
   height: 128px;
 }
 
+// ユーザーページのスタイリング
+
+.user_container {
+  width: 1200px;
+  margin: auto;
+}
+
+.user_border {
+  border: solid 2px #ababab;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {

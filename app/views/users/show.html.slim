@@ -1,12 +1,34 @@
-.user_info.text-center
-  p.display-3 #{@user.name}
-  hr
-  = render partial: 'shared/follow_button', locals: { user: @user }
+.user_container
   .row
-    .col-6
-      = link_to "#{@user.followees.count}フォロー", user_followees_path(@user.id)
-    .col-6
-      = link_to "#{@user.followers.count}フォロワー", user_followers_path(@user.id)
-  hr
-  P.display-4 フォロー中のカテゴリー
-  = render partial: 'category/tag', locals: { taggable: @user }
+    .col-4
+      .user_border
+        .text-center
+          p.font-weight-bold #{@user.name}
+          p 質問数 #{@user.questions.count}
+          p 回答数 #{@user.answers.count}
+          .row
+            .col-6
+              = link_to "#{@user.followees.count}フォロー", user_followees_path(@user.id)
+            .col-6
+              = link_to "#{@user.followers.count}フォロワー", user_followers_path(@user.id)
+          p.font-weight-bold フォロー中のタグ
+          = render partial: 'category/tag', locals: { taggable: @user }
+    .col-8
+      .text-center
+        = render partial: 'shared/follow_button', locals: { user: @user }
+      / タブのリンク部分
+      ul.nav.nav-tabs.justify-content-center
+        li.nav-item
+          a.nav-link.text-muted.active data-toggle="tab" href="#user_questions" 質問
+        li.nav-item
+          a.nav-link.text-muted data-toggle="tab" href="#user_answers" 回答した質問
+        li.nav-item
+          a.nav-link.text-muted data-toggle="tab" href="#user_posts" 投稿
+      / タブの表示部分
+      .tab-content.text-center
+        #user_questions.tab-pane.active
+          = render partial: 'shared/question_index', collection: @questions, as: :question
+        #user_answers.tab-pane
+          = render partial: 'shared/question_index', collection: @answered_questions, as: :question
+        #user_posts.tab-pane
+          = render partial: 'posts/post', collection: @posts
