@@ -12,6 +12,7 @@
   .container.text-center
     .row
       .col-8
+        = render partial: 'users/user_image_link', locals: { user: @question.user }
         = link_to @question.user.name, user_path(@question.user.id)
       .col-4
         -if current_user == @question.user

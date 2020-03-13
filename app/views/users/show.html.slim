@@ -4,6 +4,7 @@
       .user_border
         .text-center
           p.font-weight-bold #{@user.name}
+          = image_tag @user.profile_image.thumb, size: '200x200', class: 'rounded-circle'
           p 質問数 #{@user.questions.count}
           p 回答数 #{@user.answers.count}
           .row

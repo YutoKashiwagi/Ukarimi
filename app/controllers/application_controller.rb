@@ -6,6 +6,6 @@ class ApplicationController < ActionController::Base
     # 新規登録時
     devise_parameter_sanitizer.permit(:sign_up, keys: [:name])
     # 編集時
-    devise_parameter_sanitizer.permit(:account_update, keys: [:name])
+    devise_parameter_sanitizer.permit(:account_update, keys: [:name, :profile_image])
   end
 end

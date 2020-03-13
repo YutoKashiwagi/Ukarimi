@@ -4,9 +4,13 @@
   - if user_signed_in?
     = render partial: 'likes/form', locals: { likable: answer }
   .text-center
+    / ベストアンサー決定ボタン
     - if answer.is_best_answer?
       p.text-danger ベストアンサー！
-    p= link_to answer.user.name, user_path(answer.user.id)
+      
+    / 回答部分
+    = render partial: 'users/user_image_link', locals: { user: answer.user }
+    = link_to answer.user.name, user_path(answer.user.id)
     p= answer.content
     - if current_user == answer.user
       = link_to '削除', answer_path(answer.id), method: :delete, class: "btn btn-danger delete-a-#{answer.id}"

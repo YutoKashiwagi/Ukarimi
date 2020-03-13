@@ -11,6 +11,10 @@ h1
     small.form-text.text-muted
       = t('.leave_blank_if_you_don_t_want_to_change_it')
   .form-group
+    = f.label :profile_image, 'プロフィール画像'
+    br
+    = f.file_field :profile_image
+  .form-group
     = f.label :password_confirmation
     = f.password_field :password_confirmation, autocomplete: 'new-password', class: 'form-control'
   .form-group
