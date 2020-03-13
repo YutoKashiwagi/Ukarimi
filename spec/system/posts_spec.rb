@@ -60,7 +60,7 @@ RSpec.describe "Posts", type: :system do
     end
 
     example '削除できること' do
-      expect { click_link '削除' }.to change { user.posts.count }.by(-1)
+      expect { find('.delete_post').click }.to change { user.posts.count }.by(-1)
     end
 
     describe '本人でない場合' do
@@ -73,7 +73,7 @@ RSpec.describe "Posts", type: :system do
       end
 
       example '削除ボタンが表示されていないこと' do
-        expect(page).not_to have_link '削除'
+        expect(page).not_to have_selector '.delete_post'
       end
     end
   end

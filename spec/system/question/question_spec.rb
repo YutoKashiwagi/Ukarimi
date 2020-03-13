@@ -8,7 +8,7 @@ RSpec.describe "Questions", type: :system do
   describe '質問の投稿' do
     before do
       login_as taro, scope: :user
-      visit questions_path
+      visit new_question_path
     end
 
     it '正常に投稿が出来ること' do
@@ -22,7 +22,7 @@ RSpec.describe "Questions", type: :system do
       let!(:other_category) { create(:category, name: 'other_category') }
 
       before do
-        visit questions_path
+        visit new_question_path
         fill_in 'question[title]', with: 'title'
         fill_in 'question[content]', with: 'content'
         check category.name

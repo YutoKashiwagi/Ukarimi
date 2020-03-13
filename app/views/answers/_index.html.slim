@@ -1,20 +1,29 @@
 .answer_container
+  / ベストアンサー
+  - if answer.is_best_answer?
+    p.text-danger.text-center.mb-3
+      | #{icon('fas', 'check')}
+      | ベストアンサー！
   / 高評価
   = render partial: 'likes/likes_count', locals: { likable: answer }
   - if user_signed_in?
     = render partial: 'likes/form', locals: { likable: answer }
   .text-center
-    / ベストアンサー決定ボタン
-    - if answer.is_best_answer?
-      p.text-danger ベストアンサー！
       
     / 回答部分
-    = render partial: 'users/user_image_link', locals: { user: answer.user }
-    = link_to answer.user.name, user_path(answer.user.id)
-    p= answer.content
-    - if current_user == answer.user
-      = link_to '削除', answer_path(answer.id), method: :delete, class: "btn btn-danger delete-a-#{answer.id}"
-      = link_to '編集', edit_answer_path(answer.id), class: "btn btn-primary edit-a-#{answer.id}"
+    .row
+      .col-8
+        = render partial: 'users/user_image_link', locals: { user: answer.user }
+        = link_to answer.user.name, user_path(answer.user.id)
+      .col-4
+        - if current_user == answer.user
+          = link_to icon('fas', 'edit'), edit_answer_path(answer.id), class: "edit-a-#{answer.id} mr-4"
+          = link_to icon('fas', 'trash'), answer_path(answer.id), method: :delete, class: "delete-a-#{answer.id}"
+
+    / 回答本文
+    hr
+    .mt-5.mb-5
+      p= answer.content
 
     / ベストアンサーボタン
     - if current_user == answer.question.user && !answer.question.has_best_answer?
@@ -27,4 +36,8 @@
 
     / コメント入力フォーム
     - if user_signed_in?
-      = render partial: 'comments/form', locals: { commentable: answer, comment: current_user.comments.build }
+      button data-toggle='collapse' data-target='#collapse_comment' aria-expanded='false' aria-controls='collapse_comment' 
+        p.bold_texts #{icon('far', 'comment')}コメントを投稿
+      .collapse#collapse_comment
+        hr
+        = render partial: 'comments/form', locals: { commentable: answer, comment: current_user.comments.build }
