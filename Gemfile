@@ -18,7 +18,6 @@ gem 'devise-i18n-views' # devise日本語化のため
 gem 'dotenv-rails'
 gem 'faker'
 gem 'jbuilder', '2.7.0'
-gem 'mini_magick'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'puma', '3.9.1'
