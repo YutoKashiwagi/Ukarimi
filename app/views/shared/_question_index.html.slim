@@ -11,7 +11,9 @@
     .col-10
       .text-center
         .row
-          .col-8
+          .col-3
+            = render partial: 'users/user_image_link', locals: { user: question.user}
+          .col-5
             = link_to "#{question.title}", question_path(question.id)
           .col-4
             = distance_of_time_in_words_to_now(question.created_at)

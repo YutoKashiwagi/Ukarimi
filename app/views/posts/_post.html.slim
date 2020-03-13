@@ -2,13 +2,13 @@ div class="text-center post_#{post.id}"
   - if current_user == post.user
     .row
       .col-6
+        = render partial: 'users/user_image_link', locals: { user: post.user }
         = link_to post.user.name, user_path(post.user.id)
       .col-2
         = distance_of_time_in_words_to_now(post.created_at)
-      .col-2
-        = link_to '編集', edit_post_path(post.id), class: 'btn btn-primary'
-      .col-2
-        = link_to '削除', post_path(post.id), method: :delete, class: 'btn btn-danger'
+      .col-4
+        = link_to icon('fas', 'edit'), edit_post_path(post.id), class: 'edit_post mr-4'
+        = link_to icon('fas', 'trash'), post_path(post.id), method: :delete, class: 'delete_post'
   - else
     .row
       .col-10
@@ -16,30 +16,29 @@ div class="text-center post_#{post.id}"
       .col-2
         = distance_of_time_in_words_to_now(post.created_at)
   = link_to post_path(post.id) do
-    p= post.content 
-  = render partial: 'category/tag', locals: { taggable: post }
+    p.text-muted #{post.content} 
   .row
-    .col-6
+    .col-8
+      = render partial: 'category/tag', locals: { taggable: post }
+    .col-4
       .row
-        .co-6
-          = icon('far', 'comment')
-        .co-6
+        = icon('far', 'comment')
+        .object_counts.mr-4
           = post.comments.count
-    .col-6
-      .row
-        .col-6
-          - if user_signed_in?
-            - if post.liked?(current_user)
-              / unlike
-              = form_with model: [post.likes.find_by(user: current_user)], method: :delete do |f|
-                = f.hidden_field :user_id, value: current_user.id
-                = f.submit 'いいね済', class: 'btn btn-success'
-            - else
-              / like
-              = form_with model: [post, post.likes.new], method: :post do |f|
-                = f.submit 'いいね', class: 'btn btn-secondary'
+        - if user_signed_in?
+          - if post.liked?(current_user)
+            / unlike
+            = form_with model: [post.likes.find_by(user: current_user)], method: :delete do |f|
+              = f.hidden_field :user_id, value: current_user.id
+              = button_tag type: :submit, class: 'unlike' do
+                i.fas.fa-heart.text-danger.like_btn
           - else
-            p いいね
-        .col-6
+            / like
+            = form_with model: [post, post.likes.new], method: :post do |f|
+              = button_tag type: :submit, class: 'like' do
+                i.far.fa-heart.like_btn
+        - else
+          = icon('fas', 'heart')
+        .object_counts
           = post.likes.count
   hr
