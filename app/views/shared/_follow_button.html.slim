@@ -1,8 +1,9 @@
-- if user_signed_in? && current_user != user
-  -if current_user.following?(user)
-    = form_with url: followee_path(user.id), method: :delete do |f|
-      = f.hidden_field :user_id, value: user.id
-      = f.submit 'フォロー解除', class: 'btn btn-primary'
-  -else
-    = form_with url: user_followees_path(user_id: user.id), method: :post do |f|
-      = f.submit 'フォローする', class: 'btn btn-primary'
+  - if user_signed_in? && current_user != user
+    div class="follow_button_#{user.id}"
+      -if current_user.following?(user)
+        = form_with url: followee_path(user.id), remote: true, method: :delete do |f|
+          = f.hidden_field :user_id, value: user.id
+          = f.submit 'フォロー解除', class: 'btn btn-primary'
+      -else
+        = form_with url: user_followees_path(user_id: user.id), remote: true, method: :post do |f|
+          = f.submit 'フォローする', class: 'btn btn-primary'

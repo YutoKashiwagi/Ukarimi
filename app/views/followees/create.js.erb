@@ -1,0 +1,2 @@
+$(".follow_button_" + "<%= @user.id %>").html("<%= escape_javascript(render partial: 'shared/follow_button', locals: { user: @user }) %>")
+$(".followers_count_" + "<%= @user.id %>").html("<%= "#{@user.followers.count}フォロワー" %>")
