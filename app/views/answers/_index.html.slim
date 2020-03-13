@@ -1,9 +1,9 @@
 .answer_container
   / ベストアンサー
   - if answer.is_best_answer?
-    .text-danger.text-center
-      = icon('fas', 'check')
-      p.mb-3 ベストアンサー！
+    p.text-danger.text-center.mb-3
+      | #{icon('fas', 'check')}
+      | ベストアンサー！
   / 高評価
   = render partial: 'likes/likes_count', locals: { likable: answer }
   - if user_signed_in?
@@ -21,6 +21,7 @@
           = link_to icon('fas', 'trash'), answer_path(answer.id), method: :delete, class: "delete-a-#{answer.id}"
 
     / 回答本文
+    hr
     .mt-5.mb-5
       p= answer.content
 
@@ -35,4 +36,8 @@
 
     / コメント入力フォーム
     - if user_signed_in?
-      = render partial: 'comments/form', locals: { commentable: answer, comment: current_user.comments.build }
+      button data-toggle='collapse' data-target='#collapse_comment' aria-expanded='false' aria-controls='collapse_comment' 
+        p.bold_texts #{icon('far', 'comment')}コメントを投稿
+      .collapse#collapse_comment
+        hr
+        = render partial: 'comments/form', locals: { commentable: answer, comment: current_user.comments.build }

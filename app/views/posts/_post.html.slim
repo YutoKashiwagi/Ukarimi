@@ -15,8 +15,10 @@ div class="text-center post_#{post.id}"
         = link_to post.user.name, user_path(post.user.id)
       .col-2
         = distance_of_time_in_words_to_now(post.created_at)
-  = link_to post_path(post.id) do
-    p.text-muted #{post.content} 
+  hr
+  .mt-3.mb-3
+    p #{post.content}
+  hr
   .row
     .col-8
       = render partial: 'category/tag', locals: { taggable: post }

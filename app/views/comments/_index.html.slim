@@ -5,11 +5,13 @@
   - comments&.each do |comment|
     .row
       .col-6
+        = render partial: 'users/user_image_link', locals: { user: comment.user }
         = link_to comment.user.name, user_path(comment.user)
       .col-6
         - if comment.user == current_user
           = form_with model: [comment], method: :delete do |f|
-            = f.submit '削除', class: "btn btn-danger delete_comment_#{comment.id}"
-    p #{comment.content}
+            = button_tag type: :submit , class: "delete_comment_#{comment.id} text-primary" do
+              = icon('fas', 'trash')
+    p.mt-4 #{comment.content}
     hr
     

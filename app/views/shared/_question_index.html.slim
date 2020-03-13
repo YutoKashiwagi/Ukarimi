@@ -13,8 +13,20 @@
         .row
           .col-3
             = render partial: 'users/user_image_link', locals: { user: question.user}
+            = question.user.name
           .col-5
             = link_to "#{question.title}", question_path(question.id)
+            br
+            .mt-5
+              = render partial: 'category/tag', locals: { taggable: question }
           .col-4
             = distance_of_time_in_words_to_now(question.created_at)
+            br
+            .mt-2
+              - if question.has_best_answer?
+                p.text-danger
+                  | #{icon('fas', 'check')}
+                  | ベストアンサー！
+                = render partial: 'users/user_image_link', locals: { user: question.best_answer.user }
+                = question.best_answer.user.name
 hr
