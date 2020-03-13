@@ -8,12 +8,18 @@ class StocksController < ApplicationController
 
   def create
     current_user.stock(@question)
-    redirect_back(fallback_location: root_path)
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path) }
+      format.js
+    end
   end
-
+  
   def destroy
     current_user.unstock(@question)
-    redirect_back(fallback_location: root_path)
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path) }
+      format.js
+    end
   end
 
   private
