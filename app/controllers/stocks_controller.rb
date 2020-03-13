@@ -13,7 +13,7 @@ class StocksController < ApplicationController
       format.js
     end
   end
-  
+
   def destroy
     current_user.unstock(@question)
     respond_to do |format|
