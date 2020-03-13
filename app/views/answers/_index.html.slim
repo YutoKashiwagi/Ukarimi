@@ -1,20 +1,28 @@
 .answer_container
+  / ベストアンサー
+  - if answer.is_best_answer?
+    .text-danger.text-center
+      = icon('fas', 'check')
+      p.mb-3 ベストアンサー！
   / 高評価
   = render partial: 'likes/likes_count', locals: { likable: answer }
   - if user_signed_in?
     = render partial: 'likes/form', locals: { likable: answer }
   .text-center
-    / ベストアンサー決定ボタン
-    - if answer.is_best_answer?
-      p.text-danger ベストアンサー！
       
     / 回答部分
-    = render partial: 'users/user_image_link', locals: { user: answer.user }
-    = link_to answer.user.name, user_path(answer.user.id)
-    p= answer.content
-    - if current_user == answer.user
-      = link_to '削除', answer_path(answer.id), method: :delete, class: "btn btn-danger delete-a-#{answer.id}"
-      = link_to '編集', edit_answer_path(answer.id), class: "btn btn-primary edit-a-#{answer.id}"
+    .row
+      .col-8
+        = render partial: 'users/user_image_link', locals: { user: answer.user }
+        = link_to answer.user.name, user_path(answer.user.id)
+      .col-4
+        - if current_user == answer.user
+          = link_to icon('fas', 'edit'), edit_answer_path(answer.id), class: "edit-a-#{answer.id} mr-4"
+          = link_to icon('fas', 'trash'), answer_path(answer.id), method: :delete, class: "delete-a-#{answer.id}"
+
+    / 回答本文
+    .mt-5.mb-5
+      p= answer.content
 
     / ベストアンサーボタン
     - if current_user == answer.question.user && !answer.question.has_best_answer?

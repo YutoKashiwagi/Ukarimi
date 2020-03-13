@@ -1,4 +1,7 @@
 .question_container
+  / タイトル
+  .mb-5.text-center
+    h1 #{@question.title}
   .row
     .col-6
       / 高評価
@@ -11,29 +14,30 @@
       = distance_of_time_in_words_to_now(@question.created_at)
   .container.text-center
     .row
-      .col-8
+      .col-6
         = render partial: 'users/user_image_link', locals: { user: @question.user }
         = link_to @question.user.name, user_path(@question.user.id)
+      .col-2
+        -if @question.has_best_answer?
+          p.text-success 解決済み
+        - else
+          p 未解決
       .col-4
         -if current_user == @question.user
-          = link_to '削除', question_path(@question.id), method: :delete, class: "btn btn-danger delete-q-#{@question.id}"
-          = link_to '編集', edit_question_path(@question.id), class: "btn btn-primary edit-q-#{@question.id}"
+          = link_to icon('fas', 'edit'), edit_question_path(@question.id), class: "edit-q-#{@question.id} mr-4"
+          = link_to icon('fas', 'trash'), question_path(@question.id), method: :delete, class: "delete-q-#{@question.id}"
       br
-    -if @question.has_best_answer?
-      p.text-success 解決済み
-    - else
-      p 未解決
-    p
-      | タイトル:#{@question.title}
-    br
-    p
-      | 内容:#{@question.content}
+    
+    / 本文
+    .mt-5.mb-5
+      p #{@question.content}
     /カテゴリー表示
     = render partial: 'category/tag', locals: { taggable: @question }
     /質問のコメント表示
     = render partial: 'comments/index', locals: { comments: @question.comments }
     / コメント入力フォーム
     - if user_signed_in?
+      hr
       = render partial: 'comments/form', locals: { commentable: @question, comment: current_user.comments.build }
 
 /回答送信フォーム
