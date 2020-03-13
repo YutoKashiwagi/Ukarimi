@@ -10,12 +10,31 @@
   font-size: 25px;
 }
 
+@mixin q_and_a_container($border_color) {
+  width: 700px;
+  padding: 0.5em 1em;
+  margin: auto;
+  background: #FFF;
+  border: solid 3px $border_color;
+  border-radius: 10px;
+}
+
 .fa-edit {
   @include fontawesome();
 }
 
 .fa-trash {
   @include fontawesome();
+}
+
+.fa-paper-plane {
+  @include fontawesome();
+}
+
+.bold_texts {
+  font-size: 25px;
+  font-weight: bold;
+  color: gray;
 }
 
 // kaminariを中央寄せに
@@ -57,14 +76,9 @@ button {
 }
 
 // 質問ページのスタイリング
+
 .question_container {
-  width: 700px;
-  padding: 0.5em 1em;
-  margin: auto;
-  font-weight: bold;
-  background: #FFF;
-  border: solid 3px #6091d3;
-  border-radius: 10px;
+  @include q_and_a_container(#6091d3)
 }
 
 .question_container p {
@@ -73,14 +87,9 @@ button {
 }
 
 .answer_container {
-  width: 700px;
-  padding: 0.5em 1em;
-  margin: auto;
-  font-weight: bold;
-  background: #FFF;
-  border: solid 3px #ff9999;
-  border-radius: 10px;
+  @include q_and_a_container(#ff9999)
 }
+
 .answer_container p {
   margin: 0; 
   padding: 0;
