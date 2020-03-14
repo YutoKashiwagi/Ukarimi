@@ -4,12 +4,18 @@ class FollowCategoriesController < ApplicationController
 
   def create
     current_user.follow_category(@category)
-    redirect_back(fallback_location: root_path)
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path) }
+      format.js
+    end
   end
 
   def destroy
     current_user.unfollow_category(@category)
-    redirect_back(fallback_location: root_path)
+    respond_to do |format|
+      format.html { redirect_back(fallback_location: root_path) }
+      format.js
+    end
   end
 
   private
