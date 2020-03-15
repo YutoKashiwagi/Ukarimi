@@ -1,0 +1,3 @@
+= form_with model: Like.find_by(user: current_user, likable: likable), remote: true, method: :delete do |f|
+  = button_tag type: :submit, class: "unlike_#{likable.id}" do
+    i.fas.fa-heart.text-danger.like_btn
