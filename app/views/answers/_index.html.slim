@@ -25,8 +25,9 @@
 
     / ベストアンサーボタン
     - if current_user == answer.question.user && !answer.question.has_best_answer?
-      = form_with model: answer.question, url: best_answer_path(answer.question.id), method: :patch do |f|
-        = f.hidden_field :best, value: answer.id
+      = form_with url: best_answers_path  do |f|
+        = f.hidden_field :question_id, value: answer.question.id
+        = f.hidden_field :answer_id, value: answer.id
         = f.submit 'ベストアンサー', class: "btn btn-primary best_answer_btn_#{answer.id}", data: { confirm: "一度ベストアンサーを決定すると変更できません。ベストアンサーに決定しますか？", cancel: 'やめる', commit: '決定' }, title: 'ベストアンサーの確認'
     
     / コメント一覧表示

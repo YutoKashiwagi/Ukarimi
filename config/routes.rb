@@ -22,7 +22,6 @@ Rails.application.routes.draw do
       resources :comments, only: [:create, :destroy], module: :answers
       resources :likes, only: [:create, :destroy], module: :answers
     end
-    resources :best_answers, only: :update
   end
 
   namespace :category, shallow: true do
@@ -32,4 +31,6 @@ Rails.application.routes.draw do
   # ユーザーがカテゴリーをフォローする時のルーティング
   post '/follow_category', to: "follow_categories#create"
   delete '/unfollow_category', to: "follow_categories#destroy"
+
+  resources :best_answers, only: :create
 end

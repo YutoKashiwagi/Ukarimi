@@ -13,6 +13,9 @@ class Question < ApplicationRecord
   has_many :tag_relationships, as: :taggable, dependent: :destroy
   has_many :categories, through: :tag_relationships, source: :category
 
+  has_one :q_and_a_relationship
+  has_one :best_answer, through: :q_and_a_relationship, source: :answer
+
   # バリデーション
   validates :content,
             presence: true,
@@ -22,10 +25,6 @@ class Question < ApplicationRecord
             length: { maximum: 50 }
 
   def has_best_answer?
-    best.present?
-  end
-
-  def best_answer
-    answers.find(best) if best.present?
+    best_answer.present?
   end
 end
