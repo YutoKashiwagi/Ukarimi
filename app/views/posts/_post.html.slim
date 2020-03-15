@@ -27,20 +27,5 @@ div class="text-center post_#{post.id}"
         = icon('far', 'comment')
         .object_counts.mr-4
           = post.comments.count
-        - if user_signed_in?
-          - if post.liked?(current_user)
-            / unlike
-            = form_with model: [post.likes.find_by(user: current_user)], method: :delete do |f|
-              = f.hidden_field :user_id, value: current_user.id
-              = button_tag type: :submit, class: 'unlike' do
-                i.fas.fa-heart.text-danger.like_btn
-          - else
-            / like
-            = form_with model: [post, post.likes.new], method: :post do |f|
-              = button_tag type: :submit, class: 'like' do
-                i.far.fa-heart.like_btn
-        - else
-          = icon('fas', 'heart')
-        .object_counts
-          = post.likes.count
+        = render partial: 'likes/form', locals: { likable: post }
   hr

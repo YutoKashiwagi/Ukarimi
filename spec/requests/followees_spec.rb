@@ -19,7 +19,7 @@ RSpec.describe "Followees", type: :request do
       context 'フォローしていない場合' do
         example 'フォローできること' do
           expect do
-            post user_followees_path(other_user.id), params: { user_id: other_user.id }
+            post user_followees_path(other_user.id), params: { user_id: other_user.id }, xhr: true
           end.to change { user.followees.count }.by(1)
         end
       end
@@ -29,7 +29,7 @@ RSpec.describe "Followees", type: :request do
 
         example 'フォローできないこと' do
           expect do
-            post user_followees_path(other_user.id), params: { user_id: other_user.id }
+            post user_followees_path(other_user.id), params: { user_id: other_user.id }, xhr: true
           end.to change { user.followees.count }.by(0)
         end
       end
@@ -53,7 +53,7 @@ RSpec.describe "Followees", type: :request do
 
         example 'フォロー解除できること' do
           expect do
-            delete followee_path(other_user.id), params: { user_id: other_user.id }
+            delete followee_path(other_user.id), params: { user_id: other_user.id }, xhr: true
           end.to change { user.followees.count }.by(-1)
         end
       end
@@ -61,7 +61,7 @@ RSpec.describe "Followees", type: :request do
       context 'フォローしていない場合' do
         example 'フォロー解除できないこと' do
           expect do
-            delete followee_path(other_user.id), params: { user_id: other_user.id }
+            delete followee_path(other_user.id), params: { user_id: other_user.id }, xhr: true
           end.to change { user.followees.count }.by(0)
         end
       end

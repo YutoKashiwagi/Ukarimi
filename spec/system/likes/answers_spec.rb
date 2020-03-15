@@ -8,8 +8,11 @@ RSpec.describe "Likes::Answers", type: :system do
   describe 'ログインしていない時' do
     before { visit question_path(question.id) }
 
-    example 'いいね(高評価)ボタンが表示されていないこと' do
-      within('.answer_container') { expect(page).not_to have_button '高評価' }
+    example 'いいねボタンが表示されていないこと' do
+      within(".answer_container") do
+        expect(page).not_to have_selector ".like_#{answer.id}"
+        expect(page).not_to have_selector ".unlike_#{answer.id}"
+      end
     end
   end
 
@@ -21,38 +24,38 @@ RSpec.describe "Likes::Answers", type: :system do
 
     example 'いいねできること' do
       within('.answer_container') do
-        expect { click_button '高評価' }.to change { answer.likes.count }.by(1)
+        expect { find(".like_#{answer.id}").click }.to change { answer.likes.count }.by(1)
       end
     end
 
     describe 'いいねしてあるとき' do
-      before { within('.answer_container') { click_button '高評価' } }
+      before { within('.answer_container') { find(".like_#{answer.id}").click } }
 
       example 'いいね解除できること' do
-        within('.answer_container') do
-          expect { click_button '高評価済み' }.to change { answer.likes.count }.by(-1)
+        within(".answer_container") do
+          expect { find(".unlike_#{answer.id}").click }.to change { answer.likes.count }.by(-1)
         end
       end
     end
 
-    describe '高評価ボタン' do
+    describe 'いいねボタン' do
       describe 'いいねしてない時' do
-        before { within('.answer_container') { click_button '高評価' } }
+        before { within('.answer_container') { find(".like_#{answer.id}").click } }
 
         example '切り替わること' do
           within('.answer_container') do
-            expect(page).to have_button '高評価済み'
+            expect(page).to have_selector ".unlike_#{answer.id}"
           end
         end
       end
 
       describe 'いいねしている時' do
-        before { within('.answer_container') { click_button '高評価' } }
+        before { within('.answer_container') { find(".like_#{answer.id}").click } }
 
         example '切り替わること' do
           within('.answer_container') do
-            click_button '高評価済み'
-            expect(page).to have_button '高評価'
+            find(".unlike_#{answer.id}").click
+            expect(page).to have_selector ".like_#{answer.id}"
           end
         end
       end

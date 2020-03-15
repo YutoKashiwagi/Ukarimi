@@ -19,7 +19,7 @@ RSpec.describe "Stocks", type: :request do
 
       example 'ストックできること' do
         expect do
-          post user_stocks_path(user.id), params: { stock: stock_params }
+          post user_stocks_path(user.id), params: { stock: stock_params }, xhr: true
         end.to change { user.stocks.count }.by(1)
       end
     end
@@ -41,7 +41,7 @@ RSpec.describe "Stocks", type: :request do
 
       example '正常に削除できること' do
         expect do
-          delete stock_path(stock.id), params: { stock: stock_params }
+          delete stock_path(stock.id), params: { stock: stock_params }, xhr: true
         end.to change { user.stocks.count }.by(-1)
       end
     end

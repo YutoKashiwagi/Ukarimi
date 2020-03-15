@@ -7,6 +7,8 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
       li.nav-item
         = link_to '質問一覧', questions_path, class: 'nav-link'
       li.nav-item
+        = link_to 'カテゴリー', category_categories_path, class: 'nav-link'
+      li.nav-item
         - if user_signed_in?
           = link_to image_tag(current_user.profile_image, size: '30x30', class: 'rounded-circle'), user_path(current_user.id), class: 'nav-link'
           li.nav-item

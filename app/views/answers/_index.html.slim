@@ -5,9 +5,7 @@
       | #{icon('fas', 'check')}
       | ベストアンサー！
   / 高評価
-  = render partial: 'likes/likes_count', locals: { likable: answer }
-  - if user_signed_in?
-    = render partial: 'likes/form', locals: { likable: answer }
+  = render partial: 'likes/form', locals: { likable: answer }
   .text-center
       
     / 回答部分

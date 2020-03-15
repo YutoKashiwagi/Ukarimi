@@ -1,0 +1,1 @@
+$(".follow_category_" + "<%= @category.id %>").html("<%= escape_javascript(render partial: 'category/follow_button', locals: { category: @category }) %>")

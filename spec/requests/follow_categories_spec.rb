@@ -12,7 +12,7 @@ RSpec.describe "Category::FollowCategories", type: :request do
       context 'フォローしていない場合' do
         example 'フォロー出来ること' do
           expect do
-            post follow_category_path, params: { category_id: category.id }
+            post follow_category_path, params: { category_id: category.id }, xhr: true
           end.to change { user.categories.count }.by(1)
         end
       end
@@ -48,7 +48,7 @@ RSpec.describe "Category::FollowCategories", type: :request do
 
         example 'フォロー解除できること' do
           expect do
-            delete unfollow_category_path, params: { category_id: category.id }
+            delete unfollow_category_path, params: { category_id: category.id }, xhr: true
           end.to change { user.categories.count }.by(-1)
         end
       end

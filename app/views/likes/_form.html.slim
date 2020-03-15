@@ -1,9 +1,11 @@
-- if likable.liked?(current_user)
-  / unlike
-  = form_with model: [likable.likes.find_by(user: current_user)], method: :delete do |f|
-    = f.hidden_field :user_id, value: current_user.id
-    = f.submit '高評価済み', class: 'btn btn-primary'
+- if user_signed_in?
+  div class="likable_form_#{likable.id}"
+    - if likable.liked?(current_user)
+      = render partial: 'likes/unlike_form', locals: { likable: likable}
+    - else
+      = render partial: 'likes/like_form', locals: { likable: likable }
 - else
-  / like
-  = form_with model: [likable, likable.likes.new], method: :post do |f|
-    = f.submit '高評価', class: 'btn btn-primary'
+  = icon('fas', 'heart')
+.object_counts
+  div class="likable_count_#{likable.id}"
+    = likable.likes.count
