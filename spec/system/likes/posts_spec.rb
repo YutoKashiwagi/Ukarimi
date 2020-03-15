@@ -9,8 +9,8 @@ RSpec.describe "Likes::Posts", type: :system do
 
     example 'いいねボタンが表示されていないこと' do
       within(".post_#{post.id}") do
-        expect(page).not_to have_selector '.like'
-        expect(page).not_to have_selector '.unlike'
+        expect(page).not_to have_selector ".like_#{post.id}"
+        expect(page).not_to have_selector ".unlike_#{post.id}"
       end
     end
   end
@@ -24,7 +24,7 @@ RSpec.describe "Likes::Posts", type: :system do
     context 'いいねしていない時' do
       example 'いいねできること' do
         within(".post_#{post.id}") do
-          expect { find('.like').click }.to change { post.likes.count }.by(1)
+          expect { find(".like_#{post.id}").click }.to change { post.likes.count }.by(1)
         end
       end
     end
@@ -37,7 +37,7 @@ RSpec.describe "Likes::Posts", type: :system do
 
       example 'いいね解除できること' do
         within(".post_#{post.id}") do
-          expect { find('.unlike').click }.to change { post.likes.count }.by(-1)
+          expect { find(".unlike_#{post.id}").click }.to change { post.likes.count }.by(-1)
         end
       end
     end
