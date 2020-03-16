@@ -57,7 +57,7 @@ RSpec.describe Question, type: :model do
 
     describe 'has_best_answer?' do
       example 'trueを返すこと' do
-        question.best = answer.id
+        question.best_answer = answer
         expect(question.has_best_answer?).to eq true
       end
 
@@ -68,7 +68,7 @@ RSpec.describe Question, type: :model do
 
     describe 'best_answer' do
       example 'ベストアンサーを返すこと' do
-        question.best = answer.id
+        question.best_answer = answer
         expect(question.best_answer).to eq answer
       end
 
