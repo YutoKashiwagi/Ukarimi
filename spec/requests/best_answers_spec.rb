@@ -16,10 +16,28 @@ RSpec.describe "BestAnswers", type: :request do
 
         example 'ベストアンサーを決定できること' do
           expect(question.best_answer).to eq answer
+          expect(response).to redirect_to question_path(question.id)
         end
 
-        example 'リダイレクトされること' do
-          expect(response).to redirect_to question_path(question.id)
+        context 'ベストアンサーが既に決定している時' do
+          let(:second_answer) { create(:answer, question: question) }
+
+          before { post best_answers_path, params: { answer_id: second_answer.id, question_id: question.id } }
+
+          example 'ベストアンサーが変わっていないこと' do
+            expect(question.best_answer).to eq answer
+            expect(response).to redirect_to question_path(question.id)
+          end
+        end
+
+        context '異なる質問の回答をベストアンサーとして送信した場合' do
+          let(:other_answer) { create(:answer) }
+
+          example 'エラーが発生すること' do
+            expect do
+              post best_answers_path, params: { answer_id: other_answer.id, question_id: question.id }
+            end.to raise_error ActiveRecord::RecordNotFound
+          end
         end
       end
 
