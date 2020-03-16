@@ -1,7 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Question, type: :model do
-  let(:question) { build(:question) }
+  let!(:question) { build(:question) }
+  let!(:answer) { create(:answer, question: question) }
 
   it '有効なファクトリを持つこと' do
     expect(question.valid?).to eq true
@@ -53,8 +54,6 @@ RSpec.describe Question, type: :model do
   describe 'メソッドのテスト' do
     before { question.save }
 
-    let!(:answer) { create(:answer, question: question) }
-
     describe 'has_best_answer?' do
       example 'trueを返すこと' do
         question.best_answer = answer
@@ -66,14 +65,28 @@ RSpec.describe Question, type: :model do
       end
     end
 
-    describe 'best_answer' do
-      example 'ベストアンサーを返すこと' do
-        question.best_answer = answer
-        expect(question.best_answer).to eq answer
+    describe 'decide_best_answer(answer)' do
+      example 'ベストアンサーを決定できること' do
+        expect do
+          question.decide_best_answer(answer)
+        end.to change(question, :best_answer).from(nil).to(answer)
       end
 
-      example 'nilを返すこと' do
-        expect(question.best_answer).to eq nil
+      context '既にベストアンサーが決定している場合' do
+        let(:second_answer) { create(:answer, question: question) }
+
+        example 'nilを返すこと' do
+          question.decide_best_answer(answer)
+          expect(question.decide_best_answer(second_answer)).to eq nil
+        end
+      end
+
+      context '異なる質問の回答を引数に取った時' do
+        let(:other_answer) { create(:answer) }
+
+        example 'nilを返すこと' do
+          expect(question.decide_best_answer(other_answer)).to eq nil
+        end
       end
     end
   end
