@@ -46,7 +46,7 @@ RSpec.describe Answer, type: :model do
 
     describe 'is_best_answer?' do
       example 'trueを返すこと' do
-        question.best = answer.id
+        question.best_answer = answer
         expect(answer.is_best_answer?).to eq true
       end
 

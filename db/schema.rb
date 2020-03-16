@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20200312131332) do
+ActiveRecord::Schema.define(version: 20200316032730) do
 
   create_table "answers", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.text "content"
@@ -57,14 +57,21 @@ ActiveRecord::Schema.define(version: 20200312131332) do
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
+  create_table "q_and_a_relationships", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
+    t.bigint "question_id"
+    t.bigint "answer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["answer_id"], name: "index_q_and_a_relationships_on_answer_id"
+    t.index ["question_id"], name: "index_q_and_a_relationships_on_question_id"
+  end
+
   create_table "questions", force: :cascade, options: "ENGINE=InnoDB DEFAULT CHARSET=utf8" do |t|
     t.string "content"
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "title"
-    t.bigint "best"
-    t.index ["best"], name: "fk_rails_dd35f91b0c"
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
@@ -117,7 +124,8 @@ ActiveRecord::Schema.define(version: 20200312131332) do
   add_foreign_key "comments", "users"
   add_foreign_key "likes", "users"
   add_foreign_key "posts", "users"
-  add_foreign_key "questions", "answers", column: "best"
+  add_foreign_key "q_and_a_relationships", "answers"
+  add_foreign_key "q_and_a_relationships", "questions"
   add_foreign_key "questions", "users"
   add_foreign_key "stocks", "questions"
   add_foreign_key "stocks", "users"

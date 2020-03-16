@@ -5,22 +5,39 @@ RSpec.describe "BestAnswers", type: :request do
   let!(:other_user) { create(:user) }
   let!(:question) { create(:question, user: user) }
   let!(:answer) { create(:answer, question: question) }
-  let(:best_answer_params) { { best: answer.id } }
 
   describe 'create' do
     context 'ログインしている時' do
       context '質問者本人の場合' do
-        before { sign_in user }
-
-        xexample 'ベストアンサーを決定できること' do
-          expect do
-            patch best_answer_path(question.id), params: { question: best_answer_params }
-          end.to change(question, :best_answer).from(nil).to(answer)
+        before do
+          sign_in user
+          post best_answers_path, params: { answer_id: answer.id, question_id: question.id }
         end
 
-        example 'リダイレクトされること' do
-          patch best_answer_path(question.id), params: { question: best_answer_params }
+        example 'ベストアンサーを決定できること' do
+          expect(question.best_answer).to eq answer
           expect(response).to redirect_to question_path(question.id)
+        end
+
+        context 'ベストアンサーが既に決定している時' do
+          let(:second_answer) { create(:answer, question: question) }
+
+          before { post best_answers_path, params: { answer_id: second_answer.id, question_id: question.id } }
+
+          example 'ベストアンサーが変わっていないこと' do
+            expect(question.best_answer).to eq answer
+            expect(response).to redirect_to question_path(question.id)
+          end
+        end
+
+        context '異なる質問の回答をベストアンサーとして送信した場合' do
+          let(:other_answer) { create(:answer) }
+
+          example 'エラーが発生すること' do
+            expect do
+              post best_answers_path, params: { answer_id: other_answer.id, question_id: question.id }
+            end.to raise_error ActiveRecord::RecordNotFound
+          end
         end
       end
 
@@ -29,14 +46,14 @@ RSpec.describe "BestAnswers", type: :request do
 
         example 'エラーが発生すること' do
           expect do
-            patch best_answer_path(question.id), params: { question: best_answer_params }
+            post best_answers_path, params: { answer_id: answer.id, question_id: question.id }
           end.to raise_error ActiveRecord::RecordNotFound
         end
       end
     end
 
     context 'ログインしていない時' do
-      before { patch best_answer_path(question.id), params: { question: best_answer_params } }
+      before { post best_answers_path, params: { answer_id: answer.id, question_id: question.id } }
 
       example 'サインイン画面へリダイレクトされること' do
         expect(response).to redirect_to new_user_session_path
