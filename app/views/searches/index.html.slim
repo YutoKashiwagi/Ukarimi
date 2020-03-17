@@ -1,0 +1,7 @@
+h2.text-center.my-4 検索結果
+.question_index_container
+  - if @searched_questions.present?
+    p.text-danger
+    = render partial: 'shared/question_index', collection: @searched_questions, as: :question
+  - else
+    p.text-center 一致する情報は見つかりませんでした。

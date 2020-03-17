@@ -47,8 +47,5 @@
     /質問のコメント表示
     = render partial: 'comments/index', locals: { comments: @question.comments }
 
-/回答送信フォーム
-/= render partial: 'answers/submit_form', locals: { question: @question }
-
 /回答表示
 = render partial: 'answers/index', collection: @answers, as: :answer, locals: { question: @question }

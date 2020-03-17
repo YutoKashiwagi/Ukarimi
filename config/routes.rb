@@ -28,9 +28,11 @@ Rails.application.routes.draw do
     resources :categories, only: [:index, :show]
   end
 
-  # ユーザーがカテゴリーをフォローする時のルーティング
+  # ユーザーがカテゴリーをフォローする時のルーティング。delete時、relationshipのidを取らない形にするため手動のルーティングに。
   post '/follow_category', to: "follow_categories#create"
   delete '/unfollow_category', to: "follow_categories#destroy"
 
   resources :best_answers, only: :create
+
+  resources :searches, only: :index
 end
