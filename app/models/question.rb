@@ -36,6 +36,7 @@ class Question < ApplicationRecord
   def decide_best_answer(answer)
     if answers.include?(answer) && best_answer.blank?
       self.best_answer = answer
+      update_attribute(:solved, 1)
     end
   end
 end
