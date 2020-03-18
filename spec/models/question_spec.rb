@@ -69,7 +69,7 @@ RSpec.describe Question, type: :model do
       example 'ベストアンサーを決定できること' do
         expect do
           question.decide_best_answer(answer)
-        end.to change(question, :best_answer).from(nil).to(answer)
+        end.to change(question, :best_answer).from(nil).to(answer).and change(question, :solved).from(0).to(1)
       end
 
       context '既にベストアンサーが決定している場合' do
