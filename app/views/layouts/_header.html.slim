@@ -28,9 +28,3 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
       li.nav-item
         -if user_signed_in?
           = link_to '投稿', user_posts_path(current_user.id), class: 'nav-link'
-      / li.nav-item
-      /   .search-form
-      /     = search_form_for @search_questions, url: searches_path do |f|
-      /       = f.text_field :title_or_content_cont, placeholder: '質問を検索', required: :true
-      /       = button_tag type: :submit do 
-      /         = icon('fas', 'search')
