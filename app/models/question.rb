@@ -2,6 +2,7 @@ class Question < ApplicationRecord
   include Liked
   include Taggable
   include CommonScope
+  include Commentable
 
   belongs_to :user
 
@@ -37,6 +38,20 @@ class Question < ApplicationRecord
     if answers.include?(answer) && best_answer.blank?
       self.best_answer = answer
       update_attribute(:solved, 1)
+      create_notification_best_answer(answer)
     end
+  end
+
+  def create_notification_best_answer(answer)
+    notification = user.active_notifications.new(
+      answer: answer,
+      visitor: user,
+      visited: answer.user,
+      action: 'best_answer'
+    )
+    if notification.visitor == notification.visited
+      notification.checked = true
+    end
+    notification.save if notification.valid?
   end
 end

@@ -35,4 +35,6 @@ Rails.application.routes.draw do
   resources :best_answers, only: :create
 
   resources :searches, only: :index
+
+  resources :notifications, only: :index
 end

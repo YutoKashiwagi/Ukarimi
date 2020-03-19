@@ -62,4 +62,20 @@ RSpec.describe Comment, type: :model do
       expect { user.destroy }.to change(Comment, :count).by(-1)
     end
   end
+
+  describe '通知関連' do
+    describe 'create_notification_comment(comment, visited_id)' do
+      before do
+        comment.save
+        user.save_notification_comment(comment, comment.commentable.user.id)
+      end
+
+      example '正しい通知が作成されていること' do
+        expect(Notification.first.visitor).to eq comment.user
+        expect(Notification.first.visited).to eq comment.commentable.user
+        expect(Notification.first.action).to eq 'comment'
+        expect(Notification.first.comment).to eq comment
+      end
+    end
+  end
 end
