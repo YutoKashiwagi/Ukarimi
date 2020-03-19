@@ -11,10 +11,12 @@ RSpec.describe "BestAnswers", type: :request do
       context '質問者本人の場合' do
         before do
           sign_in user
-          post best_answers_path, params: { answer_id: answer.id, question_id: question.id }
         end
 
         example 'ベストアンサーを決定できること' do
+          expect do
+            post best_answers_path, params: { answer_id: answer.id, question_id: question.id }
+          end.to change(Notification, :count).by(1)
           expect(question.best_answer).to eq answer
           expect(response).to redirect_to question_path(question.id)
         end
@@ -22,7 +24,10 @@ RSpec.describe "BestAnswers", type: :request do
         context 'ベストアンサーが既に決定している時' do
           let(:second_answer) { create(:answer, question: question) }
 
-          before { post best_answers_path, params: { answer_id: second_answer.id, question_id: question.id } }
+          before do
+            post best_answers_path, params: { answer_id: answer.id, question_id: question.id }
+            post best_answers_path, params: { answer_id: second_answer.id, question_id: question.id }
+          end
 
           example 'ベストアンサーが変わっていないこと' do
             expect(question.best_answer).to eq answer

@@ -16,7 +16,7 @@ RSpec.describe "Answers", type: :request do
       example '正常に作成できること' do
         expect do
           post question_answers_path(question.id), params: { answer: answer_params }
-        end.to change { question.answers.count }.by(1)
+        end.to change { question.answers.count }.by(1).and change(Notification, :count).by(1)
       end
     end
 
