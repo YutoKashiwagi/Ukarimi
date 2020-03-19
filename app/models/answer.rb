@@ -1,5 +1,7 @@
 class Answer < ApplicationRecord
   include Liked
+  include Commentable
+
   belongs_to :user
   belongs_to :question
 

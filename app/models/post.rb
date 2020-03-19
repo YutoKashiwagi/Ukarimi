@@ -2,6 +2,7 @@ class Post < ApplicationRecord
   include Taggable
   include Liked
   include CommonScope
+  include Commentable
 
   belongs_to :user
 
