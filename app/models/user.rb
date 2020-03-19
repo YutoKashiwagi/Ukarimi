@@ -28,6 +28,10 @@ class User < ApplicationRecord
   has_many :passive_relationships, foreign_key: :followee_id, class_name: 'Relationship', dependent: :destroy
   has_many :followers, through: :passive_relationships, source: :follower
 
+  # 通知周り
+  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
+
   # バリデーション
   validates :name,
             presence: true,
@@ -49,8 +53,10 @@ class User < ApplicationRecord
   # フォロー周り
   def follow(other_user)
     return if self == other_user
-
-    followees << other_user unless following?(other_user)
+    unless following?(other_user)
+      followees << other_user
+      create_notification_follow(other_user)
+    end
   end
 
   def unfollow(other_user)
@@ -72,5 +78,42 @@ class User < ApplicationRecord
 
   def following_category?(category)
     categories.include?(category)
+  end
+
+  # 通知周り
+  def create_notification_follow(followee)
+    temp = Notification.where(['visitor_id = ? and visited_id = ? and action = ?', id, followee.id, 'follow'])
+    if temp.blank?
+      notification = active_notifications.new(
+        visited: followee,
+        action: 'follow'
+      )
+      notification.save if notification.valid?
+    end
+  end
+
+  def create_notification_answer(answer)
+    notification = active_notifications.new(
+      answer: answer,
+      visited: answer.question.user,
+      action: 'answer'
+    )
+    notification.save if notification.valid?
+  end
+
+  def has_notifications?
+    passive_notifications.where(checked: false).present?
+  end
+
+  def save_notification_comment(comment, visited_id)
+    notification = active_notifications.new(
+      comment: comment,
+      visited_id: visited_id,
+      action: 'comment'
+    )
+    if notification.visitor == notification.visited
+      notification.checked = true
+    end
+    notification.save if notification.valid?
   end
 end
