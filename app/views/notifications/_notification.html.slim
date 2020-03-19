@@ -8,8 +8,11 @@
   = link_to 'あなたの質問', question_path(notification.answer.question.id)
   | に回答しました
 - when 'best_answer' then
-  = link_to 'あなたの回答', question_path(notification.answer.id)
+  = link_to 'あなたの回答', question_path(notification.answer.question.id)
   | をベストアンサーに決定しました
+- when 'stock' then
+  = link_to 'あなたの質問', question_path(notification.question.id)
+  | をストックしました
 - when 'comment' then
   - case notification.comment.commentable_type
   - when 'Question' then
