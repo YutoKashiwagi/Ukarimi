@@ -5,6 +5,7 @@ class AnswersController < ApplicationController
   def create
     @answer = current_user.answers.build(answer_params)
     if @answer.save
+      current_user.create_notification_answer(@answer)
       flash[:success] = '回答しました'
       redirect_back(fallback_location: root_path)
     else
