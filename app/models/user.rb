@@ -39,7 +39,10 @@ class User < ApplicationRecord
 
   # ストック周り
   def stock(question)
-    stocked_questions << question unless stocked?(question)
+    unless stocked?(question)
+      stocked_questions << question
+      create_notification_stock(question)
+    end
   end
 
   def unstock(question)
@@ -102,6 +105,21 @@ class User < ApplicationRecord
       notification.checked = true
     end
     notification.save if notification.valid?
+  end
+
+  def create_notification_stock(question)
+    temp = Notification.where(['visitor_id = ? and visited_id = ? and action = ?', id, question.user.id, 'stock'])
+    if temp.blank?
+      notification = active_notifications.new(
+        question: question,
+        visited: question.user,
+        action: 'stock'
+      )
+      if notification.visitor == notification.visited
+        notification.checked = true
+      end
+      notification.save if notification.valid?
+    end
   end
 
   def has_notifications?
