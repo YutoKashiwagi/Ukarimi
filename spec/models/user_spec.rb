@@ -115,15 +115,28 @@ RSpec.describe User, type: :model do
     end
 
     describe 'create_notification_answer(answer)' do
-      let!(:answer) { create(:answer) }
+      context '回答者が質問者と異なる場合' do
+        let!(:answer) { create(:answer) }
 
-      before { answer.user.create_notification_answer(answer) }
+        before { answer.user.create_notification_answer(answer) }
 
-      example '回答通知が作成できている事' do
-        expect(Notification.first.visitor).to eq answer.user
-        expect(Notification.first.visited).to eq answer.question.user
-        expect(Notification.first.action).to eq 'answer'
-        expect(Notification.first.answer).to eq answer
+        example '回答通知が作成できている事' do
+          expect(Notification.first.visitor).to eq answer.user
+          expect(Notification.first.visited).to eq answer.question.user
+          expect(Notification.first.action).to eq 'answer'
+          expect(Notification.first.answer).to eq answer
+        end
+      end
+
+      context '回答者が質問者本人の場合' do
+        let!(:answer) { create(:answer, question: question, user: question.user) }
+
+        before { answer.user.create_notification_answer(answer) }
+
+        example '既読扱いの通知が作成できている事' do
+          expect(Notification.first.visitor == Notification.first.visited).to eq true
+          expect(Notification.first.checked).to eq true
+        end
       end
     end
 
@@ -146,17 +159,28 @@ RSpec.describe User, type: :model do
     end
 
     describe 'create_notification_comment(comment, visited_id)' do
-      let!(:comment) { create(:comment) }
+      context '本人以外がコメントした場合' do
+        let!(:comment) { create(:comment) }
 
-      before do
-        comment.user.save_notification_comment(comment, comment.commentable.user.id)
+        before { comment.user.save_notification_comment(comment, comment.commentable.user.id) }
+
+        example '正しい通知が作成されていること' do
+          expect(Notification.first.visitor).to eq comment.user
+          expect(Notification.first.visited).to eq comment.commentable.user
+          expect(Notification.first.action).to eq 'comment'
+          expect(Notification.first.comment).to eq comment
+        end
       end
 
-      example '正しい通知が作成されていること' do
-        expect(Notification.first.visitor).to eq comment.user
-        expect(Notification.first.visited).to eq comment.commentable.user
-        expect(Notification.first.action).to eq 'comment'
-        expect(Notification.first.comment).to eq comment
+      context '本人がコメントした場合' do
+        let!(:comment) { create(:comment, commentable: question, user: question.user) }
+
+        before { comment.user.save_notification_comment(comment, comment.commentable.user.id) }
+
+        example '既読扱いの通知が作成できていること' do
+          expect(Notification.first.visitor == Notification.first.visited).to eq true
+          expect(Notification.first.checked).to eq true
+        end
       end
     end
   end
