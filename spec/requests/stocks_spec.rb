@@ -20,7 +20,7 @@ RSpec.describe "Stocks", type: :request do
       example 'ストックできること' do
         expect do
           post user_stocks_path(user.id), params: { stock: stock_params }, xhr: true
-        end.to change { user.stocks.count }.by(1)
+        end.to change { user.stocks.count }.by(1).and change { user.active_notifications.count }.by(1)
       end
     end
 
