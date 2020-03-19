@@ -49,6 +49,9 @@ class Question < ApplicationRecord
       visited: answer.user,
       action: 'best_answer'
     )
+    if notification.visitor == notification.visited
+      notification.checked = true
+    end
     notification.save if notification.valid?
   end
 end

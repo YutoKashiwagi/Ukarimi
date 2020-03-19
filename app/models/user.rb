@@ -98,6 +98,9 @@ class User < ApplicationRecord
       visited: answer.question.user,
       action: 'answer'
     )
+    if notification.visitor == notification.visited
+      notification.checked = true
+    end
     notification.save if notification.valid?
   end
 
