@@ -13,7 +13,7 @@ RSpec.describe "Comments", type: :request do
         example '正常に作成できること' do
           expect do
             post create_comment_path, params: { comment: { user_id: user.id, content: 'content' } }
-          end.to change { commentable.comments.count }.by(1)
+          end.to change { commentable.comments.count }.by(1).and change(Notification, :count).by(1)
         end
       end
 

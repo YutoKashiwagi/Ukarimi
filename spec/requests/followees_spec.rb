@@ -20,7 +20,7 @@ RSpec.describe "Followees", type: :request do
         example 'フォローできること' do
           expect do
             post user_followees_path(other_user.id), params: { user_id: other_user.id }, xhr: true
-          end.to change { user.followees.count }.by(1)
+          end.to change { user.followees.count }.by(1).and change(Notification, :count).by(1)
         end
       end
 

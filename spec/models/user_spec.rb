@@ -59,7 +59,7 @@ RSpec.describe User, type: :model do
 
     describe 'stock(question)' do
       example 'ストックしていない場合、ストック出来ること' do
-        user.stock(question)
+        expect { user.stock(question) }.to change { question.user.passive_notifications.count }.by(1)
         expect(user.stocked?(question)).to eq true
       end
 
@@ -90,11 +90,37 @@ RSpec.describe User, type: :model do
   end
 
   describe '通知関連' do
-    describe 'create_notification_follow(other_user)' do
-      before do
-        user.save
-        user.create_notification_follow(other_user)
+    before { user.save }
+
+    describe 'create_notification_stock(question)' do
+      context '本人以外がストックした場合' do
+        before { user.create_notification_stock(question) }
+
+        example 'ストック通知が作成できている事' do
+          expect(Notification.first.visitor).to eq user
+          expect(Notification.first.visited).to eq question.user
+          expect(Notification.first.action).to eq 'stock'
+          expect(Notification.first.question).to eq question
+        end
+
+        context '事前にストックされていた場合' do
+          example '再度ストックされても通知が作成されないこと' do
+            expect { user.stock(question) }.not_to change(Notification, :count)
+          end
+        end
       end
+
+      context '本人がストックした場合' do
+        before { question.user.create_notification_stock(question) }
+
+        example '既読扱いの通知が作成されていること' do
+          expect(Notification.first.checked).to eq true
+        end
+      end
+    end
+
+    describe 'create_notification_follow(other_user)' do
+      before { user.create_notification_follow(other_user) }
 
       example 'フォロー通知が作成できていること' do
         expect(user.active_notifications.first.visitor).to eq user
@@ -141,8 +167,6 @@ RSpec.describe User, type: :model do
     end
 
     describe 'has_notifications?' do
-      before { user.save }
-
       context '未読の通知がある時' do
         before { user.passive_notifications.create(visitor: other_user, action: 'follow',) }
 

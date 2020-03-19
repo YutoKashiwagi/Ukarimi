@@ -15,6 +15,38 @@ RSpec.describe "Notifications", type: :system do
       end
     end
 
+    describe 'ストック通知' do
+      context '本人以外がストックした場合' do
+        before do
+          other_user.stock(question)
+          visit notifications_path
+        end
+
+        example 'ストック通知が作成されていること' do
+          expect(page).to have_content "#{other_user.name}さんがあなたの質問をストックしました"
+        end
+
+        context 'ストックボタンを連打された時' do
+          before do
+            other_user.unstock(question)
+            other_user.stock(question)
+            visit notifications_path
+          end
+
+          include_examples '通知が存在しないこと'
+        end
+      end
+
+      context '本人がストックした場合' do
+        before do
+          user.stock(question)
+          visit notifications_path
+        end
+
+        include_examples '通知が存在しないこと'
+      end
+    end
+
     describe 'フォロー通知' do
       before do
         other_user.follow(user)
