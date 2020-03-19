@@ -65,11 +65,24 @@ RSpec.describe Question, type: :model do
       end
     end
 
+    describe 'create_notification_best_answer(answer)' do
+      before { question.create_notification_best_answer(answer) }
+
+      example 'ベストアンサーの通知が作成できている事' do
+        expect(Notification.first.visitor).to eq question.user
+        expect(Notification.first.visited).to eq answer.user
+        expect(Notification.first.answer).to eq answer
+        expect(Notification.first.action).to eq 'best_answer'
+      end
+    end
+
     describe 'decide_best_answer(answer)' do
       example 'ベストアンサーを決定できること' do
         expect do
           question.decide_best_answer(answer)
-        end.to change(question, :best_answer).from(nil).to(answer).and change(question, :solved).from(0).to(1)
+        end.to change(question, :best_answer).from(nil).to(answer).
+          and change(question, :solved).from(0).to(1).
+          and change(Notification, :count).by(1)
       end
 
       context '既にベストアンサーが決定している場合' do

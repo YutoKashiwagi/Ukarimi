@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   let(:user) { build(:user) }
+  let(:other_user) { create(:user) }
   let(:question) { create(:question) }
 
   it '有効なファクトリを持つこと' do
@@ -88,10 +89,80 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '通知関連' do
+    describe 'create_notification_follow(other_user)' do
+      before do
+        user.save
+        user.create_notification_follow(other_user)
+      end
+
+      example 'フォロー通知が作成できていること' do
+        expect(user.active_notifications.first.visitor).to eq user
+        expect(user.active_notifications.first.visited).to eq other_user
+        expect(user.active_notifications.first.action).to eq 'follow'
+      end
+
+      describe 'フォロー、フォロー解除が何度も行われた時' do
+        before do
+          user.follow(other_user)
+          user.unfollow(other_user)
+        end
+
+        example '通知が一度しか作成されないこと' do
+          expect { user.follow(other_user) }.not_to change { user.active_notifications.count }
+        end
+      end
+    end
+
+    describe 'create_notification_answer(answer)' do
+      let!(:answer) { create(:answer) }
+
+      before { answer.user.create_notification_answer(answer) }
+
+      example '回答通知が作成できている事' do
+        expect(Notification.first.visitor).to eq answer.user
+        expect(Notification.first.visited).to eq answer.question.user
+        expect(Notification.first.action).to eq 'answer'
+        expect(Notification.first.answer).to eq answer
+      end
+    end
+
+    describe 'has_notifications?' do
+      before { user.save }
+
+      context '未読の通知がある時' do
+        before { user.passive_notifications.create(visitor: other_user, action: 'follow',) }
+
+        example 'trueを返すこと' do
+          expect(user.has_notifications?).to eq true
+        end
+      end
+
+      context '未読の通知がない場合' do
+        example 'falseを返すこと' do
+          expect(user.has_notifications?).to eq false
+        end
+      end
+    end
+
+    describe 'create_notification_comment(comment, visited_id)' do
+      let!(:comment) { create(:comment) }
+
+      before do
+        comment.user.save_notification_comment(comment, comment.commentable.user.id)
+      end
+
+      example '正しい通知が作成されていること' do
+        expect(Notification.first.visitor).to eq comment.user
+        expect(Notification.first.visited).to eq comment.commentable.user
+        expect(Notification.first.action).to eq 'comment'
+        expect(Notification.first.comment).to eq comment
+      end
+    end
+  end
+
   describe 'フォロー関連' do
     before { user.save }
-
-    let(:other_user) { create(:user) }
 
     describe 'following?(other_user)' do
       example 'フォローしていない場合、falseを返すこと' do
@@ -106,7 +177,7 @@ RSpec.describe User, type: :model do
 
     describe 'follow(other_user)' do
       example 'フォローしていない場合、フォローできること' do
-        user.follow(other_user)
+        expect { user.follow(other_user) }.to change { user.active_notifications.count }.by(1)
         expect(user.following?(other_user)).to eq true
       end
 
