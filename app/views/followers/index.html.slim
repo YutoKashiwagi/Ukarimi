@@ -2,3 +2,4 @@ h2.text-center フォロワー
 hr
 .text-center
   = render partial: 'shared/user', collection: @followers
+= paginate @followers
