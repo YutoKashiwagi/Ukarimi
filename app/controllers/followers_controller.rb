@@ -1,7 +1,7 @@
 class FollowersController < ApplicationController
   before_action :set_user
   def index
-    @followers = @user.followers
+    @followers = @user.followers.page(params[:page]).per(10)
   end
 
   private

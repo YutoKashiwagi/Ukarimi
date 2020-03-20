@@ -305,4 +305,42 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe 'ランキング関連' do
+    before { user.save }
+
+    let!(:user_second) { create(:user) }
+    let!(:user_third) { create(:user) }
+
+    describe 'create_ranking(obj)' do
+      shared_examples 'ランキングのテスト' do
+        before do
+          create_list(test_instance, 3, user: user)
+          create_list(test_instance, 2, user: user_second)
+          create_list(test_instance, 1, user: user_third)
+        end
+
+        example '正常にソートできている事' do
+          users = User.create_ranking(test_class)
+          expect(users.first).to eq user
+          expect(users.second).to eq user_second
+          expect(users.third).to eq user_third
+        end
+      end
+
+      context '回答数ランキング' do
+        include_examples 'ランキングのテスト' do
+          let(:test_instance) { :answer }
+          let(:test_class) { Answer }
+        end
+      end
+
+      context '質問数ランキング' do
+        include_examples 'ランキングのテスト' do
+          let(:test_instance) { :question }
+          let(:test_class) { Question }
+        end
+      end
+    end
+  end
 end

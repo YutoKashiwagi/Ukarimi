@@ -137,4 +137,9 @@ class User < ApplicationRecord
     end
     notification.save if notification.valid?
   end
+
+  # ランキング周り
+  def self.create_ranking(obj)
+    User.find(obj.group(:user_id).order('count(user_id) desc').limit(10).pluck(:user_id))
+  end
 end
