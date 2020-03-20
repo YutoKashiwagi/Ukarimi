@@ -8,8 +8,8 @@ ul.nav.nav-tabs.justify-content-center
 .tab-content.text-center
   #answers_ranking.tab-pane.active
     .text-center
-      = render partial: 'users/user', collection: @users_answers
+      = render partial: 'rankings/user', collection: @users_answers
   #questions_ranking.tab-pane
     .text-center
-      = render partial: 'users/user', collection: @users_questions
+      = render partial: 'rankings/user', collection: @users_questions
    
