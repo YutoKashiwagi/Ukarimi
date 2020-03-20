@@ -9,7 +9,9 @@ nav.navbar.navbar-expand-lg.navbar-light.bg-light
       li.nav-item
         = link_to 'カテゴリー', category_categories_path, class: 'nav-link'
       li.nav-item
-        = link_to icon('fas', 'search'), searches_path, class: 'nav-link'
+        = link_to icon('fas', 'search') + '検索', searches_path, class: 'nav-link'
+      li.nav-item
+        = link_to icon('fas', 'crown') + 'ランキング', rankings_path, class: 'nav-link'
       li.nav-item
         - if user_signed_in?
           = link_to image_tag(current_user.profile_image, size: '30x30', class: 'rounded-circle'), user_path(current_user.id), class: 'nav-link'
