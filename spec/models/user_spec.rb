@@ -315,16 +315,16 @@ RSpec.describe User, type: :model do
     describe 'create_ranking(obj)' do
       shared_examples 'ランキングのテスト' do
         before do
-          create_list(test_instance, 1, user: user)
+          create_list(test_instance, 3, user: user)
           create_list(test_instance, 2, user: user_second)
-          create_list(test_instance, 3, user: user_third)
+          create_list(test_instance, 1, user: user_third)
         end
 
         example '正常にソートできている事' do
           users = User.create_ranking(test_class)
-          expect(users.first).to eq user_third
+          expect(users.first).to eq user
           expect(users.second).to eq user_second
-          expect(users.third).to eq user
+          expect(users.third).to eq user_third
         end
       end
 
