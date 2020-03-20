@@ -19,6 +19,23 @@
   border-radius: 10px;
 }
 
+@mixin basic_container() {
+  width: 880px;
+  margin: auto;
+}
+
+.gold {
+  color: gold;
+}
+
+.silver {
+  color: silver;
+}
+
+.copper {
+  color: #bf9224;
+}
+
 .fa-edit {
   @include fontawesome();
 }
@@ -71,8 +88,7 @@ button {
 
 // 投稿ページのスタイリング
 .post_container {
-  width: 800px;
-  margin: auto;
+  @include basic_container();
 }
 
 // 質問ページのスタイリング
@@ -97,8 +113,7 @@ button {
 
 // 質問一覧ページのスタイリング
 .question_index_container {
-  margin: auto;
-  width: 880px;
+  @include basic_container();
 }
 
 .question_each_container {
@@ -120,8 +135,7 @@ button {
 // フォーム画面のスタイリング
 
 .form_container {
-  margin: auto;
-  width: 800px;
+  @include basic_container()
 }
 
 /* Sticky footer styles
@@ -164,8 +178,17 @@ body {
 //  通知ページのスタイリング
 
 .notification_container {
-  width: 880px;
-  margin: auto;
+  @include basic_container();
   text-align: center;
+  font-size: 30px;
+}
+
+//  ユーザー一覧ページのスタイリング
+
+.users_container {
+  @include basic_container();
+}
+
+.rank_text {
   font-size: 30px;
 }
