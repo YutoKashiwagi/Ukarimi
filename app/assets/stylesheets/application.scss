@@ -14,7 +14,6 @@
   width: 700px;
   padding: 0.5em 1em;
   margin: auto;
-  background: #FFF;
   border: solid 3px $border_color;
   border-radius: 10px;
 }
@@ -52,6 +51,26 @@
   font-size: 25px;
   font-weight: bold;
   color: gray;
+}
+
+header {
+  background-color: #232f3e;
+  .navbar-light .navbar-brand {
+    color: #fff;
+  }
+  .navbar-light .navbar-brand:hover {
+    color: lightgray;
+  }
+  .navbar .navbar-nav .nav-link {
+    color: #fff;
+  }
+  .navbar .navbar-nav .nav-link:hover {
+    color: lightgray;
+  }
+}
+
+main {
+  background-color: #f6f6f3;
 }
 
 // kaminariを中央寄せに
@@ -143,6 +162,7 @@ button {
 html {
   position: relative;
   min-height: 100%;
+  background-color: #f6f6f3;
 }
 body {
   /* Margin bottom by footer height */
@@ -154,7 +174,8 @@ body {
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 60px;
-  background-color: #f5f5f5;
+  background-color: #232f3e;
+  color: lightgray;
 }
  
 /* Custom page CSS
