@@ -55,9 +55,22 @@
 
 header {
   background-color: #232f3e;
+  .navbar-light .navbar-brand {
+    color: #fff;
+  }
+  .navbar-light .navbar-brand:hover {
+    color: lightgray;
+  }
   .navbar .navbar-nav .nav-link {
     color: #fff;
   }
+  .navbar .navbar-nav .nav-link:hover {
+    color: lightgray;
+  }
+}
+
+main {
+  background-color: #f6f6f3;
 }
 
 // kaminariを中央寄せに
