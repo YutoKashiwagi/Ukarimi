@@ -21,7 +21,8 @@ gem 'jbuilder', '2.7.0'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'puma', '3.9.1'
-gem 'rails', '5.1.7'
+gem 'rails', '5.2.0'
+gem 'bootsnap'
 gem 'turbolinks',   '5.0.1'
 gem 'uglifier',     '3.2.0'
 gem 'mysql2'
@@ -57,7 +58,6 @@ group :development do
   # debug
   gem "better_errors"
   gem "binding_of_caller"
-  gem 'pry-byebug'
   gem 'pry-doc'
   gem 'pry-rails'
 end
