@@ -60,10 +60,6 @@ header {
   }
 }
 
-main {
-  background-color: #f6f6f3;
-}
-
 // kaminariを中央寄せに
 .pagination {
   justify-content: center;
@@ -153,6 +149,7 @@ button {
 html {
   position: relative;
   min-height: 100%;
+  background-color: #f6f6f3;
 }
 body {
   /* Margin bottom by footer height */
