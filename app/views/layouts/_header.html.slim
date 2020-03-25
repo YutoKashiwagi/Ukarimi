@@ -5,31 +5,28 @@ nav.navbar.navbar-expand-lg.navbar-light
   #navbarNav.collapse.navbar-collapse
     ul.navbar-nav
       li.nav-item
-        = link_to '質問一覧', questions_path, class: 'nav-link'
-      li.nav-item
-        = link_to 'カテゴリー', category_categories_path, class: 'nav-link'
-      li.nav-item
         = link_to icon('fas', 'search') + '検索', searches_path, class: 'nav-link'
       li.nav-item
         = link_to icon('fas', 'crown') + 'ランキング', rankings_path, class: 'nav-link'
       li.nav-item
+        = link_to '質問一覧', questions_path, class: 'nav-link'
+      li.nav-item
+        = link_to 'カテゴリー', category_categories_path, class: 'nav-link'
         - if user_signed_in?
-          = link_to image_tag(current_user.profile_image, size: '30x30', class: 'rounded-circle'), user_path(current_user.id), class: 'nav-link'
+          li.nav-item
+              = link_to '質問する', new_question_path, class: 'nav-link'
+          li.nav-item
+              = link_to '投稿する', user_posts_path(current_user.id), class: 'nav-link'
+          li.nav-item
+              = link_to icon('fas', 'bell'), notifications_path, class: (current_user.has_notifications? ? 'nav-link text-danger' : 'nav-link')
+          li.nav-item
+            = link_to image_tag(current_user.profile_image, size: '30x30', class: 'rounded-circle'), user_path(current_user.id), class: 'nav-link'
+          li.nav-item
+              = link_to 'ストック一覧', user_stocks_path(current_user.id), class: 'nav-link'
           li.nav-item
             = link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'nav-link'
         - else 
-          = link_to 'ログイン', new_user_session_path, class: 'nav-link'
+          li.nav-item
+            = link_to 'ログイン', new_user_session_path, class: 'nav-link'
           li.nav-item
             = link_to '登録', new_user_registration_path, class: 'nav-link'
-      li.nav-item
-        - if user_signed_in?
-          = link_to '質問する', new_question_path, class: 'nav-link'
-      li.nav-item
-        - if user_signed_in?
-          = link_to icon('fas', 'bell'), notifications_path, class: (current_user.has_notifications? ? 'nav-link text-danger' : 'nav-link')
-      li.nav-item
-        - if user_signed_in?
-          = link_to 'ストック一覧', user_stocks_path(current_user.id), class: 'nav-link'
-      li.nav-item
-        -if user_signed_in?
-          = link_to '投稿', user_posts_path(current_user.id), class: 'nav-link'
