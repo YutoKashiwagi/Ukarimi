@@ -4,7 +4,7 @@
       .user_border
         .text-center
           p.font-weight-bold #{@user.name}
-          = image_tag @user.profile_image.thumb, size: '200x200', class: 'rounded-circle'
+          = image_tag @user.profile_image.url, size: '200x200', class: 'rounded-circle'
           - if user_signed_in? && current_user == @user
             = link_to edit_user_registration_path do
               p.my-3
