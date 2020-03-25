@@ -14,7 +14,7 @@ RSpec.describe "Questions", type: :system do
     it '正常に投稿が出来ること' do
       fill_in 'question[title]', with: 'title'
       fill_in 'question[content]', with: 'content'
-      expect { click_on '投稿する' }.to change { taro.questions.count }.by(1)
+      expect { click_button '質問' }.to change { taro.questions.count }.by(1)
     end
 
     describe 'カテゴリー' do
@@ -29,12 +29,12 @@ RSpec.describe "Questions", type: :system do
       end
 
       example 'タグを付けて質問できること' do
-        click_on '投稿する'
+        click_button '質問'
         expect(page).to have_content category.name
       end
 
       example '選択していないタグがついていないこと' do
-        click_on '投稿する'
+        click_button '質問'
         expect(page).not_to have_content other_category.name
       end
     end
@@ -42,13 +42,13 @@ RSpec.describe "Questions", type: :system do
     it 'titleが空白の場合、失敗すること' do
       fill_in 'question[title]', with: ''
       fill_in 'question[content]', with: 'content'
-      expect { click_on '投稿する' }.to change { taro.questions.count }.by(0)
+      expect { click_button '質問' }.to change { taro.questions.count }.by(0)
     end
 
     it 'contentが空白の場合、失敗すること' do
       fill_in 'question[title]', with: 'title'
       fill_in 'question[content]', with: ''
-      expect { click_on '投稿する' }.to change { taro.questions.count }.by(0)
+      expect { click_button '質問' }.to change { taro.questions.count }.by(0)
     end
   end
 
