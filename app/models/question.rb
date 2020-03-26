@@ -54,4 +54,8 @@ class Question < ApplicationRecord
     end
     notification.save if notification.valid?
   end
+
+  def self.all_includes
+    includes(:best_answer, :user, :tag_relationships, :categories)
+  end
 end
