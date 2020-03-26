@@ -7,14 +7,17 @@ div class="text-center post_#{post.id}"
       .col-2
         = distance_of_time_in_words_to_now(post.created_at)
       .col-4
+        = link_to icon('fas', 'arrow-right'), post_path(post.id), class: 'mr-4'
         = link_to icon('fas', 'edit'), edit_post_path(post.id), class: 'edit_post mr-4'
         = link_to icon('fas', 'trash'), post_path(post.id), method: :delete, class: 'delete_post'
   - else
     .row
-      .col-10
+      .col-9
         = link_to post.user.name, user_path(post.user.id)
       .col-2
         = distance_of_time_in_words_to_now(post.created_at)
+      .col-1
+        = link_to icon('fas', 'arrow-right'), post_path(post.id), class: 'mr-4'
   hr
   .mt-3.mb-3
     p #{post.content}
