@@ -4,8 +4,7 @@ class QuestionsController < ApplicationController
   before_action :set_question, only: [:edit, :update, :destroy]
 
   def index
-    @questions = Question.all.recent.page(params[:page]).per(10)
-    @question = current_user.questions.new if current_user
+    @questions = Question.all_includes.recent.page(params[:page]).per(10)
   end
 
   def show

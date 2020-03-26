@@ -8,7 +8,7 @@ class SearchesController < ApplicationController
   private
 
   def set_search
-    @search_questions = Question.ransack(params[:q])
+    @search_questions = Question.all_includes.ransack(params[:q])
     @searched_questions = @search_questions.result(distinct: true).recent.page(params[:page]).per(10)
   end
 end
