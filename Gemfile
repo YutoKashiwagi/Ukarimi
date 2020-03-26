@@ -55,6 +55,7 @@ group :development do
   gem 'spring-watcher-listen', '2.0.1'
   gem 'web-console',           '3.5.1'
   gem 'guard-rspec', require: false
+  gem 'bullet'
   # debug
   gem "better_errors"
   gem "binding_of_caller"

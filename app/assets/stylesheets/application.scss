@@ -35,15 +35,7 @@
   color: #bf9224;
 }
 
-.fa-edit {
-  @include fontawesome();
-}
-
-.fa-trash {
-  @include fontawesome();
-}
-
-.fa-paper-plane {
+.fa-edit .fa-trash .fa-paper-plane .fa-arrow-right {
   @include fontawesome();
 }
 

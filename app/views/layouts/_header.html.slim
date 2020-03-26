@@ -9,10 +9,6 @@ nav.navbar.navbar-expand-lg.navbar-light
       li.nav-item
         = link_to icon('fas', 'crown') + 'ランキング', rankings_path, class: 'nav-link'
       li.nav-item
-        = link_to icon('fas', 'sign-in-alt') + 'ログイン', new_user_session_path, class: 'nav-link'
-      li.nav-item
-        = link_to icon('fas', 'user-plus') + '登録', new_user_registration_path, class: 'nav-link'
-      li.nav-item
         = link_to '質問一覧', questions_path, class: 'nav-link'
       li.nav-item
         = link_to 'カテゴリー', category_categories_path, class: 'nav-link'
@@ -21,6 +17,11 @@ nav.navbar.navbar-expand-lg.navbar-light
             = link_to '質問する', new_question_path, class: 'nav-link'
         li.nav-item
             = link_to '投稿する', user_posts_path(current_user.id), class: 'nav-link'
+      - else
+        li.nav-item
+          = link_to icon('fas', 'sign-in-alt') + 'ログイン', new_user_session_path, class: 'nav-link'
+        li.nav-item
+          = link_to icon('fas', 'user-plus') + '登録', new_user_registration_path, class: 'nav-link'
   
   / 通知、ドロップダウンメニュー
   - if user_signed_in?

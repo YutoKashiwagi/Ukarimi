@@ -4,7 +4,7 @@ class PostsController < ApplicationController
   before_action :set_post, only: [:edit, :update, :destroy]
 
   def index
-    @posts = @user.posts.recent.page(params[:page]).per(10)
+    @posts = @user.posts.includes(:tag_relationships, :categories, :likes).recent.page(params[:page]).per(10)
   end
 
   def show
