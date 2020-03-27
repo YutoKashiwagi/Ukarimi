@@ -42,6 +42,7 @@ class Question < ApplicationRecord
     end
   end
 
+  # 通知周り
   def create_notification_best_answer(answer)
     notification = user.active_notifications.new(
       answer: answer,
@@ -55,7 +56,21 @@ class Question < ApplicationRecord
     notification.save if notification.valid?
   end
 
+  # N+1対策用
   def self.all_includes
     includes(:best_answer, :user, :tag_relationships, :categories)
+  end
+
+  # 関連質問
+  def related_questions
+    related_questions = []
+    related_categories = TagRelationship.includes(:category).
+      where("taggable_type = ? and taggable_id = ?", 'Question', id).map(&:category)
+    related_categories.each do |category|
+      category.questions.all_includes.each do |question|
+        related_questions << question unless question == self
+      end
+    end
+    related_questions.uniq.sample(4)
   end
 end
