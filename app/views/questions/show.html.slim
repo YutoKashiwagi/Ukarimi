@@ -49,3 +49,11 @@
 
 /回答表示
 = render partial: 'answers/index', collection: @answers, as: :answer, locals: { question: @question }
+
+/ 関連する質問
+.question_index_container
+  h2.text-center.my-3 関連する質問
+  - if @related_questions.present?
+    = render partial: 'shared/question_index', collection: @related_questions, as: :question
+  - else
+    p.font-weight-bold.text-center 関連する質問はありません
