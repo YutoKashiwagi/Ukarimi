@@ -27,7 +27,7 @@ nav.navbar.navbar-expand-lg.navbar-light
   - if user_signed_in?
     ul.navbar-nav.mr-auto
       li.nav-item
-        = link_to icon('fas', 'bell'), notifications_path, class: (current_user.has_notifications? ? 'nav-link text-danger' : 'nav-link')
+        = link_to icon('fas', 'bell'), notifications_path, class: (current_user.has_new_notifications? ? 'nav-link text-danger' : 'nav-link')
       li.nav-item.dropdown
         a#navbarDropdown.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
           | #{image_tag(current_user.profile_image.url, size: '30x30', class: 'rounded-circle')}
