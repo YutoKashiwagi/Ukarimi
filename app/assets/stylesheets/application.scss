@@ -209,5 +209,11 @@ body {
 // タブ部分
 
 .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
-  background-color: #f3f3f6;
+  background-color: #e8f0fe;
+}
+
+// 新着通知の背景色
+
+.new_notification {
+  background-color: #e8f0fe;
 }
