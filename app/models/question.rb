@@ -64,7 +64,8 @@ class Question < ApplicationRecord
   # 関連質問
   def related_questions
     related_questions = []
-    related_categories = TagRelationship.includes(:category).where("taggable_type = ? and taggable_id = ?", 'Question', id).map(&:category)
+    related_categories = TagRelationship.includes(:category).
+      where("taggable_type = ? and taggable_id = ?", 'Question', id).map(&:category)
     related_categories.each do |category|
       category.questions.all_includes.each do |question|
         related_questions << question unless question == self
