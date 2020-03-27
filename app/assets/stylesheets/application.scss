@@ -205,3 +205,9 @@ body {
 .rank_text {
   font-size: 30px;
 }
+
+// タブ部分
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+  background-color: #f3f3f6;
+}
