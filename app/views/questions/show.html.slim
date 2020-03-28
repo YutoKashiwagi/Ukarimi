@@ -37,11 +37,11 @@
     = render partial: 'comments/index', locals: { comments: @question.comments }
     / コメント、回答入力フォーム
     - if user_signed_in?
-      button data-toggle='collapse' data-target='#collapse_comment' aria-expanded='false' aria-controls='collapse_comment' 
+      button data-toggle='collapse' data-target='#collapse_comment_question' aria-expanded='false' aria-controls='collapse_comment' 
         p.bold_texts #{icon('far', 'comment')}コメントを投稿
       button.ml-5 data-toggle='collapse' data-target='#collapse_answer' aria-expanded='false' aria-controls='collapse_answer'
         p.bold_texts #{icon('far', 'paper-plane')} 回答
-      .collapse#collapse_comment
+      .collapse#collapse_comment_question
         hr
         = render partial: 'comments/form', locals: { commentable: @question, comment: current_user.comments.build }
       .collapse#collapse_answer
