@@ -4,6 +4,6 @@
       = render 'shared/error_messages', model: f.object
       = f.hidden_field :question_id, value: question.id
       .form-group
-        = f.text_area :content
+        = f.text_area :content, placeholder: '回答を入力(1000文字以内)', class: 'large_text_area'
       .form-group
         = f.submit '回答する', class: 'btn btn-primary'
