@@ -18,13 +18,18 @@ div class="text-center post_#{post.id}"
         = distance_of_time_in_words_to_now(post.created_at)
       .col-1
         = link_to icon('fas', 'arrow-right'), post_path(post.id), class: 'mr-4'
+
+  / 内容表示部分
   hr
-  .mt-3.mb-3
-    p #{post.content}
+  = render partial: 'shared/content', locals: { content: post.content }
   hr
   .row
+
+    / カテゴリー表示部分
     .col-8
       = render partial: 'category/tag', locals: { taggable: post }
+    
+    / コメント、いいね表示部分
     .col-4
       .row
         = icon('far', 'comment')

@@ -27,8 +27,7 @@
       br
     hr
     / 本文
-    .mt-5.mb-5
-      p #{@question.content}
+    = render partial: 'shared/content', locals: { content: @question.content }
     /カテゴリー表示
     = render partial: 'category/tag', locals: { taggable: @question }
     br

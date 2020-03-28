@@ -20,8 +20,7 @@
 
     / 回答本文
     hr
-    .mt-5.mb-5
-      p= answer.content
+    = render partial: 'shared/content', locals: { content: answer.content }
 
     / ベストアンサーボタン
     - if current_user == answer.question.user && !answer.question.has_best_answer?
