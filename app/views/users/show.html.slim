@@ -15,12 +15,15 @@
               = render partial: 'shared/follow_button', locals: { user: @user }
           p 質問数 #{@user.questions.count}
           p 回答数 #{@user.answers.count}
-          .row
-            .col-6
-              = link_to "#{@user.followees.count}フォロー", user_followees_path(@user.id)
-            .col-6
-              = link_to "#{@user.followers.count}フォロワー", user_followers_path(@user.id), class: "followers_count_#{@user.id}"
-          p.font-weight-bold フォロー中のタグ
+          .container.my-2
+            .row
+              .col-6
+                = link_to "#{@user.followees.count}フォロー", user_followees_path(@user.id)
+              .col-6
+                = link_to "#{@user.followers.count}フォロワー", user_followers_path(@user.id), class: "followers_count_#{@user.id}"
+          p.font-weight-bold フォロー中のカテゴリー
+          - if @user.categories.blank?
+            p フォロー中のカテゴリーはありません
           = render partial: 'category/tag', locals: { taggable: @user }
     .col-8
       / タブのリンク部分
