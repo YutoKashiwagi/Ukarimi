@@ -2,17 +2,17 @@
   / タイトル
   .mb-5.text-center
     h1 #{@question.title}
-  .row
-    .col-6
-      / 高評価
-      = render partial: 'likes/form', locals: { likable: @question }
-      /ストックボタン
-      = render partial: 'stocks/form', locals: { question: @question }
-    .col-6
-      = distance_of_time_in_words_to_now(@question.created_at)
   .container.text-center
+    br
+    .container
+      .row
+        .row.mr-2
+          = render partial: 'likes/form', locals: { likable: @question }
+        / ストックボタン
+        = render partial: 'stocks/form', locals: { question: @question }
+    hr
     .row
-      .col-6
+      .col-4
         = render partial: 'users/user_image_link', locals: { user: @question.user }
         = link_to @question.user.name, user_path(@question.user.id)
       .col-2
@@ -20,6 +20,8 @@
           p.text-success 解決済み
         - else
           p 未解決
+      .col-2
+        = distance_of_time_in_words_to_now(@question.created_at)
       .col-4
         -if current_user == @question.user
           = link_to icon('fas', 'edit'), edit_question_path(@question.id), class: "edit-q-#{@question.id} mr-4"
@@ -31,6 +33,8 @@
     /カテゴリー表示
     = render partial: 'category/tag', locals: { taggable: @question }
     br
+    /質問のコメント表示
+    = render partial: 'comments/index', locals: { comments: @question.comments }
     / コメント、回答入力フォーム
     - if user_signed_in?
       button data-toggle='collapse' data-target='#collapse_comment' aria-expanded='false' aria-controls='collapse_comment' 
@@ -43,8 +47,6 @@
       .collapse#collapse_answer
         hr
         = render partial: 'answers/submit_form', locals: { question: @question }
-    /質問のコメント表示
-    = render partial: 'comments/index', locals: { comments: @question.comments }
 
 /回答表示
 = render partial: 'answers/index', collection: @answers, as: :answer, locals: { question: @question }
