@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Questions", type: :system do
-  let(:taro) { create(:user, name: 'taro') }
-  let(:jiro) { create(:user, name: 'jiro') }
+  let!(:taro) { create(:user, name: 'taro') }
+  let!(:jiro) { create(:user, name: 'jiro') }
   let!(:taro_q) { create(:question, user: taro) }
 
   describe '質問の投稿' do
@@ -54,9 +54,6 @@ RSpec.describe "Questions", type: :system do
 
   describe '質問の削除' do
     # 質問者 = 'taro'
-    let(:taro) { create(:user, name: 'taro') }
-    let(:jiro) { create(:user, name: 'jiro') }
-    let!(:taro_q) { create(:question, user: taro) }
 
     it '質問者は質問を削除できること' do
       login_as taro, scope: :user
