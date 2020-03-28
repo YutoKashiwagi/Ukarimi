@@ -2,6 +2,6 @@
   = form_with model: [commentable, comment] do |f|
     = f.hidden_field :user_id, value: current_user.id
     .form-group
-      = f.text_area :content, placeholder: 'コメントを入力', class: "comment_form_#{commentable.id}"
+      = f.text_area :content, placeholder: 'コメントを入力(1000文字以内)', class: "comment_form_#{commentable.id} large_text_area"
     .form-group
       = f.submit 'コメントする', class: 'btn btn-primary'

@@ -149,6 +149,33 @@ button {
   @include basic_container()
 }
 
+@mixin large_form($height) {
+  height: $height;
+  width: 400px;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  border: solid 2px #e8f0fe;
+  border-radius: 5px;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+textarea.large_text_area {
+  @include large_form(200px)
+}
+
+input.large_text_field {
+  @include large_form(50px)
+}
+
+.category_container {
+  margin: auto;
+  width: 400px;
+}
+
 /* Sticky footer styles
 -------------------------------------------------- */
 html {
@@ -204,4 +231,22 @@ body {
 
 .rank_text {
   font-size: 30px;
+}
+
+// タブ部分
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+  background-color: #e8f0fe;
+}
+
+// 新着通知の背景色
+
+.new_notification {
+  background-color: #e8f0fe;
+}
+
+.content_container {
+  margin: auto;
+  width: 350px;
+  text-align: left;
 }

@@ -166,18 +166,18 @@ RSpec.describe User, type: :model do
       end
     end
 
-    describe 'has_notifications?' do
+    describe 'has_new_notifications?' do
       context '未読の通知がある時' do
         before { user.passive_notifications.create(visitor: other_user, action: 'follow',) }
 
         example 'trueを返すこと' do
-          expect(user.has_notifications?).to eq true
+          expect(user.has_new_notifications?).to eq true
         end
       end
 
       context '未読の通知がない場合' do
         example 'falseを返すこと' do
-          expect(user.has_notifications?).to eq false
+          expect(user.has_new_notifications?).to eq false
         end
       end
     end

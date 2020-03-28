@@ -15,22 +15,25 @@
               = render partial: 'shared/follow_button', locals: { user: @user }
           p 質問数 #{@user.questions.count}
           p 回答数 #{@user.answers.count}
-          .row
-            .col-6
-              = link_to "#{@user.followees.count}フォロー", user_followees_path(@user.id)
-            .col-6
-              = link_to "#{@user.followers.count}フォロワー", user_followers_path(@user.id), class: "followers_count_#{@user.id}"
-          p.font-weight-bold フォロー中のタグ
+          .container.my-2
+            .row
+              .col-6
+                = link_to "#{@user.followees.count}フォロー", user_followees_path(@user.id)
+              .col-6
+                = link_to "#{@user.followers.count}フォロワー", user_followers_path(@user.id), class: "followers_count_#{@user.id}"
+          p.font-weight-bold フォロー中のカテゴリー
+          - if @user.categories.blank?
+            p フォロー中のカテゴリーはありません
           = render partial: 'category/tag', locals: { taggable: @user }
     .col-8
       / タブのリンク部分
       ul.nav.nav-tabs.justify-content-center
         li.nav-item
-          a.nav-link.text-muted.active data-toggle="tab" href="#user_questions" 質問
+          a.nav-link.bold_texts.active data-toggle="tab" href="#user_questions" 質問
         li.nav-item
-          a.nav-link.text-muted data-toggle="tab" href="#user_answers" 回答した質問
+          a.nav-link.bold_texts data-toggle="tab" href="#user_answers" 回答した質問
         li.nav-item
-          a.nav-link.text-muted data-toggle="tab" href="#user_posts" 投稿
+          a.nav-link.bold_texts data-toggle="tab" href="#user_posts" 投稿
       / タブの表示部分
       .tab-content.text-center
         #user_questions.tab-pane.active

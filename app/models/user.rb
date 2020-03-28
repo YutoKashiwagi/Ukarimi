@@ -122,7 +122,7 @@ class User < ApplicationRecord
     end
   end
 
-  def has_notifications?
+  def has_new_notifications?
     passive_notifications.where(checked: false).present?
   end
 

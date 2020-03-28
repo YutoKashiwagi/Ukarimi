@@ -4,8 +4,10 @@
     p.text-danger.text-center.mb-3
       | #{icon('fas', 'check')}
       | ベストアンサー！
-  / 高評価
-  = render partial: 'likes/form', locals: { likable: answer }
+  .container
+    .row
+      / いいね
+      = render partial: 'likes/form', locals: { likable: answer }
   .text-center
       
     / 回答部分
@@ -20,8 +22,7 @@
 
     / 回答本文
     hr
-    .mt-5.mb-5
-      p= answer.content
+    = render partial: 'shared/content', locals: { content: answer.content }
 
     / ベストアンサーボタン
     - if current_user == answer.question.user && !answer.question.has_best_answer?
