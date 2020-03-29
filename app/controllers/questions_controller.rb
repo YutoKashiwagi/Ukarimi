@@ -11,7 +11,7 @@ class QuestionsController < ApplicationController
     @question = Question.find(params[:id])
     @related_questions = @question.related_questions
     @user = @question.user
-    @answers = @question.answers.all
+    @answers = @question.answers.includes(:user, :likes, :comments)
   end
 
   def new
@@ -24,7 +24,8 @@ class QuestionsController < ApplicationController
     if @question.save
       redirect_to question_path(@question.id), flash: { success: '投稿しました' }
     else
-      redirect_to questions_path, flash: { danger: '投稿に失敗しました' }
+      flash.now[:danger] = '投稿に失敗しました'
+      render action: :new
     end
   end
 
