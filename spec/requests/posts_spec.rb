@@ -9,7 +9,7 @@ RSpec.describe "Posts", type: :request do
   let(:tweet_params) { { content: 'content', category_ids: [] } }
 
   describe 'index' do
-    before { get user_posts_path(user.id) }
+    before { get posts_path }
 
     example '200レスポンスを返すこと' do
       expect(response).to have_http_status(200)
@@ -26,29 +26,17 @@ RSpec.describe "Posts", type: :request do
 
   describe 'create' do
     context 'ログインしている時' do
-      context '本人の場合' do
-        before { sign_in user }
+      before { sign_in user }
 
-        example '正常に作成できること' do
-          expect do
-            post user_posts_path(user.id), params: { post: tweet_params }
-          end.to change { user.posts.count }.by(1)
-        end
-      end
-
-      context '本人でない場合' do
-        before { sign_in other_user }
-
-        example 'エラーが発生すること' do
-          expect do
-            post user_posts_path(user.id), params: { post: tweet_params }
-          end.to raise_error NoMethodError
-        end
+      example '正常に作成できること' do
+        expect do
+          post posts_path, params: { post: tweet_params }
+        end.to change { user.posts.count }.by(1)
       end
     end
 
     context 'ログインしていない場合' do
-      before { post user_posts_path(user.id), params: { post: tweet_params } }
+      before { post posts_path, params: { post: tweet_params } }
 
       example 'サインイン画面へリダイレクトされること' do
         expect(response).to redirect_to new_user_session_path
@@ -98,7 +86,7 @@ RSpec.describe "Posts", type: :request do
         end
 
         example '投稿一覧ページへリダイレクトされること' do
-          expect(response).to redirect_to user_posts_path(user.id)
+          expect(response).to redirect_to posts_path
         end
       end
 
