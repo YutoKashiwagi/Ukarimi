@@ -1,4 +1,4 @@
-= render partial: 'questions/form'
+= render partial: 'questions/form', locals: { question: @question }
 - unless user_signed_in?
   .text_center
     = link_to 'ログイン', new_user_session_path
