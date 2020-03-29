@@ -10,7 +10,7 @@ Rails.application.routes.draw do
     resources :followees, only: [:index, :create, :destroy]
     resources :followers, only: [:index]
   end
-  
+
   resources :posts do
     resources :comments, only: [:create, :destroy], module: :posts
     resources :likes, only: [:create, :destroy], module: :posts
