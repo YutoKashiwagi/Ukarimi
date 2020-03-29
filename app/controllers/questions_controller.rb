@@ -42,7 +42,8 @@ class QuestionsController < ApplicationController
       @question.set_taggable
       redirect_to question_path(@question.id), flash: { success: '質問を編集しました' }
     else
-      redirect_to edit_question_path(@question.id), flash: { danger: '編集に失敗しました' }
+      flash.now[:danger] = '編集に失敗しました'
+      render action: :edit
     end
   end
 
