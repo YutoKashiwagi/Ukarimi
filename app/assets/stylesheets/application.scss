@@ -250,3 +250,9 @@ body {
   width: 350px;
   text-align: left;
 }
+
+// エラーメッセージ部分のスタイリング
+
+.alert > ul {
+  list-style: none;
+}

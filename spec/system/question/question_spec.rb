@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe "Questions", type: :system do
-  let(:taro) { create(:user, name: 'taro') }
-  let(:jiro) { create(:user, name: 'jiro') }
+  let!(:taro) { create(:user, name: 'taro') }
+  let!(:jiro) { create(:user, name: 'jiro') }
   let!(:taro_q) { create(:question, user: taro) }
 
   describe '質問の投稿' do
@@ -39,24 +39,51 @@ RSpec.describe "Questions", type: :system do
       end
     end
 
-    it 'titleが空白の場合、失敗すること' do
-      fill_in 'question[title]', with: ''
-      fill_in 'question[content]', with: 'content'
-      expect { click_button '質問' }.to change { taro.questions.count }.by(0)
-    end
+    describe '異常値' do
+      describe 'title' do
+        context '空白の場合' do
+          example '失敗し、エラーメッセージが表示されること' do
+            fill_in 'question[title]', with: ''
+            fill_in 'question[content]', with: 'content'
+            expect { click_button '質問' }.to change { taro.questions.count }.by(0)
+            expect(page).to have_content "タイトルを入力してください"
+          end
+        end
 
-    it 'contentが空白の場合、失敗すること' do
-      fill_in 'question[title]', with: 'title'
-      fill_in 'question[content]', with: ''
-      expect { click_button '質問' }.to change { taro.questions.count }.by(0)
+        context '文字数オーバーの場合' do
+          example '失敗し、エラーメッセージが表示されること' do
+            fill_in 'question[title]', with: 'a' * 51
+            fill_in 'question[content]', with: 'content'
+            expect { click_button '質問' }.to change { taro.questions.count }.by(0)
+            expect(page).to have_content "タイトルは50文字以内で入力してください"
+          end
+        end
+      end
+
+      describe 'content' do
+        context '空白の場合' do
+          example '失敗し、エラーメッセージが表示されること' do
+            fill_in 'question[title]', with: 'title'
+            fill_in 'question[content]', with: ''
+            expect { click_button '質問' }.to change { taro.questions.count }.by(0)
+            expect(page).to have_content "内容を入力してください"
+          end
+        end
+
+        context '文字数オーバーの場合' do
+          example '失敗し、エラーメッセージが表示されること' do
+            fill_in 'question[title]', with: 'title'
+            fill_in 'question[content]', with: 'a' * 1001
+            expect { click_button '質問' }.to change { taro.questions.count }.by(0)
+            expect(page).to have_content "内容は1000文字以内で入力してください"
+          end
+        end
+      end
     end
   end
 
   describe '質問の削除' do
     # 質問者 = 'taro'
-    let(:taro) { create(:user, name: 'taro') }
-    let(:jiro) { create(:user, name: 'jiro') }
-    let!(:taro_q) { create(:question, user: taro) }
 
     it '質問者は質問を削除できること' do
       login_as taro, scope: :user
