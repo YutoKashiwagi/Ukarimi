@@ -40,6 +40,8 @@ gem 'kaminari'
 gem 'rack-mini-profiler', require: false
 # data: { confirm: }のダイアログをbootstrapを使ってカスタマイズするジェム
 gem 'data-confirm-modal'
+# enum日本語化用
+gem 'enum_help'
 
 group :development, :test do
   gem 'byebug', '9.0.6', platform: :mri
