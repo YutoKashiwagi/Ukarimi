@@ -1,7 +1,16 @@
 ---
   ja:
+    enums:
+      user:
+        bunri:
+          undecided: '文理未定'
+          bunkei: '文系'
+          rikei: '理系'
     activerecord:
       attributes:
+        user:
+          name: 'お名前'
+          profile: 'プロフィール'
         question:
           title: 'タイトル'
           content: '内容'
