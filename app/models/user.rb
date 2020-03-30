@@ -41,6 +41,7 @@ class User < ApplicationRecord
   # バリデーション
   validates :name, presence: true, length: { maximum: 20 }
   validates :profile, length: { maximum: 400 }
+  validates :email, length: { maximum: 256 }
 
   # ストック周り
   def stock(question)
