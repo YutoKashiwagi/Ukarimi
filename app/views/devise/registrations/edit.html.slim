@@ -6,6 +6,21 @@
       = f.label :email
       = f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control'
     .form-group
+      = f.label :name
+      = f.text_field :name, class: 'form-control'
+    .form-group
+      = f.label :profile
+      = f.text_area :profile, placeholder: '400文字以内', class: 'form-control'
+    .form-group
+      = f.label :bunri, '文系、理系選択'
+      br
+      .container.my-2
+        .row
+          - User.bunris_i18n.each do |key, value|
+            .col-4
+              = f.radio_button :bunri, key
+              = f.label value, class: 'ml-2'
+    .form-group
       = f.label :password
       = f.password_field :password, autocomplete: 'new-password', class: 'form-control'
       small.form-text.text-muted

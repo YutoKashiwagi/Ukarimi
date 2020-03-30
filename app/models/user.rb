@@ -7,6 +7,12 @@ class User < ApplicationRecord
   # mount_uploader
   mount_uploader :profile_image, ProfileImageUploader
 
+  enum bunri: {
+    undecided: 0,
+    bunkei: 1,
+    rikei: 2
+  }
+
   has_many :posts, dependent: :destroy
   has_many :questions, dependent: :destroy
   has_many :answers, dependent: :destroy
@@ -33,9 +39,8 @@ class User < ApplicationRecord
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
   # バリデーション
-  validates :name,
-            presence: true,
-            length: { maximum: 20 }
+  validates :name, presence: true, length: { maximum: 20 }
+  validates :profile, length: { maximum: 400 }
 
   # ストック周り
   def stock(question)
