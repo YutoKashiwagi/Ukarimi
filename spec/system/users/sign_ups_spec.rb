@@ -78,7 +78,7 @@ RSpec.describe "SignUps", type: :system do
           expect(page).to have_content 'パスワードは30文字以内で入力してください'
         end
       end
-      
+
       context '文字数が少ない場合' do
         example '失敗し、エラーメッセージが表示されること' do
           fill_in 'パスワード', with: 'a' * 5

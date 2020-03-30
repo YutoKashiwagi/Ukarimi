@@ -10,7 +10,7 @@ class User < ApplicationRecord
   enum bunri: {
     undecided: 0,
     bunkei: 1,
-    rikei: 2
+    rikei: 2,
   }
 
   has_many :posts, dependent: :destroy
