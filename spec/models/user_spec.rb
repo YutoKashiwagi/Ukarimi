@@ -41,6 +41,14 @@ RSpec.describe User, type: :model do
         is_expected.to include("は6文字以上で入力してください")
       end
     end
+
+    context 'profile' do
+      example 'length: { maximum: 400 }' do
+        user.profile = 'a' * 401
+        user.valid?
+        expect(user.errors[:profile]).to include("は400文字以内で入力してください")
+      end
+    end
   end
 
   describe 'ストック関連' do
