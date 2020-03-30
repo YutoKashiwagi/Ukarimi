@@ -9,6 +9,10 @@ Bundler.require(*Rails.groups)
 module QuestionBox
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
+
+    # sqlite3用の設定
+    config.active_record.sqlite3.represent_boolean_as_integer = true
+
     config.load_defaults 5.1
 
     config.time_zone = 'Tokyo'
