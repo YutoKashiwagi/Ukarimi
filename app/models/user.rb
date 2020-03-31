@@ -7,6 +7,12 @@ class User < ApplicationRecord
   # mount_uploader
   mount_uploader :profile_image, ProfileImageUploader
 
+  enum role: {
+    normal: 0,
+    admin: 1,
+    guest: 2,
+  }
+
   enum bunri: {
     undecided: 0,
     bunkei: 1,
@@ -151,8 +157,9 @@ class User < ApplicationRecord
 
   # ゲストユーザー周り
   def self.guest
-    find_or_create_by!(email: 'guest@example.com', name: 'ゲストユーザー') do |user|
+    find_by(email: 'guest@guest.com') || find_or_create_by(name: 'ゲスト', role: :guest) do |user|
       user.password = SecureRandom.urlsafe_base64
+      user.email = "guest_#{Time.now.to_i}#{rand(100)}@example.com"
     end
   end
 end
