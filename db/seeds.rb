@@ -2,6 +2,13 @@ require 'faker'
 
 Faker::Config.locale = :ja
 
+guest = User.create(
+  name: 'ゲスト',
+  email: 'guest@guest.com',
+  password: 'password',
+  role: :guest
+)
+
 hoge = User.create(
   name: "hogehoge",
   email: "hogehoge@hogehoge.com",
