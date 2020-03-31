@@ -354,8 +354,18 @@ RSpec.describe User, type: :model do
 
   describe 'ゲストユーザー機能' do
     describe 'User.guest' do
-      example 'ゲストユーザーを返すこと' do
-        expect(User.guest).to eq User.find_by(email: 'guest@example.com')
+      context 'seeds.rbで定義したゲストユーザーが削除されてない場合' do
+        let!(:guest) { create(:user, email: 'guest@guest.com', role: :guest) }
+
+        example 'ゲストユーザーを返すこと' do
+          expect(User.guest).to eq guest
+        end
+      end
+
+      context 'ゲストユーザーが削除されている時' do
+        example 'ゲストユーザーを返すこと' do
+          expect(User.guest.guest?).to eq true
+        end
       end
     end
   end
