@@ -351,4 +351,12 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe 'ゲストユーザー機能' do
+    describe 'User.guest' do
+      example 'ゲストユーザーを返すこと' do
+        expect(User.guest).to eq User.find_by(email: 'guest@example.com')
+      end
+    end
+  end
 end
