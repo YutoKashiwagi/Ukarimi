@@ -148,4 +148,11 @@ class User < ApplicationRecord
   def self.create_ranking(obj)
     User.find(obj.group(:user_id).order('count(user_id) desc').limit(10).pluck(:user_id))
   end
+
+  # ゲストユーザー周り
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com', name: 'ゲストユーザー') do |user|
+      user.password = SecureRandom.urlsafe_base64
+    end
+  end
 end
