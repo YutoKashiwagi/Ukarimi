@@ -5,5 +5,6 @@ FactoryBot.define do
     password { 'password' }
     profile { nil }
     bunri { 0 }
+    role { 0 }
   end
 end
