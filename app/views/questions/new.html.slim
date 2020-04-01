@@ -1,6 +1,2 @@
+- provide(:title, '質問')
 = render partial: 'questions/form', locals: { question: @question }
-- unless user_signed_in?
-  .text_center
-    = link_to 'ログイン', new_user_session_path
-    br
-    = link_to '登録', new_user_registration_path

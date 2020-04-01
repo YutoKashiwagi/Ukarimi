@@ -1,3 +1,4 @@
+- provide(:title, "#{@post.user.name}さんの投稿")
 = render partial: 'posts/post', locals: { post: @post }
 .text-center
   = render partial: 'comments/index', locals: { comments: @post.comments }
