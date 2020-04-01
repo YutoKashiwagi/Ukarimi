@@ -256,3 +256,35 @@ body {
 .alert > ul {
   list-style: none;
 }
+
+// LP
+.lp_photo {
+  background-size: cover;
+  width: 100%;
+  height: 700px;
+  opacity: 0.6;
+}
+.lp_container {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  margin: auto;
+  width: 64%;
+  height: 400px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .lp_item {
+    width: 50%;
+    p {
+      font-size: 1.5rem;
+      color: midnightblue;
+    }
+    h2 {
+      color: midnightblue;
+    }
+    hr {
+      border-top: 3px solid lightgreen;
+    }
+  }
+}
