@@ -215,6 +215,12 @@ body {
   color: white;
 }
 
+// カテゴリーページのスタイリング
+
+.category_index_container {
+  @include basic_container();
+}
+
 //  通知ページのスタイリング
 
 .notification_container {

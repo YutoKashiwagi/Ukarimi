@@ -1,3 +1,4 @@
+- provide(:title, "#{@user.name}さんのプロフィール")
 .user_container
   .row
     .col-4
@@ -51,7 +52,10 @@
       .tab-content.text-center
         #user_questions.tab-pane.active
           = render partial: 'shared/question_index', collection: @questions, as: :question
+          = paginate @questions
         #user_answers.tab-pane
           = render partial: 'shared/question_index', collection: @answered_questions, as: :question
+          = paginate @answered_questions
         #user_posts.tab-pane
           = render partial: 'posts/post', collection: @posts
+          = paginate @posts

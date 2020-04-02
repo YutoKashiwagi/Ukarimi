@@ -1,5 +1,27 @@
-h1.text-center #{@category.name}
-
-p.text-center  質問数：#{@category.questions.count}
-
-= render partial: 'category/follow_button', locals: { category: @category }
+- provide(:title, "#{@category.name}")
+.text-center
+  h1.font-weight-bold #{@category.name}
+  p フォロワー数: #{@users.count}
+  p  質問数: #{@questions.count}
+  = render partial: 'category/follow_button', locals: { category: @category }
+ul.nav.nav-tabs.justify-content-center.my-4
+  li.nav-item
+    a.nav-link.bold_texts.active data-toggle="tab" href="#category_questions" #{@category.name}の質問
+  li.nav-item
+    a.nav-link.bold_texts data-toggle="tab" href="#category_posts" #{@category.name}の投稿
+  li.nav-item
+    a.nav-link.bold_texts data-toggle="tab" href="#category_users" #{@category.name}のフォロワー
+/ タブの表示部分
+.tab-content.text-center
+  #category_questions.tab-pane.active
+    .question_index_container
+      = render partial: 'shared/question_index', collection: @questions, as: :question
+    = paginate @questions
+  #category_posts.tab-pane
+    .post_container
+      = render partial: 'posts/post', collection: @posts
+    = paginate @posts
+  #category_users.tab-pane
+    .text-center
+      = render partial: 'shared/user', collection: @users
+    = paginate @users

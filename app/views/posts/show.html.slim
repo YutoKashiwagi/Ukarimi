@@ -1,6 +1,11 @@
-= render partial: 'posts/post', locals: { post: @post }
-.text-center
-  = render partial: 'comments/index', locals: { comments: @post.comments }
-  / コメント入力フォーム
-  - if user_signed_in?
-    = render partial: 'comments/form', locals: { commentable: @post, comment: current_user.comments.build }
+- provide(:title, "#{@post.user.name}さんの投稿")
+.post_container
+  = render partial: 'posts/post', locals: { post: @post }
+  .text-center
+    / コメント入力フォーム
+    - if user_signed_in?
+      button.my-4 data-toggle='collapse' data-target='#collapse_comment' aria-expanded='false' aria-controls='collapse_comment' 
+        p.bold_texts #{icon('far', 'comment')}コメントを投稿
+      .collapse#collapse_comment
+        = render partial: 'comments/form', locals: { commentable: @post, comment: current_user.comments.build }
+    = render partial: 'comments/index', locals: { comments: @post.comments }
