@@ -1,8 +1,10 @@
 - provide(:title, '編集')
 - if current_user == @answer.user
-  = form_with model: [@answer], method: :patch do |f|
-    = render 'shared/error_messages', model: f.object
-    .form-group
-      = f.text_area :content
-    .form-group
-      = f.submit '編集内容を送信', class: 'btn btn-primary'
+  .text-center
+    h1.font-weight-bold.my-4 回答を編集
+    = form_with model: @answer, method: :patch do |f|
+      = render 'shared/error_messages', model: f.object
+      .form-group
+        = f.text_area :content, placeholder: '回答を入力(1000文字以内)', class: 'large_text_area', required: true, maxlength: 1000
+      .form-group
+        = f.submit '編集内容を送信', class: 'btn btn-primary'
