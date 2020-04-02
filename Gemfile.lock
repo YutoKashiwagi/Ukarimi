@@ -279,6 +279,10 @@ GEM
     rb-inotify (0.10.1)
       ffi (~> 1.0)
     regexp_parser (1.7.0)
+    rename (1.0.6)
+      activesupport
+      rails (>= 3.0.0)
+      thor (>= 0.19.1)
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
@@ -446,6 +450,7 @@ DEPENDENCIES
   rack-mini-profiler
   rails (= 5.2.0)
   ransack
+  rename
   rspec-rails
   rspec_junit_formatter
   rubocop-airbnb

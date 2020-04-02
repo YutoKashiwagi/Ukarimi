@@ -42,6 +42,8 @@ gem 'rack-mini-profiler', require: false
 gem 'data-confirm-modal'
 # enum日本語化用
 gem 'enum_help'
+# Ukarimiからukarimiに改名するためのgem
+gem 'rename'
 
 group :development, :test do
   gem 'byebug', '9.0.6', platform: :mri
