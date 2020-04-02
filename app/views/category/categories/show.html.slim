@@ -1,4 +1,9 @@
 - provide(:title, "#{@category.name}")
-h1.text-center #{@category.name}
-p.text-center  質問数：#{@category.questions.count}
-= render partial: 'category/follow_button', locals: { category: @category }
+.text-center
+  h1.font-weight-bold #{@category.name}
+  p  質問数：#{@category.questions.count}
+  = render partial: 'category/follow_button', locals: { category: @category }
+  h2.font-weight-bold.my-5 #{@category.name}の質問一覧
+.question_index_container
+  = render partial: 'shared/question_index', collection: @questions, as: :question
+= paginate @questions
