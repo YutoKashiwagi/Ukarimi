@@ -1,5 +1,8 @@
 FROM ruby:2.6.3
-RUN apt-get update -qq && apt-get install -y build-essential nodejs imagemagick
+RUN apt-get update -qq && \
+    apt-get install -y build-essential \
+    nodejs \
+    imagemagick
 
 # system_specで使うchromeのインストール
 RUN sh -c 'wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add -' && \
