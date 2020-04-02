@@ -1,39 +1,37 @@
 div class="text-center post_#{post.id}"
-  - if current_user == post.user
-    .row
-      .col-6
-        = render partial: 'users/user_image_link', locals: { user: post.user }
-        = link_to post.user.name, user_path(post.user.id)
-      .col-2
-        = distance_of_time_in_words_to_now(post.created_at)
-      .col-4
-        = link_to icon('fas', 'arrow-right'), post_path(post.id), class: 'mr-4'
-        = link_to icon('fas', 'edit'), edit_post_path(post.id), class: 'edit_post mr-4'
-        = link_to icon('fas', 'trash'), post_path(post.id), method: :delete, class: 'delete_post'
-  - else
-    .row
-      .col-9
-        = link_to post.user.name, user_path(post.user.id)
-      .col-2
-        = distance_of_time_in_words_to_now(post.created_at)
-      .col-1
-        = link_to icon('fas', 'arrow-right'), post_path(post.id), class: 'mr-4'
-
-  / 内容表示部分
-  hr
-  = render partial: 'shared/content', locals: { content: post.content }
-  hr
-  .row
-
-    / カテゴリー表示部分
-    .col-8
-      = render partial: 'category/tag', locals: { taggable: post }
-    
-    / コメント、いいね表示部分
-    .col-4
+  .card
+    .card-header
+      - if current_user == post.user
+        .row
+          .col-6
+            = render partial: 'users/user_image_link', locals: { user: post.user }
+            = link_to post.user.name, user_path(post.user.id)
+          .col-2
+            = distance_of_time_in_words_to_now(post.created_at)
+          .col-4
+            = link_to icon('fas', 'arrow-right'), post_path(post.id), class: 'mr-4'
+            = link_to icon('fas', 'edit'), edit_post_path(post.id), class: 'edit_post mr-4'
+            = link_to icon('fas', 'trash'), post_path(post.id), method: :delete, class: 'delete_post'
+      - else
+        .row
+          .col-9
+            = link_to post.user.name, user_path(post.user.id)
+          .col-2
+            = distance_of_time_in_words_to_now(post.created_at)
+          .col-1
+            = link_to icon('fas', 'arrow-right'), post_path(post.id), class: 'mr-4'
+    .card-body
+      / 内容表示部分
+      = render partial: 'shared/content', locals: { content: post.content }
+    .card-footer
       .row
-        = icon('far', 'comment')
-        .object_counts.mr-4
-          = post.comments.count
-        = render partial: 'likes/form', locals: { likable: post }
-  hr
+        / カテゴリー表示部分
+        .col-8
+          = render partial: 'category/tag', locals: { taggable: post }
+        / コメント、いいね表示部分
+        .col-4
+          .row
+            = icon('far', 'comment')
+            .object_counts.mr-4
+              = post.comments.count
+            = render partial: 'likes/form', locals: { likable: post }
