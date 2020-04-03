@@ -1,6 +1,6 @@
-= render 'questions/form'
-h1 質問一覧
+- provide(:title, '質問一覧')
+h1.text-center.font-weight-bold.py-3 質問一覧
 hr
-- @questions.each do |q|
-  = link_to "#{q.title}", question_path(q.id)
-  hr
+.question_index_container
+  = render partial: 'shared/question_index', collection: @questions, as: :question
+  = paginate @questions

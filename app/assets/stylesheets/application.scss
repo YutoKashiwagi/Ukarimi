@@ -4,14 +4,108 @@
 @import 'font-awesome-sprockets';
 @import 'font-awesome';
 
-.question_container {
+@mixin fontawesome() {
+  width: 25px;
+  height: 30px;
+  font-size: 25px;
+}
+
+@mixin q_and_a_container($border_color) {
   width: 700px;
   padding: 0.5em 1em;
   margin: auto;
-  font-weight: bold;
-  background: #FFF;
-  border: solid 3px #6091d3;
+  border: solid 3px $border_color;
   border-radius: 10px;
+}
+
+@mixin basic_container() {
+  width: 880px;
+  margin: auto;
+}
+
+.gold {
+  color: gold;
+}
+
+.silver {
+  color: silver;
+}
+
+.copper {
+  color: #bf9224;
+}
+
+.fa-edit .fa-trash .fa-paper-plane .fa-arrow-right {
+  @include fontawesome();
+}
+
+.bold_texts {
+  font-size: 25px;
+  font-weight: bold;
+  color: gray;
+}
+
+header {
+  background-color: #232f3e;
+  .navbar-light .navbar-brand {
+    color: #fff;
+  }
+  .navbar-light .navbar-brand:hover {
+    color: lightgray;
+  }
+  .navbar .navbar-nav .nav-link {
+    color: #fff;
+  }
+  .navbar .navbar-nav .nav-link:hover {
+    color: lightgray;
+  }
+}
+
+main {
+  background-color: #f6f6f3;
+}
+
+// kaminariを中央寄せに
+.pagination {
+  justify-content: center;
+}
+
+// いいねボタンのスタイリング
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  appearance: none;
+}
+
+.like_btn {
+  @include fontawesome();
+}
+
+// コメント部分
+
+.fa-comment {
+  @include fontawesome();
+}
+
+// いいね、コメントなどの数を表示する部分
+.object_counts {
+  height: 30px;
+  margin-left: 10px;
+}
+
+// 投稿ページのスタイリング
+.post_container {
+  @include basic_container();
+}
+
+// 質問ページのスタイリング
+
+.question_container {
+  @include q_and_a_container(#6091d3)
 }
 
 .question_container p {
@@ -20,17 +114,66 @@
 }
 
 .answer_container {
-  width: 700px;
-  padding: 0.5em 1em;
-  margin: auto;
-  font-weight: bold;
-  background: #FFF;
-  border: solid 3px #ff9999;
-  border-radius: 10px;
+  @include q_and_a_container(#ff9999)
 }
+
 .answer_container p {
   margin: 0; 
   padding: 0;
+}
+
+// 質問一覧ページのスタイリング
+.question_index_container {
+  @include basic_container();
+}
+
+.question_each_container {
+  width: 880px;
+  height: 128px;
+}
+
+// ユーザーページのスタイリング
+
+.user_container {
+  width: 1200px;
+  margin: auto;
+}
+
+.user_border {
+  border: solid 2px #ababab;
+}
+
+// フォーム画面のスタイリング
+
+.form_container {
+  @include basic_container()
+}
+
+@mixin large_form($height) {
+  height: $height;
+  width: 400px;
+  margin: 0;
+  padding: 0;
+  background: #fff;
+  border: solid 2px #e8f0fe;
+  border-radius: 5px;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+textarea.large_text_area {
+  @include large_form(200px)
+}
+
+input.large_text_field {
+  @include large_form(50px)
+}
+
+.category_container {
+  margin: auto;
+  width: 400px;
 }
 
 /* Sticky footer styles
@@ -38,6 +181,7 @@
 html {
   position: relative;
   min-height: 100%;
+  background-color: #f6f6f3;
 }
 body {
   /* Margin bottom by footer height */
@@ -49,7 +193,8 @@ body {
   width: 100%;
   /* Set the fixed height of the footer here */
   height: 60px;
-  background-color: #f5f5f5;
+  background-color: #232f3e;
+  color: lightgray;
 }
  
 /* Custom page CSS
@@ -63,4 +208,89 @@ body {
 }
 .container .text-muted {
   margin: 20px 0;
+}
+
+// カテゴリーリンク部分
+.category_link {
+  color: white;
+}
+
+// カテゴリーページのスタイリング
+
+.category_index_container {
+  @include basic_container();
+}
+
+//  通知ページのスタイリング
+
+.notification_container {
+  @include basic_container();
+  text-align: center;
+  font-size: 30px;
+}
+
+//  ユーザー一覧ページのスタイリング
+
+.users_container {
+  @include basic_container();
+}
+
+.rank_text {
+  font-size: 30px;
+}
+
+// タブ部分
+
+.nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+  background-color: #e8f0fe;
+}
+
+// 新着通知の背景色
+
+.new_notification {
+  background-color: #e8f0fe;
+}
+
+.content_container {
+  margin: auto;
+  width: 350px;
+  text-align: left;
+}
+
+// エラーメッセージ部分のスタイリング
+
+.alert > ul {
+  list-style: none;
+}
+
+// LP
+.lp_photo {
+  background-size: cover;
+  width: 100%;
+  height: 700px;
+  opacity: 0.6;
+}
+.lp_container {
+  position: absolute;
+  top: 20%;
+  left: 20%;
+  margin: auto;
+  width: 64%;
+  height: 400px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  .lp_item {
+    width: 50%;
+    p {
+      font-size: 1.5rem;
+      color: midnightblue;
+    }
+    h2 {
+      color: midnightblue;
+    }
+    hr {
+      border-top: 3px solid lightgreen;
+    }
+  }
 }

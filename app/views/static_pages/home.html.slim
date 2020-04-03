@@ -1,9 +1,0 @@
-.text-center
-  p.display-1 Question Box
-  hr
-  - if user_signed_in?
-    = link_to 'ユーザーページ', user_path(current_user.id)
-  - else
-    = link_to 'ログイン', new_user_session_path
-    br
-    = link_to 'サインアップ', new_user_registration_path

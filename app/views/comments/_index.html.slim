@@ -1,0 +1,18 @@
+- if comments.present?
+  hr
+  p コメント
+  hr
+  - comments&.each do |comment|
+    .row
+      .col-6
+        = render partial: 'users/user_image_link', locals: { user: comment.user }
+        = link_to comment.user.name, user_path(comment.user)
+      .col-6
+        - if comment.user == current_user
+          = form_with model: [comment], method: :delete do |f|
+            = button_tag type: :submit , class: "delete_comment_#{comment.id} text-primary" do
+              = icon('fas', 'trash')
+    / 内容表示部分
+    = render partial: 'shared/content', locals: { content: comment.content }
+    hr
+    

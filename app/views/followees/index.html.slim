@@ -1,0 +1,6 @@
+- provide(:title, 'フォロー中')
+h2.text-center フォロー中
+hr
+.text-center
+  = render partial: 'shared/user', collection: @followees
+= paginate @followees

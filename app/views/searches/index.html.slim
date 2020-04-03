@@ -1,0 +1,32 @@
+- provide(:title, '検索')
+h2.text-center.my-3 検索
+.my-auto
+  = search_form_for @search_questions, url: searches_path do |f|
+    .text-center
+      = f.label :category_id_eq, 'カテゴリー', class: 'font-weight-bold lead'
+      br
+      .my-3
+        = f.collection_select :categories_id_eq, @categories, :id, :name, include_blank: '指定なし'
+      br
+      .mb-3
+        = f.radio_button :solved_eq, '', checked: true
+        | 指定なし
+        = f.radio_button :solved_eq, 0
+        | 未解決
+        = f.radio_button :solved_eq, 1
+        | 解決済み
+      br
+      = f.label :title_or_content_or_categories_name_cont, 'フリーワード検索', class: 'font-weight-bold lead mb-2'
+      br
+      = f.text_field :title_or_content_or_categories_name_cont, placeholder: '入力してください'
+      br
+      = f.submit '検索', class: 'btn btn-primary my-3'
+
+hr
+.question_index_container
+  - if @searched_questions.present?
+    p.text-danger
+    = render partial: 'shared/question_index', collection: @searched_questions, as: :question
+  - else
+    p.text-center 一致する情報は見つかりませんでした。
+= paginate @searched_questions

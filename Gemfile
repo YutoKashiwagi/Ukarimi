@@ -5,11 +5,11 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-# gem 'ast', '2.4.0'
 gem 'bootstrap', '~> 4.4.1'
 gem 'jquery-rails', '4.3.1'
 gem 'sass-rails', '5.0.6'
 gem 'carrierwave'
+gem 'mini_magick'
 gem 'coffee-rails', '4.2.2'
 gem 'devise'
 gem 'devise-bootstrap-views', '~> 1.0'
@@ -18,11 +18,11 @@ gem 'devise-i18n-views' # devise日本語化のため
 gem 'dotenv-rails'
 gem 'faker'
 gem 'jbuilder', '2.7.0'
-gem 'mini_magick'
 gem 'omniauth'
 gem 'omniauth-facebook'
 gem 'puma', '3.9.1'
-gem 'rails', '5.1.7'
+gem 'rails', '5.2.0'
+gem 'bootsnap'
 gem 'turbolinks',   '5.0.1'
 gem 'uglifier',     '3.2.0'
 gem 'mysql2'
@@ -40,6 +40,10 @@ gem 'kaminari'
 gem 'rack-mini-profiler', require: false
 # data: { confirm: }のダイアログをbootstrapを使ってカスタマイズするジェム
 gem 'data-confirm-modal'
+# enum日本語化用
+gem 'enum_help'
+# Ukarimiからukarimiに改名するためのgem
+gem 'rename'
 
 group :development, :test do
   gem 'byebug', '9.0.6', platform: :mri
@@ -54,25 +58,23 @@ group :development do
   gem 'spring',                '2.0.2'
   gem 'spring-watcher-listen', '2.0.1'
   gem 'web-console',           '3.5.1'
+  gem 'guard-rspec', require: false
+  gem 'bullet'
   # debug
   gem "better_errors"
   gem "binding_of_caller"
-  gem 'pry-byebug'
   gem 'pry-doc'
   gem 'pry-rails'
 end
 
 group :test do
-  gem 'capybara', '~> 2.13'
+  gem 'capybara', '3.25.0'
   gem 'database_cleaner'
   gem 'factory_bot_rails'
-  gem 'guard',                    '2.13.0'
-  gem 'guard-minitest',           '2.4.4'
-  gem 'minitest-reporters',       '1.1.14'
   gem 'launchy'
-  gem 'rails-controller-testing', '1.0.2'
   gem 'rspec-rails'
   gem 'selenium-webdriver'
+  gem 'webdrivers'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

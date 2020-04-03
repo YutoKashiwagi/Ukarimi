@@ -1,13 +1,15 @@
 doctype html
 html
   head
-    title
-      | QuestionBox
+    title= full_title(yield(:title))
     = csrf_meta_tags
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_include_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    = render 'layouts/header'
-    = render 'shared/flash'
-    = yield
-    = render 'layouts/footer'
+    header
+      = render 'layouts/header'
+    main
+      = render 'shared/flash'
+      = yield
+    footer
+      = render 'layouts/footer'

@@ -1,13 +1,47 @@
 Rails.application.routes.draw do
-  root 'static_pages#home'
+  root 'home#home'
 
   devise_for :users, controllers: {
     registrations: 'users/registrations',
   }
 
-  resources :users, only: [:show]
-  resources :questions, only: [:index, :show, :create, :destroy, :edit, :update] do
-    resources :answers, only: [:create, :destroy, :edit, :update]
-    resources :best_answers, only: :update
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'users/sessions#new_guest'
   end
+
+  resources :users, only: [:show], shallow: true do
+    resources :stocks, only: [:index, :create, :destroy]
+    resources :followees, only: [:index, :create, :destroy]
+    resources :followers, only: [:index]
+  end
+
+  resources :posts do
+    resources :comments, only: [:create, :destroy], module: :posts
+    resources :likes, only: [:create, :destroy], module: :posts
+  end
+
+  resources :questions, shallow: true do
+    resources :comments, only: [:create, :destroy], module: :questions
+    resources :likes, only: [:create, :destroy], module: :questions
+    resources :answers, only: [:create, :destroy, :edit, :update] do
+      resources :comments, only: [:create, :destroy], module: :answers
+      resources :likes, only: [:create, :destroy], module: :answers
+    end
+  end
+
+  namespace :category, shallow: true do
+    resources :categories, only: [:index, :show]
+  end
+
+  # ユーザーがカテゴリーをフォローする時のルーティング。delete時、relationshipのidを取らない形にするため手動のルーティングに。
+  post '/follow_category', to: "follow_categories#create"
+  delete '/unfollow_category', to: "follow_categories#destroy"
+
+  resources :best_answers, only: :create
+
+  resources :searches, only: :index
+
+  resources :notifications, only: :index
+
+  resources :rankings, only: :index
 end

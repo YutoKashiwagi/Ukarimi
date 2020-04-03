@@ -1,21 +1,61 @@
-.question_container.text-center
-  .container
+- provide(:title, "#{@question.title}")
+.question_container
+  / タイトル
+  .mb-5.text-center
+    h1 #{@question.title}
+  .container.text-center
+    br
+    .container
+      .row
+        .row.mr-2
+          = render partial: 'likes/form', locals: { likable: @question }
+        / ストックボタン
+        = render partial: 'stocks/form', locals: { question: @question }
+    hr
     .row
-      .col-8
+      .col-4
+        = render partial: 'users/user_image_link', locals: { user: @question.user }
         = link_to @question.user.name, user_path(@question.user.id)
+      .col-2
+        -if @question.has_best_answer?
+          p.text-success 解決済み
+        - else
+          p 未解決
+      .col-2
+        = distance_of_time_in_words_to_now(@question.created_at)
       .col-4
         -if current_user == @question.user
-          = link_to '削除', question_path(@question.id), method: :delete, class: "btn btn-danger delete-q-#{@question.id}"
-          = link_to '編集', edit_question_path(@question.id), class: "btn btn-primary edit-q-#{@question.id}"
-  br
-  p
-    | タイトル:#{@question.title}
-  br
-  p
-    | 内容:#{@question.content}
-
-/回答送信フォーム
-= render partial: 'answers/submit_form', locals: { question: @question }
+          = link_to icon('fas', 'edit'), edit_question_path(@question.id), class: "edit-q-#{@question.id} mr-4"
+          = link_to icon('fas', 'trash'), question_path(@question.id), method: :delete, class: "delete-q-#{@question.id}"
+      br
+    hr
+    / 本文
+    = render partial: 'shared/content', locals: { content: @question.content }
+    /カテゴリー表示
+    = render partial: 'category/tag', locals: { taggable: @question }
+    br
+    /質問のコメント表示
+    = render partial: 'comments/index', locals: { comments: @question.comments }
+    / コメント、回答入力フォーム
+    - if user_signed_in?
+      button data-toggle='collapse' data-target='#collapse_comment_question' aria-expanded='false' aria-controls='collapse_comment' 
+        p.bold_texts #{icon('far', 'comment')}コメントを投稿
+      button.ml-5 data-toggle='collapse' data-target='#collapse_answer' aria-expanded='false' aria-controls='collapse_answer'
+        p.bold_texts #{icon('far', 'paper-plane')} 回答
+      .collapse#collapse_comment_question
+        hr
+        = render partial: 'comments/form', locals: { commentable: @question, comment: current_user.comments.build }
+      .collapse#collapse_answer
+        hr
+        = render partial: 'answers/submit_form', locals: { question: @question }
 
 /回答表示
-= render partial: 'answers/index', collection: @answers, as: :answer
+= render partial: 'answers/index', collection: @answers, as: :answer, locals: { question: @question }
+
+/ 関連する質問
+.question_index_container
+  h2.text-center.my-3 関連する質問
+  - if @related_questions.present?
+    = render partial: 'shared/question_index', collection: @related_questions, as: :question
+  - else
+    p.font-weight-bold.text-center 関連する質問はありません

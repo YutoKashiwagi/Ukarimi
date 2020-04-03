@@ -1,0 +1,10 @@
+- if user_signed_in?
+  .stock_button
+    - if current_user.stocked?(question)
+      = form_with model: current_user.stocks.find_by(question_id: question.id), remote: :true, method: :delete do |f|
+        = f.hidden_field :question_id, value: question.id
+        = f.submit 'ストック済み', class: 'btn btn-success'
+    - else
+      = form_with model: current_user.stocks.new(question_id: question.id), remote: :true, url: user_stocks_path(current_user.id) do |f|
+        = f.hidden_field :question_id, value: question.id
+        = f.submit 'ストック', class: 'btn btn-secondary'

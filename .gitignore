@@ -4,6 +4,9 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile '~/.gitignore_global'
 
+# アップロードされた画像を管理対象から外す
+/public/uploads/
+
 # Ignore bundler config.
 /.bundle
 
@@ -17,3 +20,6 @@
 /yarn-error.log
 
 .byebug_history
+
+# Ignore master key for decrypting credentials and more.
+/config/master.key

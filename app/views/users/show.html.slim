@@ -1,8 +1,61 @@
-h1 Users#show
-p Find me in app/views/users/show.html.slim
-
-.user_info.text-center
-  = @user.name
-  br
-  - if user_signed_in?
-    = link_to 'Log out', destroy_user_session_path, method: :delete
+- provide(:title, "#{@user.name}さんのプロフィール")
+.user_container
+  .row
+    .col-4
+      .user_border
+        .text-center
+          = image_tag @user.profile_image.url, size: '200x200', class: 'rounded-circle'
+          - if user_signed_in? && current_user == @user
+            = link_to edit_user_registration_path do
+              p.my-3
+                | #{icon('fas', 'edit')}
+                | 編集
+          - else
+            .my-3
+              = render partial: 'shared/follow_button', locals: { user: @user }
+          / ユーザー名
+          p.font-weight-bold #{@user.name}
+          / 文理
+          p.badge.badge-success #{@user.bunri_i18n}
+          hr
+          / プロフィール
+          p.font-weight-bold プロフィール
+          - if @user.profile.present?
+           = render partial: 'shared/content', locals: { content: @user.profile }
+          - else
+            p.text-muted プロフィールは設定されていません
+          hr
+          p 質問数 #{@user.questions.count}
+          p 回答数 #{@user.answers.count}
+          hr
+          .container.my-2
+            .row
+              .col-6
+                = link_to "#{@user.followees.count}フォロー", user_followees_path(@user.id)
+              .col-6
+                = link_to "#{@user.followers.count}フォロワー", user_followers_path(@user.id), class: "followers_count_#{@user.id}"
+          hr
+          p.font-weight-bold フォロー中のカテゴリー
+          - if @user.categories.blank?
+            p フォロー中のカテゴリーはありません
+          = render partial: 'category/tag', locals: { taggable: @user }
+    .col-8
+      / タブのリンク部分
+      ul.nav.nav-tabs.justify-content-center
+        li.nav-item
+          a.nav-link.bold_texts.active data-toggle="tab" href="#user_questions" 質問
+        li.nav-item
+          a.nav-link.bold_texts data-toggle="tab" href="#user_answers" 回答した質問
+        li.nav-item
+          a.nav-link.bold_texts data-toggle="tab" href="#user_posts" 投稿
+      / タブの表示部分
+      .tab-content.text-center
+        #user_questions.tab-pane.active
+          = render partial: 'shared/question_index', collection: @questions, as: :question
+          = paginate @questions
+        #user_answers.tab-pane
+          = render partial: 'shared/question_index', collection: @answered_questions, as: :question
+          = paginate @answered_questions
+        #user_posts.tab-pane
+          = render partial: 'posts/post', collection: @posts
+          = paginate @posts

@@ -1,0 +1,11 @@
+- if user_signed_in?
+  div class="likable_form_#{likable.class.name}_#{likable.id}"
+    - if likable.liked?(current_user)
+      = render partial: 'likes/unlike_form', locals: { likable: likable}
+    - else
+      = render partial: 'likes/like_form', locals: { likable: likable }
+- else
+  = icon('fas', 'heart')
+.object_counts
+  div class="likable_count_#{likable.class.name}_#{likable.id}"
+    = likable.likes.count

@@ -1,0 +1,13 @@
+.users_container
+  .row
+    .col-4
+      .text-left
+        = render partial: 'users/user_image_link', locals: { user: user }
+        = user.name
+    .col-2
+      .text-left
+        p 回答数 : #{user.answers.count}
+        p 質問数 : #{user.questions.count}
+    .col-6
+      = render partial: 'shared/follow_button', locals: { user: user }
+  hr

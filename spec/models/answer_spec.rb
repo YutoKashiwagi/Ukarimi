@@ -15,13 +15,13 @@ RSpec.describe Answer, type: :model do
       it 'presence: true' do
         answer.content = ''
         answer.valid?
-        is_expected.to include("can't be blank")
+        is_expected.to include("を入力してください")
       end
 
       it 'length: { maximum: 1000 }' do
         answer.content = 'a' * 1001
         answer.valid?
-        is_expected.to include("is too long (maximum is 1000 characters)")
+        is_expected.to include("は1000文字以内で入力してください")
       end
     end
   end
@@ -44,14 +44,14 @@ RSpec.describe Answer, type: :model do
   describe 'メソッド' do
     before { answer.save }
 
-    describe 'is_best_answer?()' do
+    describe 'is_best_answer?' do
       example 'trueを返すこと' do
-        question.best = answer.id
-        expect(answer.is_best_answer?(question)).to eq true
+        question.best_answer = answer
+        expect(answer.is_best_answer?).to eq true
       end
 
       example 'falseを返すこと' do
-        expect(answer.is_best_answer?(question)).to eq false
+        expect(answer.is_best_answer?).to eq false
       end
     end
   end

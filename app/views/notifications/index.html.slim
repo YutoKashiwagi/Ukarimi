@@ -1,0 +1,9 @@
+- provide(:title, '通知一覧')
+.notification_container
+  - if @notifications.present?
+    - unless current_user.has_new_notifications?
+      h2.text-center.py-4 新着の通知はありません
+    = render partial: 'notifications/notification', collection: @notifications, as: :notification
+    = paginate @notifications
+  - else
+    h2.text-center.py-4 通知はありません
