@@ -1,2 +1,2 @@
-$(".likable_form_" + "<%= @likable.id %>").html("<%= escape_javascript(render partial: 'likes/like_form', locals: { likable: @likable }) %>")
-$(".likable_count_" + "<%= @likable.id %>").html("<%= @likable.likes.count %>")
+$(".likable_form_" + "<%= @likable.class.name %>_<%= @likable.id %>").html("<%= escape_javascript(render partial: 'likes/like_form', locals: { likable: @likable }) %>")
+$(".likable_count_" + "<%= @likable.class.name %>_<%= @likable.id %>").html("<%= @likable.likes.count %>")

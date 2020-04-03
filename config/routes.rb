@@ -5,14 +5,19 @@ Rails.application.routes.draw do
     registrations: 'users/registrations',
   }
 
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'users/sessions#new_guest'
+  end
+
   resources :users, only: [:show], shallow: true do
-    resources :posts do
-      resources :comments, only: [:create, :destroy], module: :posts
-      resources :likes, only: [:create, :destroy], module: :posts
-    end
     resources :stocks, only: [:index, :create, :destroy]
     resources :followees, only: [:index, :create, :destroy]
     resources :followers, only: [:index]
+  end
+
+  resources :posts do
+    resources :comments, only: [:create, :destroy], module: :posts
+    resources :likes, only: [:create, :destroy], module: :posts
   end
 
   resources :questions, shallow: true do

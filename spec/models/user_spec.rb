@@ -41,6 +41,14 @@ RSpec.describe User, type: :model do
         is_expected.to include("は6文字以上で入力してください")
       end
     end
+
+    context 'profile' do
+      example 'length: { maximum: 400 }' do
+        user.profile = 'a' * 401
+        user.valid?
+        expect(user.errors[:profile]).to include("は400文字以内で入力してください")
+      end
+    end
   end
 
   describe 'ストック関連' do
@@ -166,18 +174,18 @@ RSpec.describe User, type: :model do
       end
     end
 
-    describe 'has_notifications?' do
+    describe 'has_new_notifications?' do
       context '未読の通知がある時' do
         before { user.passive_notifications.create(visitor: other_user, action: 'follow',) }
 
         example 'trueを返すこと' do
-          expect(user.has_notifications?).to eq true
+          expect(user.has_new_notifications?).to eq true
         end
       end
 
       context '未読の通知がない場合' do
         example 'falseを返すこと' do
-          expect(user.has_notifications?).to eq false
+          expect(user.has_new_notifications?).to eq false
         end
       end
     end
@@ -339,6 +347,24 @@ RSpec.describe User, type: :model do
         include_examples 'ランキングのテスト' do
           let(:test_instance) { :question }
           let(:test_class) { Question }
+        end
+      end
+    end
+  end
+
+  describe 'ゲストユーザー機能' do
+    describe 'User.guest' do
+      context 'seeds.rbで定義したゲストユーザーが削除されてない場合' do
+        let!(:guest) { create(:user, email: 'guest@guest.com', role: :guest) }
+
+        example 'ゲストユーザーを返すこと' do
+          expect(User.guest).to eq guest
+        end
+      end
+
+      context 'ゲストユーザーが削除されている時' do
+        example 'ゲストユーザーを返すこと' do
+          expect(User.guest.guest?).to eq true
         end
       end
     end

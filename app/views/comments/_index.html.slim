@@ -12,6 +12,7 @@
           = form_with model: [comment], method: :delete do |f|
             = button_tag type: :submit , class: "delete_comment_#{comment.id} text-primary" do
               = icon('fas', 'trash')
-    p.mt-4 #{comment.content}
+    / 内容表示部分
+    = render partial: 'shared/content', locals: { content: comment.content }
     hr
     

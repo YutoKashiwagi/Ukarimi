@@ -40,7 +40,7 @@ RSpec.describe "KaminariPaginations", type: :system do
   describe 'posts/index' do
     before do
       create_list(:post, 11, user: user)
-      visit user_posts_path(user.id)
+      visit posts_path(user.id)
     end
 
     include_examples 'ページネーションが機能していること' do

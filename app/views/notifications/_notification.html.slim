@@ -1,27 +1,29 @@
 - visitor = notification.visitor
 - visited = notification.visited
-= link_to "#{visitor.name}さんが", user_path(visitor.id)
-- case notification.action
-- when 'follow' then
-  | あなたをフォローしました
-- when 'answer' then
-  = link_to 'あなたの質問', question_path(notification.answer.question.id)
-  | に回答しました
-- when 'best_answer' then
-  = link_to 'あなたの回答', question_path(notification.answer.question.id)
-  | をベストアンサーに決定しました
-- when 'stock' then
-  = link_to 'あなたの質問', question_path(notification.question.id)
-  | をストックしました
-- when 'comment' then
-  - case notification.comment.commentable_type
-  - when 'Question' then
-    = link_to '質問', question_path(notification.comment.commentable.id)
-    | にコメントしました
-  - when 'Answer' then
-    = link_to '質問の回答', question_path(notification.comment.commentable.id)
-    | にコメントしました
-  - when 'Post' then
-    = link_to '投稿', post_path(notification.comment.commentable.id)
-    | にコメントしました
-hr
+div class=(notification.checked ? '' : 'new_notification')
+  .text-left
+    = link_to image_tag(visitor.profile_image.url, size: '50x50', class: 'rounded-circle') + "#{visitor.name}さんが", user_path(visitor.id)
+    - case notification.action
+    - when 'follow' then
+      | あなたをフォローしました
+    - when 'answer' then
+      = link_to 'あなたの質問', question_path(notification.answer.question.id)
+      | に回答しました
+    - when 'best_answer' then
+      = link_to 'あなたの回答', question_path(notification.answer.question.id)
+      | をベストアンサーに決定しました
+    - when 'stock' then
+      = link_to 'あなたの質問', question_path(notification.question.id)
+      | をストックしました
+    - when 'comment' then
+      - case notification.comment.commentable_type
+      - when 'Question' then
+        = link_to '質問', question_path(notification.comment.commentable.id)
+        | にコメントしました
+      - when 'Answer' then
+        = link_to '質問の回答', question_path(notification.comment.commentable.id)
+        | にコメントしました
+      - when 'Post' then
+        = link_to '投稿', post_path(notification.comment.commentable.id)
+        | にコメントしました
+    hr

@@ -115,5 +115,43 @@ RSpec.describe Question, type: :model do
         end
       end
     end
+
+    describe 'related_questions' do
+      let(:category1) { create(:category) }
+      let(:category2) { create(:category) }
+      let(:category1_question) { create(:question) }
+      let(:category2_question) { create(:question) }
+
+      before do
+        question.categories << category1
+        category1_question.categories << category1
+        category2_question.categories << category2
+      end
+
+      example '同じカテゴリの質問を取得できていること' do
+        expect(question.related_questions.include?(category1_question)).to eq true
+      end
+
+      example '別カテゴリの質問は取得していないこと' do
+        expect(question.related_questions.include?(category2_question)).to eq false
+      end
+
+      example 'レシーバー自体は取得していないこと' do
+        expect(question.related_questions.include?(question)).to eq false
+      end
+
+      describe 'カテゴリー別で、同じ質問がある場合' do
+        let(:category3) { create(:category) }
+
+        before do
+          question.categories << category3
+          category1_question.categories << category3
+        end
+
+        example '同じ質問は一つしか取得してないこと' do
+          expect(question.related_questions.count(category1_question)).to eq 1
+        end
+      end
+    end
   end
 end

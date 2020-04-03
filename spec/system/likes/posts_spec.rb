@@ -5,7 +5,7 @@ RSpec.describe "Likes::Posts", type: :system do
   let!(:post) { create(:post, user: user) }
 
   describe 'ログインしていない時' do
-    before { visit user_posts_path(user.id) }
+    before { visit posts_path(user.id) }
 
     example 'いいねボタンが表示されていないこと' do
       within(".post_#{post.id}") do
@@ -18,7 +18,7 @@ RSpec.describe "Likes::Posts", type: :system do
   describe 'ログインしている時' do
     before do
       login_as user, scope: :user
-      visit user_posts_path(user.id)
+      visit posts_path(user.id)
     end
 
     context 'いいねしていない時' do
@@ -32,7 +32,7 @@ RSpec.describe "Likes::Posts", type: :system do
     context 'いいねしている時' do
       before do
         post.liked_by(user)
-        visit user_posts_path(user.id)
+        visit posts_path(user.id)
       end
 
       example 'いいね解除できること' do

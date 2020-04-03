@@ -40,6 +40,10 @@ gem 'kaminari'
 gem 'rack-mini-profiler', require: false
 # data: { confirm: }のダイアログをbootstrapを使ってカスタマイズするジェム
 gem 'data-confirm-modal'
+# enum日本語化用
+gem 'enum_help'
+# Ukarimiからukarimiに改名するためのgem
+gem 'rename'
 
 group :development, :test do
   gem 'byebug', '9.0.6', platform: :mri
@@ -55,6 +59,7 @@ group :development do
   gem 'spring-watcher-listen', '2.0.1'
   gem 'web-console',           '3.5.1'
   gem 'guard-rspec', require: false
+  gem 'bullet'
   # debug
   gem "better_errors"
   gem "binding_of_caller"

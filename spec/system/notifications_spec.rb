@@ -9,9 +9,9 @@ RSpec.describe "Notifications", type: :system do
 
     before { login_as user, scope: :user }
 
-    shared_examples '通知が存在しないこと' do
+    shared_examples '新着通知が存在しないこと' do
       example '通知が作成されていないこと' do
-        expect(page).to have_content '通知はありません'
+        expect(page).to have_content '新着の通知はありません'
       end
     end
 
@@ -33,7 +33,7 @@ RSpec.describe "Notifications", type: :system do
             visit notifications_path
           end
 
-          include_examples '通知が存在しないこと'
+          include_examples '新着通知が存在しないこと'
         end
       end
 
@@ -43,7 +43,7 @@ RSpec.describe "Notifications", type: :system do
           visit notifications_path
         end
 
-        include_examples '通知が存在しないこと'
+        include_examples '新着通知が存在しないこと'
       end
     end
 
@@ -64,7 +64,7 @@ RSpec.describe "Notifications", type: :system do
           visit notifications_path
         end
 
-        include_examples '通知が存在しないこと'
+        include_examples '新着通知が存在しないこと'
       end
     end
 
@@ -88,7 +88,7 @@ RSpec.describe "Notifications", type: :system do
           visit notifications_path
         end
 
-        include_examples '通知が存在しないこと'
+        include_examples '新着通知が存在しないこと'
       end
     end
 
@@ -113,7 +113,7 @@ RSpec.describe "Notifications", type: :system do
           visit notifications_path
         end
 
-        include_examples '通知が存在しないこと'
+        include_examples '新着通知が存在しないこと'
       end
     end
 
@@ -157,7 +157,9 @@ RSpec.describe "Notifications", type: :system do
             visit notifications_path
           end
 
-          include_examples '通知が存在しないこと'
+          example '通知が作成されていないこと' do
+            expect(page).to have_content '通知はありません'
+          end
         end
       end
 
@@ -177,7 +179,7 @@ RSpec.describe "Notifications", type: :system do
         end
       end
 
-      describe 'commentable => answer' do
+      describe 'commentable => post' do
         include_examples 'コメント通知のテスト' do
           let(:first_notification_text) { "#{comment.user.name}さんが投稿にコメントしました" }
           let(:second_notification_text) { "#{other_comment.user.name}さんが投稿にコメントしました" }

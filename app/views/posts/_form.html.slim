@@ -1,13 +1,20 @@
-- if user_signed_in? && current_user == user
-  = form_with model: [current_user, current_user.posts.new] do |f|
-    .form-group
-      = f.text_area :content
-    .form-group
-      = f.label :category, 'カテゴリ'
+= form_with model: post, local: true do |f|
+  = render 'shared/error_messages', model: f.object
+  .form-group
+    = f.label :content, '投稿内容'
+    br
+    = f.text_area :content, class: 'large_text_area', placeholder: '内容を入力(1000)文字以内'
+  .form-group
+    = f.label :category, 'カテゴリ'
+    br
+    .category_container
       = f.collection_check_boxes(:category_ids, Category.all, :id, :name, include_hidden: false) do |category|
         = category.label do
           = category.check_box
-          .badge.badge-secondary
+          .badge.badge-secondary.mr-1
             = category.text
+  - if current_page?(action: 'new') || current_page?(action: 'index')
     = f.submit '投稿する', class: 'btn btn-primary'
+  - elsif current_page?(action: 'edit')
+    = f.submit '編集', class: 'btn btn-primary'
     

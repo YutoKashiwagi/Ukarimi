@@ -1,6 +1,25 @@
 ---
   ja:
+    enums:
+      user:
+        bunri:
+          undecided: '文理未定'
+          bunkei: '文系'
+          rikei: '理系'
     activerecord:
+      attributes:
+        user:
+          name: 'お名前'
+          profile: 'プロフィール'
+        question:
+          title: 'タイトル'
+          content: '内容'
+        answer:
+          content: '内容'
+        post:
+          content: '内容'
+        comment:
+          content: '内容'
       errors:
         messages:
           record_invalid: 'バリデーションに失敗しました: %{errors}'

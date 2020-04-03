@@ -7,6 +7,18 @@ class User < ApplicationRecord
   # mount_uploader
   mount_uploader :profile_image, ProfileImageUploader
 
+  enum role: {
+    normal: 0,
+    admin: 1,
+    guest: 2,
+  }
+
+  enum bunri: {
+    undecided: 0,
+    bunkei: 1,
+    rikei: 2,
+  }
+
   has_many :posts, dependent: :destroy
   has_many :questions, dependent: :destroy
   has_many :answers, dependent: :destroy
@@ -33,9 +45,9 @@ class User < ApplicationRecord
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
   # バリデーション
-  validates :name,
-            presence: true,
-            length: { maximum: 20 }
+  validates :name, presence: true, length: { maximum: 20 }
+  validates :profile, length: { maximum: 400 }
+  validates :email, length: { maximum: 256 }
 
   # ストック周り
   def stock(question)
@@ -122,7 +134,7 @@ class User < ApplicationRecord
     end
   end
 
-  def has_notifications?
+  def has_new_notifications?
     passive_notifications.where(checked: false).present?
   end
 
@@ -141,5 +153,13 @@ class User < ApplicationRecord
   # ランキング周り
   def self.create_ranking(obj)
     User.find(obj.group(:user_id).order('count(user_id) desc').limit(10).pluck(:user_id))
+  end
+
+  # ゲストユーザー周り
+  def self.guest
+    find_by(email: 'guest@guest.com') || find_or_create_by(name: 'ゲスト', role: :guest) do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.email = "guest_#{Time.now.to_i}#{rand(100)}@example.com"
+    end
   end
 end

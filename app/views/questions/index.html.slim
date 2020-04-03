@@ -1,4 +1,5 @@
-h1.text-center 質問一覧
+- provide(:title, '質問一覧')
+h1.text-center.font-weight-bold.py-3 質問一覧
 hr
 .question_index_container
   = render partial: 'shared/question_index', collection: @questions, as: :question

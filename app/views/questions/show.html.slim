@@ -1,18 +1,19 @@
+- provide(:title, "#{@question.title}")
 .question_container
   / タイトル
   .mb-5.text-center
     h1 #{@question.title}
-  .row
-    .col-6
-      / 高評価
-      = render partial: 'likes/form', locals: { likable: @question }
-      /ストックボタン
-      = render partial: 'stocks/form', locals: { question: @question }
-    .col-6
-      = distance_of_time_in_words_to_now(@question.created_at)
   .container.text-center
+    br
+    .container
+      .row
+        .row.mr-2
+          = render partial: 'likes/form', locals: { likable: @question }
+        / ストックボタン
+        = render partial: 'stocks/form', locals: { question: @question }
+    hr
     .row
-      .col-6
+      .col-4
         = render partial: 'users/user_image_link', locals: { user: @question.user }
         = link_to @question.user.name, user_path(@question.user.id)
       .col-2
@@ -20,6 +21,8 @@
           p.text-success 解決済み
         - else
           p 未解決
+      .col-2
+        = distance_of_time_in_words_to_now(@question.created_at)
       .col-4
         -if current_user == @question.user
           = link_to icon('fas', 'edit'), edit_question_path(@question.id), class: "edit-q-#{@question.id} mr-4"
@@ -27,25 +30,32 @@
       br
     hr
     / 本文
-    .mt-5.mb-5
-      p #{@question.content}
+    = render partial: 'shared/content', locals: { content: @question.content }
     /カテゴリー表示
     = render partial: 'category/tag', locals: { taggable: @question }
     br
+    /質問のコメント表示
+    = render partial: 'comments/index', locals: { comments: @question.comments }
     / コメント、回答入力フォーム
     - if user_signed_in?
-      button data-toggle='collapse' data-target='#collapse_comment' aria-expanded='false' aria-controls='collapse_comment' 
+      button data-toggle='collapse' data-target='#collapse_comment_question' aria-expanded='false' aria-controls='collapse_comment' 
         p.bold_texts #{icon('far', 'comment')}コメントを投稿
       button.ml-5 data-toggle='collapse' data-target='#collapse_answer' aria-expanded='false' aria-controls='collapse_answer'
         p.bold_texts #{icon('far', 'paper-plane')} 回答
-      .collapse#collapse_comment
+      .collapse#collapse_comment_question
         hr
         = render partial: 'comments/form', locals: { commentable: @question, comment: current_user.comments.build }
       .collapse#collapse_answer
         hr
         = render partial: 'answers/submit_form', locals: { question: @question }
-    /質問のコメント表示
-    = render partial: 'comments/index', locals: { comments: @question.comments }
 
 /回答表示
 = render partial: 'answers/index', collection: @answers, as: :answer, locals: { question: @question }
+
+/ 関連する質問
+.question_index_container
+  h2.text-center.my-3 関連する質問
+  - if @related_questions.present?
+    = render partial: 'shared/question_index', collection: @related_questions, as: :question
+  - else
+    p.font-weight-bold.text-center 関連する質問はありません

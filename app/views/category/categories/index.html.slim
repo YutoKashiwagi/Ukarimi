@@ -1,10 +1,17 @@
-h1.text-center カテゴリー一覧
+- provide(:title, 'カテゴリー一覧')
+h1.text-center.font-weight-bold カテゴリー
 hr
-.text-center
-  - @categories.each do |category|
+.category_index_container
+  .card-deck
     .row
-      .col-6
-        = link_to category.name, category_category_path(category.id)
-      .col-6
-        = render partial: 'category/follow_button', locals: { category: category }
-    hr
+      - @categories.each do |category|
+        .col-sm-4
+          .card.my-2
+            .text-center
+              .card-title
+                = link_to category.name, category_category_path(category.id), class: 'bold_texts'
+              .card-subtitle.text-muted
+                p 質問数: #{category.questions.count}
+                p フォロワー数: #{category.users.count}
+                .mb-1
+                  = render partial: 'category/follow_button', locals: { category: category }
