@@ -6,6 +6,9 @@
 
 # アップロードされた画像を管理対象から外す
 /public/uploads/
+/public/assets/
+# 環境変数
+/.env
 
 # Ignore bundler config.
 /.bundle
