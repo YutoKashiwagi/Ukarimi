@@ -53,7 +53,10 @@ test:
 #   username: question_box
 #   password: <%= ENV['QUESTION_BOX_DATABASE_PASSWORD'] %>
 
-# heroku環境
+# ec2
 production:
   <<: *default
-  url: <%= ENV['JAWSDB_URL']&.sub('mysql://', 'mysql2://') %>
+  database: <%= ENV['DB_NAME'] %>
+  username: <%= ENV['DB_USERNAME'] %>
+  password: <%= ENV['DB_PASSWORD'] %>
+  host: <%= ENV['DB_HOSTNAME'] %>
