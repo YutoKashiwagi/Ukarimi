@@ -3,7 +3,8 @@ class CommentsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @comment = @commentable.comments.build(comment_params)
+    @comment = current_user.comments.build(comment_params)
+    @comment.commentable = @commentable
     if @comment.save
       @commentable.create_notification_comment(current_user, @comment)
       flash[:success] = 'コメントしました'
@@ -28,6 +29,6 @@ class CommentsController < ApplicationController
   private
 
   def comment_params
-    params.require(:comment).permit(:content, :user_id)
+    params.require(:comment).permit(:content)
   end
 end
