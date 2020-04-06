@@ -181,8 +181,8 @@ RSpec.describe "Notifications", type: :system do
 
       describe 'commentable => post' do
         include_examples 'コメント通知のテスト' do
-          let(:first_notification_text) { "#{comment.user.name}さんが投稿にコメントしました" }
-          let(:second_notification_text) { "#{other_comment.user.name}さんが投稿にコメントしました" }
+          let(:first_notification_text) { "#{comment.user.name}さんがつぶやきにコメントしました" }
+          let(:second_notification_text) { "#{other_comment.user.name}さんがつぶやきにコメントしました" }
           let!(:commentable) { create(:post) }
         end
       end
