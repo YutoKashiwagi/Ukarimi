@@ -14,12 +14,7 @@ nav.navbar.navbar-expand-lg.navbar-light
         = link_to '投稿一覧', posts_path, class: 'nav-link'
       li.nav-item
         = link_to 'カテゴリー', category_categories_path, class: 'nav-link'
-      - if user_signed_in?
-        li.nav-item
-            = link_to '質問する', new_question_path, class: 'nav-link'
-        li.nav-item
-            = link_to '投稿する', new_post_path, class: 'nav-link'
-      - else
+      - unless user_signed_in?
         ul.navbar-nav.mr-auto
           li.nav-item.dropdown
             a#navbarDropdown.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
