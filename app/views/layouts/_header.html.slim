@@ -20,12 +20,14 @@ nav.navbar.navbar-expand-lg.navbar-light
         li.nav-item
             = link_to '投稿する', new_post_path, class: 'nav-link'
       - else
-        li.nav-item
-          = link_to icon('fas', 'sign-in-alt') + 'ログイン', new_user_session_path, class: 'nav-link'
-        li.nav-item
-          = link_to icon('fas', 'user-plus') + '登録', new_user_registration_path, class: 'nav-link'
-        li.nav-item
-          = link_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: 'nav-link'
+        ul.navbar-nav.mr-auto
+          li.nav-item.dropdown
+            a#navbarDropdown.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
+              | #{icon('fas', 'sign-in-alt')}
+            .dropdown-menu aria-labelledby="navbarDropdown" 
+              = link_to 'ゲストログイン', users_guest_sign_in_path, method: :post, class: 'dropdown-item'
+              = link_to icon('fas', 'sign-in-alt') + ' '+ 'ログイン', new_user_session_path, class: 'dropdown-item'
+              = link_to icon('fas', 'user-plus') + ' ' + '登録', new_user_registration_path, class: 'dropdown-item'
   
   / 通知、ドロップダウンメニュー
   - if user_signed_in?
