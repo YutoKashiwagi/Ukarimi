@@ -3,7 +3,7 @@
       -if current_user.following?(user)
         = form_with url: followee_path(user.id), remote: true, method: :delete do |f|
           = f.hidden_field :user_id, value: user.id
-          = f.submit 'フォロー解除', class: 'btn btn-primary'
+          = f.submit 'フォロー解除', class: 'btn btn-success'
       -else
         = form_with url: user_followees_path(user_id: user.id), remote: true, method: :post do |f|
           = f.submit 'フォローする', class: 'btn btn-primary'

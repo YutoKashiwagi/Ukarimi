@@ -24,6 +24,6 @@ div class=(notification.checked ? '' : 'new_notification')
         = link_to '質問の回答', question_path(notification.comment.commentable.id)
         | にコメントしました
       - when 'Post' then
-        = link_to '投稿', post_path(notification.comment.commentable.id)
+        = link_to 'つぶやき', post_path(notification.comment.commentable.id)
         | にコメントしました
     hr

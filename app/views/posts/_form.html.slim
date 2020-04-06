@@ -1,7 +1,7 @@
 = form_with model: post, local: true do |f|
   = render 'shared/error_messages', model: f.object
   .form-group
-    = f.label :content, '投稿内容'
+    = f.label :content, '内容'
     br
     = f.text_area :content, class: 'large_text_area', placeholder: '内容を入力(1000)文字以内'
   .form-group
@@ -14,7 +14,7 @@
           .badge.badge-secondary.mr-1
             = category.text
   - if current_page?(action: 'new') || current_page?(action: 'index')
-    = f.submit '投稿する', class: 'btn btn-primary'
+    = f.submit 'つぶやく', class: 'btn btn-primary'
   - elsif current_page?(action: 'edit')
     = f.submit '編集', class: 'btn btn-primary'
     

@@ -16,7 +16,7 @@ RSpec.describe "Posts", type: :system do
 
       example '正常に投稿できること' do
         check category.name
-        expect { click_button '投稿する' }.to change { user.posts.count }.by(1)
+        expect { click_button 'つぶやく' }.to change { user.posts.count }.by(1)
         within(".post_#{Post.last.id}") do
           expect(page).to have_content Post.last.content
           expect(page).to have_content category.name
@@ -24,14 +24,14 @@ RSpec.describe "Posts", type: :system do
       end
 
       example 'タグなしでも投稿できること' do
-        expect { click_button '投稿する' }.to change { user.posts.count }.by(1)
+        expect { click_button 'つぶやく' }.to change { user.posts.count }.by(1)
       end
     end
 
     context '異常値' do
       context '空白の場合' do
         example '投稿できず、エラーメッセージが表示されること' do
-          expect { click_button '投稿する' }.to change { user.posts.count }.by(0)
+          expect { click_button 'つぶやく' }.to change { user.posts.count }.by(0)
           expect(page).to have_content '内容を入力してください'
         end
       end
@@ -39,7 +39,7 @@ RSpec.describe "Posts", type: :system do
       context '文字数オーバーの場合' do
         example '投稿できず、エラーメッセージが表示されること' do
           fill_in 'post[content]', with: 'a' * 1001
-          expect { click_button '投稿する' }.to change { user.posts.count }.by(0)
+          expect { click_button 'つぶやく' }.to change { user.posts.count }.by(0)
           expect(page).to have_content "内容は1000文字以内で入力してください"
         end
       end
