@@ -5,6 +5,10 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.all_includes.recent.page(params[:page]).per(10)
+    if user_signed_in?
+      @followees_questions = current_user.followee_items(Question)
+      @mycategory_questions = current_user.mycategory_questions
+    end
   end
 
   def show

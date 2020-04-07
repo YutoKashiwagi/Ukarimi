@@ -162,4 +162,19 @@ class User < ApplicationRecord
       user.email = "guest_#{Time.now.to_i}#{rand(100)}@example.com"
     end
   end
+
+  # フィード
+  def followee_items(obj)
+    obj.recent.where("user_id IN (?)", followee_ids)
+  end
+
+  def mycategory_questions
+    feed_questions = []
+    categories.each do |category|
+      category.questions.each do |question|
+        feed_questions << question
+      end
+    end
+    feed_questions.uniq.sort_by!(&:id)
+  end
 end
