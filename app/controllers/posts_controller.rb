@@ -18,10 +18,10 @@ class PostsController < ApplicationController
     @post = current_user.posts.new(post_params)
     @post.set_taggable
     if @post.save
-      flash[:success] = '投稿に成功しました'
+      flash[:success] = 'つぶやきました'
       redirect_to posts_path
     else
-      flash.now[:danger] = '投稿に失敗しました'
+      flash.now[:danger] = 'つぶやきに失敗しました'
       render action: :new
     end
   end

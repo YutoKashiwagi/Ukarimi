@@ -1,4 +1,4 @@
-= image_tag 'sakura.jpeg', class: 'lp_photo'
+= image_tag 'sakura.jpg', class: 'lp_photo'
 .lp_container
   .lp_item
     .text-center.font-weight-bold
@@ -9,10 +9,10 @@
     - if user_signed_in?
       .text-center
         = link_to '質問する', new_question_path, class: 'btn btn-success mr-4'
-        = link_to '投稿する', new_post_path, class: 'btn btn-success'
+        = link_to 'つぶやく', new_post_path, class: 'btn btn-success'
         hr
         = link_to '質問一覧', questions_path, class: 'btn btn-success mr-4'
-        = link_to '投稿一覧', posts_path, class: 'btn btn-success'
+        = link_to 'つぶやき一覧', posts_path, class: 'btn btn-success'
     - else
       .text-center
         = link_to 'ゲストユーザーとしてログイン', users_guest_sign_in_path, method: :post, class: 'btn btn-success'

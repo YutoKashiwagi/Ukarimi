@@ -1,0 +1,9 @@
+- if user_signed_in?
+  = link_to new_question_path do
+    .question_button
+      .question_button_text
+        p +#{icon('fab', 'quora')}
+  = link_to new_post_path do
+    .post_button
+      .post_button_text
+        p +#{icon('far', 'comment-dots')}

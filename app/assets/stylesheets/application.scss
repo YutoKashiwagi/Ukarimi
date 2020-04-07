@@ -122,6 +122,47 @@ button {
   padding: 0;
 }
 
+@mixin new_button() {
+  width: 60px;
+  height: 60px;
+  display: flex;
+  background-color: #007afc;
+  border: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@mixin new_button_text() {
+  text-align: center;
+  vertical-align: middle;
+  margin-top: 10px;
+  color: white;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.question_button {
+  position: fixed;
+  right:50px;
+  bottom:10%;
+  @include new_button();
+  p {
+    @include new_button_text();
+  }
+}
+
+.post_button {
+  position: fixed;
+  right:50px;
+  bottom:18%;
+  @include new_button();
+  p {
+    @include new_button_text();
+  }
+}
+
 // 質問一覧ページのスタイリング
 .question_index_container {
   @include basic_container();

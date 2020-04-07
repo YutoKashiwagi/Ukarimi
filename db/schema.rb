@@ -10,12 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_31_101632) do
+ActiveRecord::Schema.define(version: 2020_04_06_131752) do
 
   create_table "answers", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "content"
-    t.bigint "user_id"
-    t.bigint "question_id"
+    t.text "content", null: false
+    t.bigint "user_id", null: false
+    t.bigint "question_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_answers_on_question_id"
@@ -23,16 +23,16 @@ ActiveRecord::Schema.define(version: 2020_03_31_101632) do
   end
 
   create_table "categories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.string "name"
+    t.string "name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "comments", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "content"
-    t.bigint "user_id"
-    t.string "commentable_type"
-    t.bigint "commentable_id"
+    t.text "content", null: false
+    t.bigint "user_id", null: false
+    t.string "commentable_type", null: false
+    t.bigint "commentable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable_type_and_commentable_id"
@@ -40,9 +40,9 @@ ActiveRecord::Schema.define(version: 2020_03_31_101632) do
   end
 
   create_table "likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id"
-    t.string "likable_type"
-    t.bigint "likable_id"
+    t.bigint "user_id", null: false
+    t.string "likable_type", null: false
+    t.bigint "likable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["likable_type", "likable_id"], name: "index_likes_on_likable_type_and_likable_id"
@@ -66,16 +66,16 @@ ActiveRecord::Schema.define(version: 2020_03_31_101632) do
   end
 
   create_table "posts", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id"
-    t.text "content"
+    t.bigint "user_id", null: false
+    t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_posts_on_user_id"
   end
 
   create_table "q_and_a_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "question_id"
-    t.bigint "answer_id"
+    t.bigint "question_id", null: false
+    t.bigint "answer_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["answer_id"], name: "index_q_and_a_relationships_on_answer_id"
@@ -83,18 +83,18 @@ ActiveRecord::Schema.define(version: 2020_03_31_101632) do
   end
 
   create_table "questions", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.text "content"
-    t.bigint "user_id"
+    t.text "content", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.text "title"
-    t.integer "solved", default: 0
+    t.text "title", null: false
+    t.integer "solved", default: 0, null: false
     t.index ["user_id"], name: "index_questions_on_user_id"
   end
 
   create_table "relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.integer "followee_id"
-    t.integer "follower_id"
+    t.integer "followee_id", null: false
+    t.integer "follower_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["followee_id"], name: "index_relationships_on_followee_id"
@@ -103,8 +103,8 @@ ActiveRecord::Schema.define(version: 2020_03_31_101632) do
   end
 
   create_table "stocks", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "user_id"
-    t.bigint "question_id"
+    t.bigint "user_id", null: false
+    t.bigint "question_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["question_id"], name: "index_stocks_on_question_id"
@@ -113,9 +113,9 @@ ActiveRecord::Schema.define(version: 2020_03_31_101632) do
   end
 
   create_table "tag_relationships", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8", force: :cascade do |t|
-    t.bigint "category_id"
-    t.string "taggable_type"
-    t.bigint "taggable_id"
+    t.bigint "category_id", null: false
+    t.string "taggable_type", null: false
+    t.bigint "taggable_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["category_id"], name: "index_tag_relationships_on_category_id"
@@ -130,11 +130,11 @@ ActiveRecord::Schema.define(version: 2020_03_31_101632) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
+    t.string "name", null: false
     t.string "profile_image"
     t.text "profile"
-    t.integer "bunri", limit: 1, default: 0
-    t.integer "role", limit: 1, default: 0
+    t.integer "bunri", limit: 1, default: 0, null: false
+    t.integer "role", limit: 1, default: 0, null: false
     t.index ["bunri"], name: "index_users_on_bunri"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
