@@ -35,7 +35,7 @@
               .col-6
                 = link_to "#{@user.followers.count}フォロワー", user_followers_path(@user.id), class: "followers_count_#{@user.id}"
           hr
-          p.font-weight-bold フォロー中のカテゴリー
+          p.font-weight-bold Myカテゴリー
           - if @user.categories.blank?
             p フォロー中のカテゴリーはありません
           = render partial: 'category/tag', locals: { taggable: @user }
