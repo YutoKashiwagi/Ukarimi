@@ -169,8 +169,10 @@ class User < ApplicationRecord
   end
 
   def mycategory_items(obj)
-    mycategory_ids = TagRelationship.where("taggable_type = ? AND category_id IN (?)",
-                                           obj.name, self.category_ids).pluck(:taggable_id)
-    obj.where("id IN (?)", mycategory_ids).recent
+    # QUestion, Postのidを取得するためのサブクエリ
+    myitems_ids = "SELECT taggable_id
+                   FROM tag_relationships
+                   WHERE taggable_type = :obj_class AND category_id IN (:mycategories_ids)"
+    obj.where("id IN (#{myitems_ids})", obj_class: obj.name, mycategories_ids: category_ids).recent
   end
 end
