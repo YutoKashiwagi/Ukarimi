@@ -162,4 +162,29 @@ class User < ApplicationRecord
       user.email = "guest_#{Time.now.to_i}#{rand(100)}@example.com"
     end
   end
+
+  # フィード
+  def followee_items(obj)
+    obj.recent.where("user_id IN (?)", followee_ids)
+  end
+
+  def mycategory_questions
+    mycategory_questions = []
+    categories.each do |category|
+      category.questions.all_includes.each do |question|
+        mycategory_questions << question
+      end
+    end
+    mycategory_questions.uniq.sort_by!(&:id)
+  end
+
+  def mycategory_posts
+    mycategory_posts = []
+    categories.each do |category|
+      category.posts.includes(:user, :tag_relationships, :categories, :likes).each do |post|
+        mycategory_posts << post
+      end
+    end
+    mycategory_posts.uniq.sort_by!(&:id)
+  end
 end

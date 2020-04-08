@@ -1,7 +1,27 @@
 - provide(:title, 'つぶやき')
 h1.text-center.font-weight-bold.py-3 つぶやき一覧
-- unless @posts.blank?
-  hr
-  .post_container
+hr
+.post_container
+  - if user_signed_in?
+    / タブのリンク部分
+    ul.nav.nav-tabs.justify-content-center
+      li.nav-item
+        a.nav-link.bold_texts.active data-toggle="tab" href="#all_posts" みんなのつぶやき
+      li.nav-item
+        a.nav-link.bold_texts data-toggle="tab" href="#followees_posts" フォロー
+      li.nav-item
+        a.nav-link.bold_texts data-toggle="tab" href="#mycategory_posts" Myカテゴリー
+    / タブの表示部分
+    .tab-content.text-center
+      #all_posts.tab-pane.active
+        = render partial: 'posts/post', collection: @posts
+        = paginate @posts
+      #followees_posts.tab-pane
+        = render partial: 'posts/post', collection: @followees_posts
+        = paginate @followees_posts
+      #mycategory_posts.tab-pane
+        = render partial: 'posts/post', collection: @mycategory_posts
+        = paginate @mycategory_posts
+  - else
     = render partial: 'posts/post', collection: @posts
     = paginate @posts

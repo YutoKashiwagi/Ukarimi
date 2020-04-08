@@ -2,5 +2,26 @@
 h1.text-center.font-weight-bold.py-3 質問一覧
 hr
 .question_index_container
-  = render partial: 'shared/question_index', collection: @questions, as: :question
-  = paginate @questions
+  - if user_signed_in?
+    / タブのリンク部分
+    ul.nav.nav-tabs.justify-content-center
+      li.nav-item
+        a.nav-link.bold_texts.active data-toggle="tab" href="#all_questions" みんなの質問
+      li.nav-item
+        a.nav-link.bold_texts data-toggle="tab" href="#followees_questions" フォロー
+      li.nav-item
+        a.nav-link.bold_texts data-toggle="tab" href="#mycategory_questions" Myカテゴリー
+    / タブの表示部分
+    .tab-content.text-center
+      #all_questions.tab-pane.active
+        = render partial: 'shared/question_index', collection: @questions, as: :question
+        = paginate @questions
+      #followees_questions.tab-pane
+        = render partial: 'shared/question_index', collection: @followees_questions, as: :question
+        = paginate @followees_questions
+      #mycategory_questions.tab-pane
+        = render partial: 'shared/question_index', collection: @mycategory_questions, as: :question
+        = paginate @mycategory_questions
+  - else
+    = render partial: 'shared/question_index', collection: @questions, as: :question
+    = paginate @questions

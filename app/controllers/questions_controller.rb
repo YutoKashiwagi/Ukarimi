@@ -5,6 +5,10 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.all_includes.recent.page(params[:page]).per(10)
+    if user_signed_in?
+      @followees_questions = current_user.followee_items(Question).all_includes.page(params[:page]).per(10)
+      @mycategory_questions = Kaminari.paginate_array(current_user.mycategory_questions).page(params[:page]).per(10)
+    end
   end
 
   def show

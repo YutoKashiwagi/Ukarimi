@@ -369,4 +369,72 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+  describe 'フィード機能' do
+    describe 'followee_items()' do
+      let!(:followee) { create(:user) }
+      let!(:unfollowee) { create(:user) }
+
+      before do
+        user.save
+        user.follow(followee)
+      end
+
+      describe 'Questionを引数に取った時' do
+        let!(:followee_question) { create(:question, user: followee) }
+        let!(:unfollowee_question) { create(:question, user: unfollowee) }
+
+        example 'フォロワーの質問を含み、フォローしてない人の質問を含まないこと' do
+          expect(user.followee_items(Question)).to include(followee_question)
+          expect(user.followee_items(Question)).not_to include(unfollowee_question)
+        end
+      end
+
+      describe 'Postを引数に取った時' do
+        let!(:followee_post) { create(:post, user: followee) }
+        let!(:unfollowee_post) { create(:post, user: unfollowee) }
+
+        example 'フォロワーのつぶやきを含み、フォローしてない人のつぶやきを含まないこと' do
+          expect(user.followee_items(Post)).to include(followee_post)
+          expect(user.followee_items(Post)).not_to include(unfollowee_post)
+        end
+      end
+    end
+
+    describe 'カテゴリーのフィード' do
+      let!(:followed_category) { create(:category) }
+      let!(:unfollowed_category) { create(:category) }
+
+      before do
+        user.follow_category(followed_category)
+      end
+
+      describe '質問のフィード' do
+        let!(:other_question) { create(:question) }
+
+        before do
+          question.categories << followed_category
+          other_question.categories << unfollowed_category
+        end
+
+        example 'フォロー中のカテゴリーを含む質問を含み、フォローしてないカテゴリーのみの質問は含まないこと' do
+          expect(user.mycategory_questions).to include(question)
+          expect(user.mycategory_questions).not_to include(other_question)
+        end
+
+        context '複数のカテゴリーを含む質問がある場合' do
+          let!(:followed_category2) { create(:category) }
+
+          before do
+            user.follow_category(followed_category2)
+            question.categories << followed_category2
+          end
+
+          example '質問が重複していないこと' do
+            expect(user.mycategory_questions.count).to eq 1
+          end
+        end
+      end
+    end
+  end
 end
