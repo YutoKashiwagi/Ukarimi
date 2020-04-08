@@ -409,30 +409,47 @@ RSpec.describe User, type: :model do
         user.follow_category(followed_category)
       end
 
-      describe '質問のフィード' do
-        let!(:other_question) { create(:question) }
-
+      shared_examples 'mycategory_items(Model)のテスト' do
+        # item => インスタンス(ユーザーがフォロー中のカテゴリーを含む)
+        # ohter_item => インスタンス(フォロー中のカテゴリーを含まない)
+        # item_class => itemのクラス
         before do
-          question.categories << followed_category
-          other_question.categories << unfollowed_category
+          item.categories << followed_category
+          other_item.categories << unfollowed_category
         end
 
-        example 'フォロー中のカテゴリーを含む質問を含み、フォローしてないカテゴリーのみの質問は含まないこと' do
-          expect(user.mycategory_questions).to include(question)
-          expect(user.mycategory_questions).not_to include(other_question)
+        example 'フォロー中のカテゴリーを含むアイテムを含み、フォローしてないカテゴリーのみのアイテムは含まないこと' do
+          expect(user.mycategory_items(item_class).include?(item)).to eq true
+          expect(user.mycategory_items(item_class).include?(other_item)).not_to eq true
         end
 
-        context '複数のカテゴリーを含む質問がある場合' do
+        context '複数のカテゴリーを含むアイテムがある場合' do
           let!(:followed_category2) { create(:category) }
 
           before do
             user.follow_category(followed_category2)
-            question.categories << followed_category2
+            item.categories << followed_category2
           end
 
-          example '質問が重複していないこと' do
-            expect(user.mycategory_questions.count).to eq 1
+          example 'アイテムが重複していないこと' do
+            expect(user.mycategory_items(item_class).count).to eq 1
           end
+        end
+      end
+
+      describe 'mycategory_items(Question)' do
+        include_examples 'mycategory_items(Model)のテスト' do
+          let!(:item) { create(:question) }
+          let!(:other_item) { create(:question) }
+          let!(:item_class) { Question }
+        end
+      end
+
+      describe 'mycategory_items(Post)' do
+        include_examples 'mycategory_items(Model)のテスト' do
+          let!(:item) { create(:post) }
+          let!(:other_item) { create(:post) }
+          let!(:item_class) { Post }
         end
       end
     end
