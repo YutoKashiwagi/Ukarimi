@@ -168,23 +168,9 @@ class User < ApplicationRecord
     obj.recent.where("user_id IN (?)", followee_ids)
   end
 
-  def mycategory_questions
-    mycategory_questions = []
-    categories.each do |category|
-      category.questions.all_includes.each do |question|
-        mycategory_questions << question
-      end
-    end
-    mycategory_questions.uniq.sort_by!(&:id)
-  end
-
-  def mycategory_posts
-    mycategory_posts = []
-    categories.each do |category|
-      category.posts.includes(:user, :tag_relationships, :categories, :likes).each do |post|
-        mycategory_posts << post
-      end
-    end
-    mycategory_posts.uniq.sort_by!(&:id)
+  def mycategory_items(obj)
+    mycategory_ids = TagRelationship.where("taggable_type = ? AND category_id IN (?)",
+                                           obj.name, self.category_ids).pluck(:taggable_id)
+    obj.where("id IN (?)", mycategory_ids).recent
   end
 end
