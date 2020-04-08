@@ -15,10 +15,13 @@ hr
     .tab-content.text-center
       #all_questions.tab-pane.active
         = render partial: 'shared/question_index', collection: @questions, as: :question
+        = paginate @questions
       #followees_questions.tab-pane
         = render partial: 'shared/question_index', collection: @followees_questions, as: :question
+        = paginate @followees_questions
       #mycategory_questions.tab-pane
         = render partial: 'shared/question_index', collection: @mycategory_questions, as: :question
+        = paginate @mycategory_questions
   - else
     = render partial: 'shared/question_index', collection: @questions, as: :question
     = paginate @questions

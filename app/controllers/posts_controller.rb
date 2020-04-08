@@ -6,8 +6,8 @@ class PostsController < ApplicationController
     @posts = Post.includes(:user, :tag_relationships, :categories, :likes).recent.page(params[:page]).per(10)
     if user_signed_in?
       @followees_posts = current_user.followee_items(Post).
-        includes(:user, :tag_relationships, :categories, :likes)
-      @mycategory_posts = current_user.mycategory_posts
+        includes(:user, :tag_relationships, :categories, :likes).page(params[:page]).per(10)
+      @mycategory_posts = Kaminari.paginate_array(current_user.mycategory_posts).page(params[:page]).per(10)
     end
   end
 

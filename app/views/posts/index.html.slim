@@ -15,10 +15,13 @@ hr
     .tab-content.text-center
       #all_posts.tab-pane.active
         = render partial: 'posts/post', collection: @posts
+        = paginate @posts
       #followees_posts.tab-pane
         = render partial: 'posts/post', collection: @followees_posts
+        = paginate @followees_posts
       #mycategory_posts.tab-pane
         = render partial: 'posts/post', collection: @mycategory_posts
+        = paginate @mycategory_posts
   - else
     = render partial: 'posts/post', collection: @posts
     = paginate @posts
