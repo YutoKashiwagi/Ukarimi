@@ -169,12 +169,22 @@ class User < ApplicationRecord
   end
 
   def mycategory_questions
-    feed_questions = []
+    mycategory_questions = []
     categories.each do |category|
-      category.questions.each do |question|
-        feed_questions << question
+      category.questions.all_includes.each do |question|
+        mycategory_questions << question
       end
     end
-    feed_questions.uniq.sort_by!(&:id)
+    mycategory_questions.uniq.sort_by!(&:id)
+  end
+
+  def mycategory_posts
+    mycategory_posts = []
+    categories.each do |category|
+      category.posts.includes(:user, :tag_relationships, :categories, :likes).each do |post|
+        mycategory_posts << post
+      end
+    end
+    mycategory_posts.uniq.sort_by!(&:id)
   end
 end
