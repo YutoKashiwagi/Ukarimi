@@ -1,2 +1,4 @@
 require:
   - rubocop-airbnb
+Airbnb/RiskyActiverecordInvocation:
+  Enabled: false

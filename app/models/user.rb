@@ -168,23 +168,11 @@ class User < ApplicationRecord
     obj.recent.where("user_id IN (?)", followee_ids)
   end
 
-  def mycategory_questions
-    mycategory_questions = []
-    categories.each do |category|
-      category.questions.all_includes.each do |question|
-        mycategory_questions << question
-      end
-    end
-    mycategory_questions.uniq.sort_by!(&:id)
-  end
-
-  def mycategory_posts
-    mycategory_posts = []
-    categories.each do |category|
-      category.posts.includes(:user, :tag_relationships, :categories, :likes).each do |post|
-        mycategory_posts << post
-      end
-    end
-    mycategory_posts.uniq.sort_by!(&:id)
+  def mycategory_items(obj)
+    # QUestion, Postのidを取得するためのサブクエリ
+    myitems_ids = "SELECT taggable_id
+                   FROM tag_relationships
+                   WHERE taggable_type = :obj_class AND category_id IN (:mycategories_ids)"
+    obj.where("id IN (#{myitems_ids})", obj_class: obj.name, mycategories_ids: category_ids).recent
   end
 end
