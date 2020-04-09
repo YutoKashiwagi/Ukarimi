@@ -14,14 +14,11 @@ hr
     / タブの表示部分
     .tab-content.text-center
       #all_posts.tab-pane.active
-        = render partial: 'posts/post', collection: @posts
-        = paginate @posts
+        = render partial: 'posts/tab', locals: { posts: @posts}
       #followees_posts.tab-pane
-        = render partial: 'posts/post', collection: @followees_posts
-        = paginate @followees_posts
+        = render partial: 'posts/tab', locals: { posts: @followees_posts}
       #mycategory_posts.tab-pane
-        = render partial: 'posts/post', collection: @mycategory_posts
-        = paginate @mycategory_posts
+        = render partial: 'posts/tab', locals: { posts: @mycategory_posts}
   - else
     = render partial: 'posts/post', collection: @posts
     = paginate @posts

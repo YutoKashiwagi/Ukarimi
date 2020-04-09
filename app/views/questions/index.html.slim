@@ -14,14 +14,11 @@ hr
     / タブの表示部分
     .tab-content.text-center
       #all_questions.tab-pane.active
-        = render partial: 'shared/question_index', collection: @questions, as: :question
-        = paginate @questions
+        = render partial: 'questions/tab', locals: { questions: @questions }
       #followees_questions.tab-pane
-        = render partial: 'shared/question_index', collection: @followees_questions, as: :question
-        = paginate @followees_questions
+        = render partial: 'questions/tab', locals: { questions: @followees_questions }
       #mycategory_questions.tab-pane
-        = render partial: 'shared/question_index', collection: @mycategory_questions, as: :question
-        = paginate @mycategory_questions
+        = render partial: 'questions/tab', locals: { questions: @mycategory_questions }
   - else
     = render partial: 'shared/question_index', collection: @questions, as: :question
     = paginate @questions

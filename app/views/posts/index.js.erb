@@ -1,0 +1,3 @@
+$('#all_posts').html("<%= escape_javascript(render partial: 'posts/tab', locals: { posts: @posts })%>");
+$('#followees_posts').html("<%= escape_javascript(render partial: 'posts/tab', locals: { posts: @followees_posts })%>");
+$('#mycategory_posts').html("<%= escape_javascript(render partial: 'posts/tab', locals: { posts: @mycategory_posts })%>");
