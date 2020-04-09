@@ -10,6 +10,10 @@ class PostsController < ApplicationController
       @mycategory_posts = current_user.mycategory_items(Post).
         includes(:user, :tag_relationships, :categories, :likes).page(params[:page]).per(10)
     end
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show

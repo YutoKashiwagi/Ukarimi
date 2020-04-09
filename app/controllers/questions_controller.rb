@@ -9,6 +9,10 @@ class QuestionsController < ApplicationController
       @followees_questions = current_user.followee_items(Question).all_includes.page(params[:page]).per(10)
       @mycategory_questions = current_user.mycategory_items(Question).all_includes.page(params[:page]).per(10)
     end
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
