@@ -6,12 +6,12 @@ class Answer < ApplicationRecord
   belongs_to :question
 
   has_many :comments, as: :commentable, dependent: :destroy
-  has_many :likes, as: :likable, dependent: :destroy
+  has_many :likes,    as: :likable,     dependent: :destroy
 
   # バリデーション
-  validates :content,
-            presence: true,
-            length: { maximum: 1000 }
+  validates :user_id,     presence: true
+  validates :question_id, presence: true
+  validates :content,     presence: true, length: { maximum: 1000 }
 
   def is_best_answer?
     self == question.best_answer
