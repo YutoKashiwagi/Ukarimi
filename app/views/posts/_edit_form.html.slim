@@ -13,8 +13,6 @@
           = category.check_box
           .badge.badge-secondary.mr-1
             = category.text
-  - if current_page?(action: 'new') || current_page?(action: 'index')
-    = f.submit 'つぶやく', class: 'btn btn-primary'
-  - elsif current_page?(action: 'edit')
+  .form-group
     = f.submit '編集', class: 'btn btn-primary'
     
