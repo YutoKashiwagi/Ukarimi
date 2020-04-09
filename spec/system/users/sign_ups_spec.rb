@@ -11,7 +11,7 @@ RSpec.describe "SignUps", type: :system do
 
   example '正常にサインアップできること' do
     click_button 'アカウント登録'
-    expect(page).to have_content 'foobar'
+    expect(page).to have_content 'アカウント登録が完了しました'
   end
 
   describe '異常値' do
