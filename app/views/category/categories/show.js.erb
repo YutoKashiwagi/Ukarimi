@@ -1,0 +1,3 @@
+$('#category_questions').html("<%= escape_javascript(render partial: 'questions/tab', locals: { questions: @questions })%>");
+$('#category_posts').html("<%= escape_javascript(render partial: 'posts/tab', locals: { posts: @posts })%>");
+$('#category_users').html("<%= escape_javascript(render partial: 'users/tab', locals: { users: @users })%>");
