@@ -20,7 +20,4 @@
               .badge.badge-secondary.mr-1
                 = category.text
       .form-group
-        - if current_page?(action: 'new')
-          = f.submit '質問', class: 'btn btn-primary'
-        - elsif current_page?(action: 'edit')
-          = f.submit '編集内容を送信', class: 'btn btn-primary'
+        = f.submit '編集内容を送信', class: 'btn btn-primary'

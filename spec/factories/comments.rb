@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :comment do
     content { "MyText" }
-    user { create(:user) }
+    association :user
     commentable { create(:question) }
   end
 end

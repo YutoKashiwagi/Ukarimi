@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :answer do
     content { "answer content" }
-    user { create(:user) }
-    question { create(:question) }
+    association :user
+    association :question
   end
 end
