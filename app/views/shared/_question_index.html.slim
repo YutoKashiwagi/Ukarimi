@@ -1,25 +1,27 @@
 .question_each_container
   .row
-    .col-2.text-center
-      - if question.has_best_answer?
-        p.text-success 解決済み
-      - else
-        p 未解決
-      p 回答数
-      p.display-4.text-danger
-        | #{question.answers.count}
-    .col-10
+    .col-sm-5.text-center
+      .row
+        .col-6
+          - if question.has_best_answer?
+            p.text-success 解決済み
+          - else
+            p 未解決
+          p 回答数
+          p.display-4.text-danger
+            | #{question.answers.count}
+        .col-6
+          = render partial: 'users/user_image_link', locals: { user: question.user}
+          = question.user.name
+    .col-sm-7
       .text-center
         .row
-          .col-3
-            = render partial: 'users/user_image_link', locals: { user: question.user}
-            = question.user.name
-          .col-5
+          .col-6
             = link_to "#{question.title}", question_path(question.id)
             br
             .mt-5
               = render partial: 'category/tag', locals: { taggable: question }
-          .col-4
+          .col-6
             = distance_of_time_in_words_to_now(question.created_at)
             br
             .mt-2

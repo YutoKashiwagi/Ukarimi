@@ -19,8 +19,13 @@
 }
 
 @mixin basic_container() {
-  width: 880px;
   margin: auto;
+  @media screen and (min-width: 720px) {
+    width: 720px;
+  }
+  @media screen and (max-width: 719px) {
+    width: 100%;
+  }
 }
 
 .gold {
@@ -40,7 +45,7 @@
 }
 
 .bold_texts {
-  font-size: 25px;
+  font-size: 1.5rem;
   font-weight: bold;
   color: gray;
 }
@@ -169,14 +174,14 @@ button {
 }
 
 .question_each_container {
-  width: 880px;
-  height: 128px;
+  width: 100%;
+  height: auto;
 }
 
 // ユーザーページのスタイリング
 
 .user_container {
-  width: 1200px;
+  width: 100%;
   margin: auto;
 }
 
@@ -318,16 +323,13 @@ body {
   margin: auto;
   width: 64%;
   height: 400px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
   .lp_item {
-    width: 50%;
     p {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       color: midnightblue;
     }
     h2 {
+      font-size: 4rem;
       color: midnightblue;
     }
     hr {

@@ -1,22 +1,25 @@
 = image_tag 'sakura.jpg', class: 'lp_photo'
 .lp_container
-  .lp_item
-    .text-center.font-weight-bold
-      p 大学受験用Q＆Aサイト
-      p わかる。受かる。繋がる。
-      h2.display-2 UKARIMI
-  .lp_item
-    - if user_signed_in?
-      .text-center
-        = link_to '質問する', new_question_path, class: 'btn btn-success mr-4'
-        = link_to 'つぶやく', new_post_path, class: 'btn btn-success'
-        hr
-        = link_to '質問一覧', questions_path, class: 'btn btn-success mr-4'
-        = link_to 'つぶやき一覧', posts_path, class: 'btn btn-success'
-    - else
-      .text-center
-        = link_to 'ゲストユーザーとしてログイン', users_guest_sign_in_path, method: :post, class: 'btn btn-success'
-        hr
-        = link_to icon('fas', 'sign-in-alt') + 'ログイン', new_user_session_path, class: 'btn btn-success mr-4'
-        = link_to icon('fas', 'user-plus') + '登録', new_user_registration_path, class: 'btn btn-success'
+  .row
+    .col-sm-6
+      .lp_item
+        .text-center.font-weight-bold
+          p 大学受験用Q＆Aサイト
+          p わかる。受かる。繋がる。
+          h2 UKARIMI
+    .col-sm-6
+      .lp_item
+        - if user_signed_in?
+          .text-center
+            = link_to '質問する', new_question_path, class: 'btn btn-success mr-4'
+            = link_to 'つぶやく', new_post_path, class: 'btn btn-success'
+            hr
+            = link_to '質問一覧', questions_path, class: 'btn btn-success mr-4'
+            = link_to 'つぶやき一覧', posts_path, class: 'btn btn-success'
+        - else
+          .text-center
+            = link_to 'ゲストユーザーとしてログイン', users_guest_sign_in_path, method: :post, class: 'btn btn-success'
+            hr
+            = link_to icon('fas', 'sign-in-alt') + 'ログイン', new_user_session_path, class: 'btn btn-success mr-4'
+            = link_to icon('fas', 'user-plus') + '登録', new_user_registration_path, class: 'btn btn-success'
         
