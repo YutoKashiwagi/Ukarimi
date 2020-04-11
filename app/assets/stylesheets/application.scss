@@ -11,7 +11,12 @@
 }
 
 @mixin q_and_a_container($border_color) {
-  width: 700px;
+  @media screen and (max-width: 699px) {
+    width: 100%;
+  }
+  @media screen and (min-width: 700px) {
+    width: 700px;
+  }
   padding: 0.5em 1em;
   margin: auto;
   border: solid 3px $border_color;
@@ -197,7 +202,12 @@ button {
 
 @mixin large_form($height) {
   height: $height;
-  width: 400px;
+  @media screen and (max-width: 399px) {
+    width: 90%;  
+  }
+  @media screen and (min-width: 400px) {
+    width: 400px;  
+  }
   margin: 0;
   padding: 0;
   background: #fff;
