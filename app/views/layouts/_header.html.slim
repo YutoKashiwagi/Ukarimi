@@ -1,5 +1,5 @@
 nav.navbar.navbar-expand-lg.navbar-light
-  = link_to image_tag('ukarimi.png', size: '180x50'), root_path, class: 'navbar-brand'
+  = link_to image_tag('ukarimi.png', size: '160x64'), root_path, class: 'navbar-brand'
   button.navbar-toggler aria-controls="navbarNav" aria-expanded="false" aria-label=("Toggle navigation") data-target="#navbarNav" data-toggle="collapse" type="button" 
     span.navbar-toggler-icon
   #navbarNav.collapse.navbar-collapse
@@ -24,16 +24,16 @@ nav.navbar.navbar-expand-lg.navbar-light
               = link_to icon('fas', 'sign-in-alt') + ' '+ 'ログイン', new_user_session_path, class: 'dropdown-item'
               = link_to icon('fas', 'user-plus') + ' ' + '登録', new_user_registration_path, class: 'dropdown-item'
   
-  / 通知、ドロップダウンメニュー
-  - if user_signed_in?
-    ul.navbar-nav.mr-auto
-      li.nav-item
-        = link_to icon('fas', 'bell'), notifications_path, class: (current_user.has_new_notifications? ? 'nav-link text-danger' : 'nav-link')
-      li.nav-item.dropdown
-        a#navbarDropdown.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
-          | #{image_tag(current_user.profile_image.url, size: '30x30', class: 'rounded-circle')}
-        .dropdown-menu.dropdown-menu-right aria-labelledby="navbarDropdown" 
-          = link_to 'プロフィール', user_path(current_user.id), class: 'dropdown-item'
-          = link_to 'ストック一覧', user_stocks_path(current_user.id), class: 'dropdown-item'
-          .dropdown-divider
-          = link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'dropdown-item'
+    / 通知、ドロップダウンメニュー
+    - if user_signed_in?
+      ul.navbar-nav.ml-auto
+        li.nav-item
+          = link_to icon('fas', 'bell'), notifications_path, class: (current_user.has_new_notifications? ? 'nav-link text-danger' : 'nav-link')
+        li.nav-item.dropdown
+          a#navbarDropdown.nav-link.dropdown-toggle aria-expanded="false" aria-haspopup="true" data-toggle="dropdown" href="#" role="button" 
+            | #{image_tag(current_user.profile_image.url, size: '30x30', class: 'rounded-circle')}
+          .dropdown-menu aria-labelledby="navbarDropdown" 
+            = link_to 'プロフィール', user_path(current_user.id), class: 'dropdown-item'
+            = link_to 'ストック一覧', user_stocks_path(current_user.id), class: 'dropdown-item'
+            .dropdown-divider
+            = link_to 'ログアウト', destroy_user_session_path, method: :delete, class: 'dropdown-item'
