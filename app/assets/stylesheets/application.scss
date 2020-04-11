@@ -311,6 +311,14 @@ body {
   background-color: #e8f0fe;
 }
 
+.nowrap_nav {
+  .nav {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow-x: scroll;
+  }
+}
+
 // 新着通知の背景色
 
 .new_notification {

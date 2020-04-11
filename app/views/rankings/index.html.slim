@@ -1,16 +1,18 @@
 - provide(:title, 'ランキング')
 / タブのリンク部分
-ul.nav.nav-tabs.justify-content-center
-  li.nav-item
-    a.nav-link.bold_texts.active data-toggle="tab" href="#answers_ranking" 回答数ランキング
-  li.nav-item
-    a.nav-link.bold_texts data-toggle="tab" href="#questions_ranking" 質問数ランキング
-/ タブの表示部分
-.tab-content.text-center
-  #answers_ranking.tab-pane.active
-    .text-center
-      = render partial: 'rankings/user', collection: @users_answers
-  #questions_ranking.tab-pane
-    .text-center
-      = render partial: 'rankings/user', collection: @users_questions
-   
+.question_index_container
+  .nowrap_nav
+    ul.nav.nav-tabs
+      li.nav-item
+        a.nav-link.bold_texts.active data-toggle="tab" href="#answers_ranking" 回答数ランキング
+      li.nav-item
+        a.nav-link.bold_texts data-toggle="tab" href="#questions_ranking" 質問数ランキング
+  / タブの表示部分
+  .tab-content.text-center
+    #answers_ranking.tab-pane.active
+      .text-center
+        = render partial: 'rankings/user', collection: @users_answers
+    #questions_ranking.tab-pane
+      .text-center
+        = render partial: 'rankings/user', collection: @users_questions
+    

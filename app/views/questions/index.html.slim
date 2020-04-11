@@ -4,13 +4,14 @@ hr
 .question_index_container
   - if user_signed_in?
     / タブのリンク部分
-    ul.nav.nav-tabs.justify-content-center
-      li.nav-item
-        a.nav-link.bold_texts.active data-toggle="tab" href="#all_questions" みんなの質問
-      li.nav-item
-        a.nav-link.bold_texts data-toggle="tab" href="#followees_questions" フォロー
-      li.nav-item
-        a.nav-link.bold_texts data-toggle="tab" href="#mycategory_questions" Myカテゴリー
+    .nowrap_nav
+      ul.nav.nav-tabs
+        li.nav-item
+          a.nav-link.bold_texts.active data-toggle="tab" href="#all_questions" みんなの質問
+        li.nav-item
+          a.nav-link.bold_texts data-toggle="tab" href="#followees_questions" フォロー
+        li.nav-item
+          a.nav-link.bold_texts data-toggle="tab" href="#mycategory_questions" Myカテゴリー
     / タブの表示部分
     .tab-content.text-center
       #all_questions.tab-pane.active
