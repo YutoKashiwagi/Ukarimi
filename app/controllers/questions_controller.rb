@@ -17,7 +17,7 @@ class QuestionsController < ApplicationController
 
   def show
     @question = Question.find(params[:id])
-    @related_questions = @question.related_questions
+    @related_questions = @question.related_questions.limit(4).all_includes
     @user = @question.user
     @answers = @question.answers.includes(:user, :likes, :comments)
   end
