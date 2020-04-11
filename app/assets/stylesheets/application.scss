@@ -33,6 +33,12 @@
   }
 }
 
+@mixin disabled_at($width) {
+  @media screen and (max-width: $width) {
+    display: none;
+  }
+}
+
 .gold {
   color: gold;
 }
@@ -181,6 +187,10 @@ button {
 .question_each_container {
   width: 100%;
   height: auto;
+}
+
+.disabled_at_small {
+  @include disabled_at(799px);
 }
 
 // ユーザーページのスタイリング
