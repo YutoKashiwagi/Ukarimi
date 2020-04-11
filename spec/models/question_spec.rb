@@ -148,7 +148,7 @@ RSpec.describe Question, type: :model do
         end
 
         example '同じ質問は一つしか取得してないこと' do
-          expect(question.related_questions.count(category1_question)).to eq 1
+          expect(question.related_questions.count).to eq 1
         end
       end
     end
