@@ -1,32 +1,38 @@
 .question_each_container
   .row
-    .col-2.text-center
-      - if question.has_best_answer?
-        p.text-success 解決済み
-      - else
-        p 未解決
-      p 回答数
-      p.display-4.text-danger
-        | #{question.answers.count}
-    .col-10
-      .text-center
-        .row
-          .col-3
-            = render partial: 'users/user_image_link', locals: { user: question.user}
-            = question.user.name
-          .col-5
-            = link_to "#{question.title}", question_path(question.id)
-            br
-            .mt-5
-              = render partial: 'category/tag', locals: { taggable: question }
-          .col-4
-            = distance_of_time_in_words_to_now(question.created_at)
-            br
-            .mt-2
-              - if question.has_best_answer?
-                p.text-danger
-                  | #{icon('fas', 'check')}
-                  | ベストアンサー！
-                = render partial: 'users/user_image_link', locals: { user: question.best_answer.user }
-                = question.best_answer.user.name
+    .col-sm-9
+      .row
+        .col-4.text-center
+          - if question.has_best_answer?
+            p.text-success 解決済み
+          - else
+            p 未解決
+          p 回答数
+          p.display-4.text-danger
+            | #{question.answers.count}
+        .col-8
+          = link_to "#{question.title}", question_path(question.id)
+          br
+          .mt-5
+            = render partial: 'category/tag', locals: { taggable: question }
+          .row
+            .col-sm-6
+              / ユーザー情報
+              = render partial: 'users/user_image_link', locals: { user: question.user}
+              = question.user.name 
+            .col-sm-6
+              / 投稿時間
+              = distance_of_time_in_words_to_now(question.created_at)
+    .col-sm-3
+      .disabled_at_small
+        - if question.has_best_answer?
+          p.text-danger
+            | #{icon('fas', 'check')}
+            | ベストアンサー！
+          = render partial: 'users/user_image_link', locals: { user: question.best_answer.user }
+          = question.best_answer.user.name
+        - else
+          .text-muted
+            p 未解決の質問です
+            p 回答してみましょう！
 hr

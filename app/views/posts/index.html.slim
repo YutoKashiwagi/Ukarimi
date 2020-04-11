@@ -4,13 +4,14 @@ hr
 .post_container
   - if user_signed_in?
     / タブのリンク部分
-    ul.nav.nav-tabs.justify-content-center
-      li.nav-item
-        a.nav-link.bold_texts.active data-toggle="tab" href="#all_posts" みんなのつぶやき
-      li.nav-item
-        a.nav-link.bold_texts data-toggle="tab" href="#followees_posts" フォロー
-      li.nav-item
-        a.nav-link.bold_texts data-toggle="tab" href="#mycategory_posts" Myカテゴリー
+    .nowrap_nav
+      ul.nav.nav-tabs
+        li.nav-item
+          a.nav-link.bold_texts.active data-toggle="tab" href="#all_posts" みんなのつぶやき
+        li.nav-item
+          a.nav-link.bold_texts data-toggle="tab" href="#followees_posts" フォロー
+        li.nav-item
+          a.nav-link.bold_texts data-toggle="tab" href="#mycategory_posts" Myカテゴリー
     / タブの表示部分
     .tab-content.text-center
       #all_posts.tab-pane.active

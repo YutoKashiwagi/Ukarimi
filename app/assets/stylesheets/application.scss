@@ -11,7 +11,12 @@
 }
 
 @mixin q_and_a_container($border_color) {
-  width: 700px;
+  @media screen and (max-width: 699px) {
+    width: 100%;
+  }
+  @media screen and (min-width: 700px) {
+    width: 700px;
+  }
   padding: 0.5em 1em;
   margin: auto;
   border: solid 3px $border_color;
@@ -19,8 +24,19 @@
 }
 
 @mixin basic_container() {
-  width: 880px;
   margin: auto;
+  @media screen and (min-width: 720px) {
+    width: 720px;
+  }
+  @media screen and (max-width: 719px) {
+    width: 100%;
+  }
+}
+
+@mixin disabled_at($width) {
+  @media screen and (max-width: $width) {
+    display: none;
+  }
 }
 
 .gold {
@@ -40,7 +56,7 @@
 }
 
 .bold_texts {
-  font-size: 25px;
+  font-size: 1.5rem;
   font-weight: bold;
   color: gray;
 }
@@ -169,14 +185,18 @@ button {
 }
 
 .question_each_container {
-  width: 880px;
-  height: 128px;
+  width: 100%;
+  height: auto;
+}
+
+.disabled_at_small {
+  @include disabled_at(799px);
 }
 
 // ユーザーページのスタイリング
 
 .user_container {
-  width: 1200px;
+  width: 100%;
   margin: auto;
 }
 
@@ -192,7 +212,12 @@ button {
 
 @mixin large_form($height) {
   height: $height;
-  width: 400px;
+  @media screen and (max-width: 399px) {
+    width: 90%;  
+  }
+  @media screen and (min-width: 400px) {
+    width: 400px;  
+  }
   margin: 0;
   padding: 0;
   background: #fff;
@@ -286,6 +311,14 @@ body {
   background-color: #e8f0fe;
 }
 
+.nowrap_nav {
+  .nav {
+    flex-wrap: nowrap;
+    white-space: nowrap;
+    overflow-x: scroll;
+  }
+}
+
 // 新着通知の背景色
 
 .new_notification {
@@ -318,16 +351,13 @@ body {
   margin: auto;
   width: 64%;
   height: 400px;
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
   .lp_item {
-    width: 50%;
     p {
-      font-size: 1.5rem;
+      font-size: 1.2rem;
       color: midnightblue;
     }
     h2 {
+      font-size: 4rem;
       color: midnightblue;
     }
     hr {

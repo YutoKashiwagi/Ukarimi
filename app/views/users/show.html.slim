@@ -1,7 +1,7 @@
 - provide(:title, "#{@user.name}さんのプロフィール")
 .user_container
   .row
-    .col-4
+    .col-sm-4
       .user_border
         .text-center
           = image_tag @user.profile_image.url, size: '200x200', class: 'rounded-circle'
@@ -39,15 +39,16 @@
           - if @user.categories.blank?
             p フォロー中のカテゴリーはありません
           = render partial: 'category/tag', locals: { taggable: @user }
-    .col-8
+    .col-sm-8
       / タブのリンク部分
-      ul.nav.nav-tabs.justify-content-center
-        li.nav-item
-          a.nav-link.bold_texts.active data-toggle="tab" href="#user_questions" 質問
-        li.nav-item
-          a.nav-link.bold_texts data-toggle="tab" href="#user_answers" 回答した質問
-        li.nav-item
-          a.nav-link.bold_texts data-toggle="tab" href="#user_posts" つぶやき
+      .nowrap_nav
+        ul.nav.nav-tabs
+          li.nav-item
+            a.nav-link.bold_texts.active data-toggle="tab" href="#user_questions" 質問
+          li.nav-item
+            a.nav-link.bold_texts data-toggle="tab" href="#user_answers" 回答した質問
+          li.nav-item
+            a.nav-link.bold_texts data-toggle="tab" href="#user_posts" つぶやき
       / タブの表示部分
       .tab-content.text-center
         #user_questions.tab-pane.active

@@ -1,23 +1,28 @@
 .users_container
   .row
-    .col-3
-      .rank_text.font-weight-bold
-        - case user_counter
-        - when 0 then
-            i.fas.fa-crown.gold
-        - when 1 then
-            i.fas.fa-crown.silver
-        - when 2 then
-            i.fas.fa-crown.copper
-        = "第#{user_counter + 1}位"
-    .col-3
-      .text-left
-        = render partial: 'users/user_image_link', locals: { user: user }
-        = user.name
-    .col-2
-      .text-left
-        p 回答数 : #{user.answers.count}
-        p 質問数 : #{user.questions.count}
-    .col-4
-      = render partial: 'shared/follow_button', locals: { user: user }
+    .col-sm-6
+      .row
+        .col-6
+          .rank_text.font-weight-bold
+            - case user_counter
+            - when 0 then
+                i.fas.fa-crown.gold
+            - when 1 then
+                i.fas.fa-crown.silver
+            - when 2 then
+                i.fas.fa-crown.copper
+            = "第#{user_counter + 1}位"
+        .col-6
+          .text-left
+            = render partial: 'users/user_image_link', locals: { user: user }
+            = user.name
+    .col-sm-6
+      .row
+        .col-6
+          .text-center
+            p 回答数 : #{user.answers.count}
+            p 質問数 : #{user.questions.count}
+        .col-6
+          .mt-3
+            = render partial: 'shared/follow_button', locals: { user: user }
   hr
