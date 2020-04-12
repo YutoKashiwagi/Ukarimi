@@ -65,9 +65,11 @@ class Question < ApplicationRecord
                              WHERE taggable_type = :question AND taggable_id = :self_id"
     related_questions_ids = "SELECT taggable_id
                              FROM tag_relationships
-                             WHERE taggable_type = :question AND category_id IN (#{related_categories_ids})"
-    Question.where.not(id: id).where("id IN (#{related_questions_ids})",
-                                     question: 'Question',
-                                     self_id: id).distinct.recent
+                             WHERE taggable_type = :question
+                              AND category_id IN (#{related_categories_ids})
+                              AND taggable_id != :self_id"
+    Question.where("id IN (#{related_questions_ids})",
+                   question: 'Question',
+                   self_id: id).distinct.recent
   end
 end
