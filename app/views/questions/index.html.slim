@@ -21,5 +21,5 @@ hr
       #mycategory_questions.tab-pane
         = render partial: 'questions/tab', locals: { questions: @mycategory_questions }
   - else
-    = render partial: 'shared/question_index', collection: @questions, as: :question
+    = render partial: 'questions/question_index', collection: @questions, as: :question
     = paginate @questions
