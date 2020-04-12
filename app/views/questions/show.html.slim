@@ -55,6 +55,6 @@
 .question_index_container
   h2.text-center.my-3 関連する質問
   - if @related_questions.present?
-    = render partial: 'shared/question_index', collection: @related_questions, as: :question
+    = render partial: 'questions/question_index', collection: @related_questions, as: :question
   - else
     p.font-weight-bold.text-center 関連する質問はありません

@@ -2,5 +2,5 @@
 h1.text-center #{@user.name}さんのストック一覧
 hr
 .question_index_container
-  = render partial: 'shared/question_index', collection: @questions, as: :question
+  = render partial: 'questions/question_index', collection: @questions, as: :question
   = paginate @questions
