@@ -1,0 +1,23 @@
+- if user_signed_in?
+  .text-center
+    = form_with model: question, local: true do |f|
+      = render 'shared/error_messages', model: f.object
+      .form-group
+        = f.label :title
+        br
+        = f.text_field :title, placeholder: 'タイトルを入力(50文字以内)', class: 'large_text_field'
+      .form-group
+        = f.label :content
+        br
+        = f.text_area :content, placeholder: '内容を入力(1000文字以内)', class: 'large_text_area'
+      .form-group
+        = f.label :category, 'カテゴリ'
+        br
+        .category_container
+          = f.collection_check_boxes(:category_ids, Category.all, :id, :name, include_hidden: false) do |category|
+            = category.label do
+              = category.check_box
+              .badge.badge-secondary.mr-1
+                = category.text
+      .form-group
+        = f.submit '質問', class: 'btn btn-primary'

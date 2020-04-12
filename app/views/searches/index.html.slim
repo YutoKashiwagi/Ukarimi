@@ -26,7 +26,7 @@ hr
 .question_index_container
   - if @searched_questions.present?
     p.text-danger
-    = render partial: 'shared/question_index', collection: @searched_questions, as: :question
+    = render partial: 'questions/question_index', collection: @searched_questions, as: :question
   - else
     p.text-center 一致する情報は見つかりませんでした。
 = paginate @searched_questions

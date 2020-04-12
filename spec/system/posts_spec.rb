@@ -62,7 +62,7 @@ RSpec.describe "Posts", type: :system do
   describe 'destory' do
     before do
       post.save
-      visit posts_path(user.id)
+      visit post_path(post.id)
     end
 
     example '削除できること' do
@@ -75,7 +75,7 @@ RSpec.describe "Posts", type: :system do
       before do
         login_as other_user, scope: :user
         post.save
-        visit posts_path(user.id)
+        visit post_path(post.id)
       end
 
       example '削除ボタンが表示されていないこと' do

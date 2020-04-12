@@ -13,19 +13,18 @@
         = render partial: 'stocks/form', locals: { question: @question }
     hr
     .row
-      .col-4
+      .col-6
         = render partial: 'users/user_image_link', locals: { user: @question.user }
         = link_to @question.user.name, user_path(@question.user.id)
-      .col-2
+      .col-3
         -if @question.has_best_answer?
           p.text-success 解決済み
         - else
           p 未解決
-      .col-2
         = distance_of_time_in_words_to_now(@question.created_at)
-      .col-4
+      .col-3
         -if current_user == @question.user
-          = link_to icon('fas', 'edit'), edit_question_path(@question.id), class: "edit-q-#{@question.id} mr-4"
+          = link_to icon('fas', 'edit'), edit_question_path(@question.id), class: "edit-q-#{@question.id} mr-2"
           = link_to icon('fas', 'trash'), question_path(@question.id), method: :delete, class: "delete-q-#{@question.id}"
       br
     hr
@@ -56,6 +55,6 @@
 .question_index_container
   h2.text-center.my-3 関連する質問
   - if @related_questions.present?
-    = render partial: 'shared/question_index', collection: @related_questions, as: :question
+    = render partial: 'questions/question_index', collection: @related_questions, as: :question
   - else
     p.font-weight-bold.text-center 関連する質問はありません

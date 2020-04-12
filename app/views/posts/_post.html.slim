@@ -9,8 +9,8 @@ div class="text-center post_#{post.id}"
           = distance_of_time_in_words_to_now(post.created_at)
         - if current_user == post.user
           .col-4
-            = link_to icon('fas', 'arrow-right'), post_path(post.id), class: 'mr-4'
-            = link_to icon('fas', 'edit'), edit_post_path(post.id), class: 'edit_post mr-4'
+            = link_to icon('fas', 'arrow-right'), post_path(post.id), class: 'mr-2'
+            = link_to icon('fas', 'edit'), edit_post_path(post.id), class: 'edit_post mr-2'
             = link_to icon('fas', 'trash'), post_path(post.id), method: :delete, class: 'delete_post'
     .card-body
       / 内容表示部分

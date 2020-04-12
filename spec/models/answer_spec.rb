@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Answer, type: :model do
   let(:question) { create(:question) }
-  let(:answer) { build(:answer, question: question) }
+  let(:answer) { create(:answer, question: question) }
 
   it '有効なファクトリを持つこと' do
     expect(answer.valid?).to eq true
@@ -42,8 +42,6 @@ RSpec.describe Answer, type: :model do
   end
 
   describe 'メソッド' do
-    before { answer.save }
-
     describe 'is_best_answer?' do
       example 'trueを返すこと' do
         question.best_answer = answer

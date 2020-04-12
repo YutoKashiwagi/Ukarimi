@@ -19,35 +19,35 @@ class User < ApplicationRecord
     rikei: 2,
   }
 
-  has_many :posts, dependent: :destroy
+  has_many :posts,     dependent: :destroy
   has_many :questions, dependent: :destroy
-  has_many :answers, dependent: :destroy
+  has_many :comments,  dependent: :destroy
+  has_many :likes,     dependent: :destroy
+  has_many :answers,   dependent: :destroy
   has_many :answered_questions, through: :answers, source: :question
-  has_many :comments, dependent: :destroy
-  has_many :likes, dependent: :destroy
 
   # ストック周り
   has_many :stocks, dependent: :destroy
-  has_many :stocked_questions, through: :stocks, source: :question, dependent: :destroy
+  has_many :stocked_questions, through: :stocks, source: :question
 
   # タグ、カテゴリー周り
-  has_many :tag_relationships, as: :taggable, dependent: :destroy
-  has_many :categories, through: :tag_relationships, source: :category
+  has_many :tag_relationships, as: :taggable,               dependent: :destroy
+  has_many :categories,        through: :tag_relationships, source: :category
 
   # フォロー周り
-  has_many :active_relationships, foreign_key: :follower_id, class_name: 'Relationship', dependent: :destroy
-  has_many :followees, through: :active_relationships, source: :followee
-  has_many :passive_relationships, foreign_key: :followee_id, class_name: 'Relationship', dependent: :destroy
-  has_many :followers, through: :passive_relationships, source: :follower
+  has_many :active_relationships,  foreign_key: :follower_id,       class_name: 'Relationship', dependent: :destroy
+  has_many :followees,             through: :active_relationships,  source: :followee
+  has_many :passive_relationships, foreign_key: :followee_id,       class_name: 'Relationship', dependent: :destroy
+  has_many :followers,             through: :passive_relationships, source: :follower
 
   # 通知周り
-  has_many :active_notifications, class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
+  has_many :active_notifications,  class_name: 'Notification', foreign_key: 'visitor_id', dependent: :destroy
   has_many :passive_notifications, class_name: 'Notification', foreign_key: 'visited_id', dependent: :destroy
 
   # バリデーション
-  validates :name, presence: true, length: { maximum: 20 }
+  validates :name,    presence: true, length: { maximum: 20 }
   validates :profile, length: { maximum: 400 }
-  validates :email, length: { maximum: 256 }
+  validates :email,   length: { maximum: 256 }
 
   # ストック周り
   def stock(question)
@@ -161,5 +161,18 @@ class User < ApplicationRecord
       user.password = SecureRandom.urlsafe_base64
       user.email = "guest_#{Time.now.to_i}#{rand(100)}@example.com"
     end
+  end
+
+  # フィード
+  def followee_items(obj)
+    obj.recent.where("user_id IN (?)", followee_ids)
+  end
+
+  def mycategory_items(obj)
+    # QUestion, Postのidを取得するためのサブクエリ
+    myitems_ids = "SELECT taggable_id
+                   FROM tag_relationships
+                   WHERE taggable_type = :obj_class AND category_id IN (:mycategories_ids)"
+    obj.where("id IN (#{myitems_ids})", obj_class: obj.name, mycategories_ids: category_ids).recent
   end
 end

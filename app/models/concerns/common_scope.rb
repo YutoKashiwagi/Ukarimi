@@ -1,6 +1,6 @@
 module CommonScope
   extend ActiveSupport::Concern
   included do
-    scope :recent, -> { order(created_at: :desc) }
+    scope :recent, -> { order(id: :desc) }
   end
 end

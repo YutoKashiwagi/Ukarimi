@@ -5,11 +5,19 @@ class QuestionsController < ApplicationController
 
   def index
     @questions = Question.all_includes.recent.page(params[:page]).per(10)
+    if user_signed_in?
+      @followees_questions = current_user.followee_items(Question).all_includes.page(params[:page]).per(10)
+      @mycategory_questions = current_user.mycategory_items(Question).all_includes.page(params[:page]).per(10)
+    end
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
     @question = Question.find(params[:id])
-    @related_questions = @question.related_questions
+    @related_questions = @question.related_questions.limit(4).all_includes
     @user = @question.user
     @answers = @question.answers.includes(:user, :likes, :comments)
   end

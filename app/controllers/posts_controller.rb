@@ -4,6 +4,16 @@ class PostsController < ApplicationController
 
   def index
     @posts = Post.includes(:user, :tag_relationships, :categories, :likes).recent.page(params[:page]).per(10)
+    if user_signed_in?
+      @followees_posts = current_user.followee_items(Post).
+        includes(:user, :tag_relationships, :categories, :likes).page(params[:page]).per(10)
+      @mycategory_posts = current_user.mycategory_items(Post).
+        includes(:user, :tag_relationships, :categories, :likes).page(params[:page]).per(10)
+    end
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show

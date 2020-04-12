@@ -1,8 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Question, type: :model do
-  let!(:question) { build(:question) }
-  let!(:answer) { create(:answer, question: question) }
+  let!(:question) { create(:question) }
 
   it '有効なファクトリを持つこと' do
     expect(question.valid?).to eq true
@@ -52,7 +51,7 @@ RSpec.describe Question, type: :model do
   end
 
   describe 'メソッドのテスト' do
-    before { question.save }
+    let!(:answer) { create(:answer, question: question) }
 
     describe 'has_best_answer?' do
       example 'trueを返すこと' do
@@ -149,7 +148,7 @@ RSpec.describe Question, type: :model do
         end
 
         example '同じ質問は一つしか取得してないこと' do
-          expect(question.related_questions.count(category1_question)).to eq 1
+          expect(question.related_questions.count).to eq 1
         end
       end
     end
