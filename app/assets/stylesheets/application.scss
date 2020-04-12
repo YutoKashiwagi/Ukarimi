@@ -159,10 +159,17 @@ button {
   font-size: 24px;
 }
 
-.question_button {
+.new_button_container {
   position: fixed;
-  right:50px;
-  bottom:10%;
+  right: 10px;
+  bottom: 10%;
+  width: 60px;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+
+.question_button {
   @include new_button();
   p {
     @include new_button_text();
@@ -170,9 +177,6 @@ button {
 }
 
 .post_button {
-  position: fixed;
-  right:50px;
-  bottom:18%;
   @include new_button();
   p {
     @include new_button_text();
@@ -317,6 +321,12 @@ body {
     white-space: nowrap;
     overflow-x: scroll;
   }
+}
+
+.tab_button_container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
 }
 
 // 新着通知の背景色
