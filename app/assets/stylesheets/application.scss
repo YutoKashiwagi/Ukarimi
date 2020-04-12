@@ -351,6 +351,9 @@ body {
   margin: auto;
   width: 64%;
   height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   .lp_item {
     p {
       font-size: 1.2rem;
