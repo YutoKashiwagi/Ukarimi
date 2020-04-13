@@ -44,6 +44,8 @@ gem 'data-confirm-modal'
 gem 'enum_help'
 # Ukarimiからukarimiに改名するためのgem
 gem 'rename'
+# s3への画像アップロード
+gem 'fog-aws'
 
 group :development, :test do
   gem 'byebug', '9.0.6', platform: :mri
