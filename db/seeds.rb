@@ -53,18 +53,6 @@ question1 = Question.create(
   content: '現在高校一年生です。理系の大学に進学したいので、オススメの参考書を教えてください',
   categories: math
 )
-          
-answer1 = question1.answers.create(
-  user_id: guest.id,
-  content: '基礎問題精講シリーズがオススメです'
-)
-
-question1.decide_best_answer(answer1)
-
-answer1.comments.create(
-  user: tanaka,
-  content: '回答ありがとうございます！'
-)
 
 10.times do |n|
   name = Faker::Name.name
