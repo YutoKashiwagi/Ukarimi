@@ -324,9 +324,16 @@ body {
 }
 
 .tab_button_container {
+  @media screen and (max-width: 560px) {
+    width: 100%;
+  }
+  @media screen and (min-width: 561px) {
+    width: 50%;
+  }
+  margin: auto;
   display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 
 // 新着通知の背景色
@@ -337,7 +344,12 @@ body {
 
 .content_container {
   margin: auto;
-  width: 350px;
+  @media screen and (max-width: 360px) {
+    width: 100%;
+  }
+  @media screen and (min-width: 361px) {
+    width: 360px;
+  }
   text-align: left;
 }
 
@@ -348,6 +360,10 @@ body {
 }
 
 // LP
+.lp {
+  position: relative;
+}
+
 .lp_photo {
   background-size: cover;
   width: 100%;
