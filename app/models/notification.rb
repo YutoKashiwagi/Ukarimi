@@ -1,4 +1,6 @@
 class Notification < ApplicationRecord
+  include CommonScope
+
   belongs_to :answer,   optional: true
   belongs_to :comment,  optional: true
   belongs_to :question, optional: true
