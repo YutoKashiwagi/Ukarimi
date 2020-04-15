@@ -3,7 +3,7 @@ class NotificationsController < ApplicationController
   after_action :check_notifications
 
   def index
-    @notifications = current_user.passive_notifications.
+    @notifications = current_user.passive_notifications.recent.
       includes(:visitor, :visited).page(params[:page]).per(10)
   end
 
