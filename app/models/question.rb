@@ -47,10 +47,9 @@ class Question < ApplicationRecord
       visited: answer.user,
       action: 'best_answer'
     )
-    if notification.visitor == notification.visited
-      notification.checked = true
+    if notification.valid? && notification.visitor != notification.visited
+      notification.save
     end
-    notification.save if notification.valid?
   end
 
   # N+1対策用
