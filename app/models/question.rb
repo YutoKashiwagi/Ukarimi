@@ -35,7 +35,6 @@ class Question < ApplicationRecord
     if answers.include?(answer) && best_answer.blank?
       self.best_answer = answer
       update_attribute(:solved, 1)
-      create_notification_best_answer(answer)
     end
   end
 
