@@ -6,6 +6,7 @@ class Question < ApplicationRecord
 
   belongs_to :user
 
+  has_many :notifications, dependent: :destroy
   has_many :answers,  dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :likes,    as: :likable,     dependent: :destroy
@@ -19,7 +20,7 @@ class Question < ApplicationRecord
   has_many :categories, through: :tag_relationships, source: :category
 
   # ベストアンサー周り
-  has_one :q_and_a_relationship
+  has_one :q_and_a_relationship, dependent: :destroy
   has_one :best_answer, through: :q_and_a_relationship, source: :answer
 
   # バリデーション
