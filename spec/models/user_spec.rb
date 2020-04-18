@@ -119,10 +119,10 @@ RSpec.describe User, type: :model do
       end
 
       context '本人がストックした場合' do
-        before { question.user.create_notification_stock(question) }
-
-        example '既読扱いの通知が作成されていること' do
-          expect(Notification.first.checked).to eq true
+        example '通知が作成されていないこと' do
+          expect do
+            question.user.create_notification_stock(question)
+          end.not_to change(Notification, :count)
         end
       end
     end
@@ -165,11 +165,10 @@ RSpec.describe User, type: :model do
       context '回答者が質問者本人の場合' do
         let!(:answer) { create(:answer, question: question, user: question.user) }
 
-        before { answer.user.create_notification_answer(answer) }
-
-        example '既読扱いの通知が作成できている事' do
-          expect(Notification.first.visitor == Notification.first.visited).to eq true
-          expect(Notification.first.checked).to eq true
+        example '通知が作成されていないこと' do
+          expect do
+            answer.user.create_notification_answer(answer)
+          end.not_to change(Notification, :count)
         end
       end
     end
@@ -207,11 +206,10 @@ RSpec.describe User, type: :model do
       context '本人がコメントした場合' do
         let!(:comment) { create(:comment, commentable: question, user: question.user) }
 
-        before { comment.user.save_notification_comment(comment, comment.commentable.user.id) }
-
-        example '既読扱いの通知が作成できていること' do
-          expect(Notification.first.visitor == Notification.first.visited).to eq true
-          expect(Notification.first.checked).to eq true
+        example '通知が作成されていないこと' do
+          expect do
+            comment.user.save_notification_comment(comment, comment.commentable.user.id)
+          end.not_to change(Notification, :count)
         end
       end
     end
