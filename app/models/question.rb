@@ -6,6 +6,7 @@ class Question < ApplicationRecord
 
   belongs_to :user
 
+  has_many :notifications, dependent: :destroy
   has_many :answers,  dependent: :destroy
   has_many :comments, as: :commentable, dependent: :destroy
   has_many :likes,    as: :likable,     dependent: :destroy
@@ -19,7 +20,7 @@ class Question < ApplicationRecord
   has_many :categories, through: :tag_relationships, source: :category
 
   # ベストアンサー周り
-  has_one :q_and_a_relationship
+  has_one :q_and_a_relationship, dependent: :destroy
   has_one :best_answer, through: :q_and_a_relationship, source: :answer
 
   # バリデーション
@@ -35,7 +36,6 @@ class Question < ApplicationRecord
     if answers.include?(answer) && best_answer.blank?
       self.best_answer = answer
       update_attribute(:solved, 1)
-      create_notification_best_answer(answer)
     end
   end
 
@@ -47,10 +47,9 @@ class Question < ApplicationRecord
       visited: answer.user,
       action: 'best_answer'
     )
-    if notification.visitor == notification.visited
-      notification.checked = true
+    if notification.valid? && notification.visitor != notification.visited
+      notification.save
     end
-    notification.save if notification.valid?
   end
 
   # N+1対策用

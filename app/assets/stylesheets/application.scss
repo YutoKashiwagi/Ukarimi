@@ -10,7 +10,7 @@
   font-size: 25px;
 }
 
-@mixin q_and_a_container($border_color) {
+@mixin q_and_a_container() {
   @media screen and (max-width: 699px) {
     width: 100%;
   }
@@ -18,8 +18,8 @@
     width: 700px;
   }
   padding: 0.5em 1em;
-  margin: auto;
-  border: solid 3px $border_color;
+  margin: 10px auto;
+  background-color: #fff;
   border-radius: 10px;
 }
 
@@ -121,7 +121,7 @@ button {
 // 質問ページのスタイリング
 
 .question_container {
-  @include q_and_a_container(#6091d3)
+  @include q_and_a_container()
 }
 
 .question_container p {
@@ -130,7 +130,7 @@ button {
 }
 
 .answer_container {
-  @include q_and_a_container(#ff9999)
+  @include q_and_a_container()
 }
 
 .answer_container p {
