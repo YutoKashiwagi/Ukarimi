@@ -52,6 +52,7 @@
         = render partial: 'answers/submit_form', locals: { question: @question }
 
 /回答表示
+h2.text-center.font-weight-bold.my-3 回答
 = render partial: 'answers/index', collection: @answers, as: :answer, locals: { question: @question }
 
 / 関連する質問
