@@ -30,8 +30,8 @@ Ukarimiは大学受験用のQ＆Aサイトです。わかる、繋がるをテ�
 ### 作成動機
 エンジニアリングを勉強していて、以下のような条件を満たすサービスに強い魅力を感じました
 
-- Qiitaさんやスタックオーバーフローさんなど、その業界にとってなくてはならない知識の貯蔵庫のようなもの
-- ユーザーさん同士が盛り上げてくれて、サービス自体が自走すること
+- Qiitaさんやスタックオーバーフローさんなど、その業界にとってなくてはならない_知識の貯蔵庫_のようなもの
+- ユーザーさん同士が盛り上げてくれて、__サービス自体が自走__すること
 
 この二つの状態がうまく噛み合えば、自動的に価値が上がっていくサービスを作り出せるのではないかと思ったところが始まりです
 
@@ -192,3 +192,5 @@ https://github.com/YutoKashiwagi/Ukarimi/issues
   - https://github.com/YutoKashiwagi/Ukarimi/issues/113#issue-593400578
 - 二度目のフィードバック
   - https://github.com/YutoKashiwagi/Ukarimi/issues/132#issue-598469874
+- 三度目のフィードバック
+  - https://github.com/YutoKashiwagi/Ukarimi/issues/140#issue-600053517
