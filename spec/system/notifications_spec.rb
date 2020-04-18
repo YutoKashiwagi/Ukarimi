@@ -11,7 +11,7 @@ RSpec.describe "Notifications", type: :system do
 
     shared_examples '新着通知が存在しないこと' do
       example '通知が作成されていないこと' do
-        expect(page).to have_content '新着の通知はありません'
+        expect(page).to have_content '通知はありません'
       end
     end
 
@@ -94,14 +94,19 @@ RSpec.describe "Notifications", type: :system do
 
     describe 'ベストアンサー通知' do
       context '回答者と質問者が異なる場合' do
+        let!(:question2) { create(:question) }
+        let!(:answer2) { create(:answer, question: question2) }
+
         before do
-          login_as other_user, scope: :user
-          question.decide_best_answer(answer)
-          visit notifications_path
+          login_as question2.user, scope: :user
+          question2.decide_best_answer(answer2)
+          question2.create_notification_best_answer(answer2)
         end
 
-        example '通知されていること' do
-          expect(page).to have_content "#{user.name}さんがあなたの回答をベストアンサーに決定しました"
+        example '通知されていること', js: true do
+          login_as answer2.user
+          visit notifications_path
+          expect(page).to have_content "#{answer2.user.name}さんがあなたの回答をベストアンサーに決定しました"
         end
       end
 

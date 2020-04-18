@@ -79,11 +79,10 @@ RSpec.describe Question, type: :model do
       context '回答者が質問者本人の場合' do
         let(:other_answer) { create(:answer, question: question, user: question.user) }
 
-        before { question.create_notification_best_answer(other_answer) }
-
-        example '既読扱いの通知が作成されていること' do
-          expect(Notification.first.visitor == Notification.first.visited).to eq true
-          expect(Notification.first.checked).to eq true
+        example '通知が作成されていないこと' do
+          expect do
+            question.create_notification_best_answer(other_answer)
+          end.not_to change(Notification, :count)
         end
       end
     end
@@ -93,8 +92,7 @@ RSpec.describe Question, type: :model do
         expect do
           question.decide_best_answer(answer)
         end.to change(question, :best_answer).from(nil).to(answer).
-          and change(question, :solved).from(0).to(1).
-          and change(Notification, :count).by(1)
+          and change(question, :solved).from(0).to(1)
       end
 
       context '既にベストアンサーが決定している場合' do

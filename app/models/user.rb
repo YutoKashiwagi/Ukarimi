@@ -113,10 +113,9 @@ class User < ApplicationRecord
       visited: answer.question.user,
       action: 'answer'
     )
-    if notification.visitor == notification.visited
-      notification.checked = true
+    if notification.valid? && notification.visitor != notification.visited
+      notification.save
     end
-    notification.save if notification.valid?
   end
 
   def create_notification_stock(question)
@@ -127,10 +126,9 @@ class User < ApplicationRecord
         visited: question.user,
         action: 'stock'
       )
-      if notification.visitor == notification.visited
-        notification.checked = true
+      if notification.valid? && notification.visitor != notification.visited
+        notification.save
       end
-      notification.save if notification.valid?
     end
   end
 
@@ -144,10 +142,9 @@ class User < ApplicationRecord
       visited_id: visited_id,
       action: 'comment'
     )
-    if notification.visitor == notification.visited
-      notification.checked = true
+    if notification.valid? && notification.visitor != notification.visited
+      notification.save
     end
-    notification.save if notification.valid?
   end
 
   # ランキング周り
