@@ -5,8 +5,17 @@ RSpec.describe User, type: :model do
   let(:other_user) { create(:user) }
   let(:question) { create(:question) }
 
-  it '有効なファクトリを持つこと' do
+  example '有効なファクトリを持つこと' do
     expect(user.valid?).to eq true
+  end
+
+  example '正常に作成できること' do
+    expect{ user.save }.to change(User, :count).by(1)
+  end
+
+  example '正常に削除できること' do
+    user.save
+    expect{ user.destroy! }.to change(User, :count).by(-1)
   end
 
   describe 'バリデーション' do
