@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe Question, type: :model do
   let!(:question) { create(:question) }
 
-  it '有効なファクトリを持つこと' do
+  example '有効なファクトリを持つこと' do
     expect(question.valid?).to eq true
   end
 
@@ -11,13 +11,13 @@ RSpec.describe Question, type: :model do
     context 'title' do
       subject { question.errors[:title] }
 
-      it 'presence: true' do
+      example 'presence: true' do
         question.title = ''
         question.valid?
         is_expected.to include("を入力してください")
       end
 
-      it 'length: { maximum: 50 }' do
+      example 'length: { maximum: 50 }' do
         question.title = 'a' * 51
         question.valid?
         is_expected.to include("は50文字以内で入力してください")
@@ -27,13 +27,13 @@ RSpec.describe Question, type: :model do
     context 'content' do
       subject { question.errors[:content] }
 
-      it 'presence: true' do
+      example 'presence: true' do
         question.content = ''
         question.valid?
         is_expected.to include("を入力してください")
       end
 
-      it 'length: { maximum: 1000 }' do
+      example 'length: { maximum: 1000 }' do
         question.content = 'a' * 1001
         question.valid?
         is_expected.to include("は1000文字以内で入力してください")
@@ -45,7 +45,7 @@ RSpec.describe Question, type: :model do
     let!(:taro) { create(:user, name: 'taro') }
     let!(:taro_q) { create(:question, user: taro) }
 
-    it 'ユーザーを削除すると、紐づいた質問も削除されること' do
+    example 'ユーザーを削除すると、紐づいた質問も削除されること' do
       expect { taro.destroy }.to change(Question, :count).by(-1)
     end
   end

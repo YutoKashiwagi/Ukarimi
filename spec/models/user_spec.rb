@@ -5,21 +5,30 @@ RSpec.describe User, type: :model do
   let(:other_user) { create(:user) }
   let(:question) { create(:question) }
 
-  it '有効なファクトリを持つこと' do
+  example '有効なファクトリを持つこと' do
     expect(user.valid?).to eq true
+  end
+
+  example '正常に作成できること' do
+    expect { user.save }.to change(User, :count).by(1)
+  end
+
+  example '正常に削除できること' do
+    user.save
+    expect { user.destroy! }.to change(User, :count).by(-1)
   end
 
   describe 'バリデーション' do
     context 'name' do
       subject { user.errors[:name] }
 
-      it 'presense :true' do
+      example 'presense :true' do
         user.name = ''
         user.valid?
         is_expected.to include("を入力してください")
       end
 
-      it 'length: {maximum: 20}' do
+      example 'length: {maximum: 20}' do
         user.name = 'a' * 21
         user.valid?
         is_expected.to include("は20文字以内で入力してください")
@@ -29,13 +38,13 @@ RSpec.describe User, type: :model do
     context 'password' do
       subject { user.errors[:password] }
 
-      it 'maximum: 30' do
+      example 'maximum: 30' do
         user.password = 'a' * 31
         user.valid?
         is_expected.to include("は30文字以内で入力してください")
       end
 
-      it 'minimum: 6' do
+      example 'minimum: 6' do
         user.password = 'a' * 5
         user.valid?
         is_expected.to include("は6文字以上で入力してください")
