@@ -7,13 +7,13 @@ RSpec.describe "Questions", type: :request do
   let(:question_params) { { title: 'title', content: 'content' } }
 
   shared_examples 'リクエストが成功すること' do
-    it 'returns 200' do
+    example 'returns 200' do
       expect(response).to have_http_status(200)
     end
   end
 
   shared_examples 'サインイン画面へリダイレクトされること' do
-    it 'redirect_to new_user_session_path' do
+    example 'redirect_to new_user_session_path' do
       expect(response).to redirect_to new_user_session_path
     end
   end
