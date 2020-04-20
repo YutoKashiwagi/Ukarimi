@@ -11,7 +11,7 @@ RSpec.describe "Questions", type: :system do
       visit new_question_path
     end
 
-    it '正常に投稿が出来ること' do
+    example '正常に投稿が出来ること' do
       fill_in 'question[title]', with: 'title'
       fill_in 'question[content]', with: 'content'
       expect { click_button '質問' }.to change { taro.questions.count }.by(1)
@@ -85,13 +85,13 @@ RSpec.describe "Questions", type: :system do
   describe '質問の削除' do
     # 質問者 = 'taro'
 
-    it '質問者は質問を削除できること' do
+    example '質問者は質問を削除できること' do
       login_as taro, scope: :user
       visit question_path(taro_q.id)
       expect { find(".delete-q-#{taro_q.id}").click }.to change { taro.questions.count }.by(-1)
     end
 
-    it '質問者しか削除できないこと' do
+    example '質問者しか削除できないこと' do
       login_as jiro, scope: :user
       visit question_path(taro_q.id)
       expect(page).not_to have_selector ".delete-q-#{taro_q.id}"
@@ -104,7 +104,7 @@ RSpec.describe "Questions", type: :system do
       visit question_path(taro_q.id)
     end
 
-    it 'editページリンクが機能していること' do
+    example 'editページリンクが機能していること' do
       find(".edit-q-#{taro_q.id}").click
       expect(current_path).to eq edit_question_path(taro_q.id)
     end
@@ -115,7 +115,7 @@ RSpec.describe "Questions", type: :system do
       before { visit edit_question_path(taro_q.id) }
 
       context '正常値' do
-        it '成功すること' do
+        example '成功すること' do
           fill_in 'question[title]', with: '編集後のタイトル'
           fill_in 'question[content]', with: '編集後のコンテント'
           click_button '編集内容を送信'
@@ -125,14 +125,14 @@ RSpec.describe "Questions", type: :system do
       end
 
       context '異常値' do
-        it 'タイトルが空白' do
+        example 'タイトルが空白' do
           fill_in 'question[title]', with: ''
           fill_in 'question[content]', with: '編集後のコンテント'
           click_button '編集内容を送信'
           is_expected.to have_content '編集に失敗しました'
         end
 
-        it 'コンテントが空白' do
+        example 'コンテントが空白' do
           fill_in 'question[title]', with: '編集後のタイトル'
           fill_in 'question[content]', with: ''
           click_button '編集内容を送信'

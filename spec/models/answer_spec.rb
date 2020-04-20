@@ -4,7 +4,7 @@ RSpec.describe Answer, type: :model do
   let(:question) { create(:question) }
   let(:answer) { create(:answer, question: question) }
 
-  it '有効なファクトリを持つこと' do
+  example '有効なファクトリを持つこと' do
     expect(answer.valid?).to eq true
   end
 
@@ -12,13 +12,13 @@ RSpec.describe Answer, type: :model do
     context 'content' do
       subject { answer.errors[:content] }
 
-      it 'presence: true' do
+      example 'presence: true' do
         answer.content = ''
         answer.valid?
         is_expected.to include("を入力してください")
       end
 
-      it 'length: { maximum: 1000 }' do
+      example 'length: { maximum: 1000 }' do
         answer.content = 'a' * 1001
         answer.valid?
         is_expected.to include("は1000文字以内で入力してください")
@@ -32,11 +32,11 @@ RSpec.describe Answer, type: :model do
     let!(:taro_q) { create(:question, user: taro) }
     let!(:ans_jiro) { create(:answer, user: jiro, question: taro_q) }
 
-    it '質問を消去すると、紐づいた回答も消去されること' do
+    example '質問を消去すると、紐づいた回答も消去されること' do
       expect { taro_q.destroy }.to change(Answer, :count).by(-1)
     end
 
-    it 'ユーザーを削除すると、紐づいた質問、回答も削除されること' do
+    example 'ユーザーを削除すると、紐づいた質問、回答も削除されること' do
       expect { taro.destroy }.to change(Question, :count).by(-1).and change(Answer, :count).by(-1)
     end
   end

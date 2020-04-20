@@ -20,20 +20,20 @@ RSpec.describe "Answers", type: :system do
       visit question_path(taro_q.id)
     end
 
-    it '正常に回答できること' do
+    example '正常に回答できること' do
       fill_in 'answer[content]', with: ' 正しい回答'
       click_button '回答する'
       is_expected.to have_content '正しい回答'
     end
 
     context '異常値' do
-      it 'presence: true' do
+      example 'presence: true' do
         fill_in 'answer[content]', with: ''
         click_button '回答する'
         is_expected.to have_content '回答に失敗しました'
       end
 
-      it 'length: { maximum: 1000 }' do
+      example 'length: { maximum: 1000 }' do
         fill_in 'answer[content]', with: 'a' * 1001
         click_button '回答する'
         is_expected.to have_content '回答に失敗しました'
@@ -43,14 +43,14 @@ RSpec.describe "Answers", type: :system do
 
   describe '削除機能が正常に働いていること' do
     # taro = 質問者
-    it '回答者しか自分の回答を削除できないこと' do
+    example '回答者しか自分の回答を削除できないこと' do
       # saburoがjiroの回答を削除しようとする
       login_as saburo, scope: :user
       visit question_path(taro_q.id)
       expect(page).not_to have_selector ".delete-a-#{jiro_ans.id}"
     end
 
-    it '回答者は自分の回答を削除できること' do
+    example '回答者は自分の回答を削除できること' do
       login_as jiro, scope: :user
       visit question_path(taro_q.id)
       expect(page).to have_content 'jiroの回答'
@@ -60,7 +60,7 @@ RSpec.describe "Answers", type: :system do
 
     # 一つの回答に対して、同一人物が複数の回答を投稿している時
     # その人物が一つの回答を削除すると、残りも削除されてしまう
-    it 'バグ再現テスト' do
+    example 'バグ再現テスト' do
       create(:answer, user: jiro, question: taro_q, content: 'jiroの回答2')
       login_as jiro, scope: :user
       visit question_path(taro_q.id)
@@ -74,13 +74,13 @@ RSpec.describe "Answers", type: :system do
       visit edit_answer_path(jiro_ans.id)
     end
 
-    it '正常値' do
+    example '正常値' do
       fill_in 'answer[content]', with: '編集後の回答'
       click_on '編集内容を送信'
       expect(page).to have_content '編集後の回答'
     end
 
-    it '異常値' do
+    example '異常値' do
       fill_in 'answer[content]', with: ''
       click_on '編集内容を送信'
       expect(page).to have_content '編集に失敗しました'
