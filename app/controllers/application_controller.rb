@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def check_admin
+    redirect_to root_path unless current_user.try(:admin?)
+  end
+
   def storable_location?
     request.get? && is_navigational_format? && !devise_controller? && !request.xhr?
   end
