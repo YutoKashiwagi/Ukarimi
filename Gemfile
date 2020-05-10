@@ -10,7 +10,6 @@ gem 'jquery-rails', '4.3.1'
 gem 'sass-rails', '5.0.6'
 gem 'carrierwave'
 gem 'mini_magick'
-gem 'coffee-rails', '4.2.2'
 gem 'devise'
 gem 'devise-bootstrap-views', '~> 1.0'
 gem 'devise-i18n'       # devise日本語化のため
@@ -18,8 +17,6 @@ gem 'devise-i18n-views' # devise日本語化のため
 gem 'dotenv-rails'
 gem 'faker'
 gem 'jbuilder', '2.7.0'
-gem 'omniauth'
-gem 'omniauth-facebook'
 gem 'puma', '3.12.4'
 gem 'rails', '5.2.0'
 gem 'bootsnap'
@@ -42,8 +39,6 @@ gem 'rack-mini-profiler', require: false
 gem 'data-confirm-modal'
 # enum日本語化用
 gem 'enum_help'
-# Ukarimiからukarimiに改名するためのgem
-gem 'rename'
 # s3への画像アップロード
 gem 'fog-aws'
 
