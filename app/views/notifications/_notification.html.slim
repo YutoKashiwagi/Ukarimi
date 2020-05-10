@@ -16,7 +16,7 @@ div class=(notification.checked ? '' : 'new_notification')
       = link_to 'あなたの質問', question_path(notification.question.id)
       | をストックしました
     - when 'comment' then
-      - case notification.comment.try(:commentable_type)
+      - case notification.comment.commentable_type
       - when 'Question' then
         = link_to '質問', question_path(notification.comment.commentable.id)
         | にコメントしました

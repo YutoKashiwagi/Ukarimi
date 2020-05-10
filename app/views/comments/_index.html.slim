@@ -2,7 +2,7 @@
   hr
   p コメント
   hr
-  - comments&.each do |comment|
+  - comments.each do |comment|
     .row
       .col-6
         = render partial: 'users/user_image_link', locals: { user: comment.user }

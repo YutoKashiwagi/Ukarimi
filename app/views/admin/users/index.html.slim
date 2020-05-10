@@ -1,0 +1,19 @@
+/ 管理画面のヘッダー
+.admin_header.text-center
+  h1 管理画面
+  = link_to 'Users', admin_users_path
+.admin_body
+  table align="center"
+    thead
+      tr
+        th ID
+        th Name
+        th Role
+        th colspan="1" 
+    tbody
+      - @users.each do |user|
+        tr
+          td= user.id
+          td= user.name
+          td= user.role
+          td= link_to 'Destroy', admin_user_path(user.id), method: :delete, data: { confirm: "削除しますか？", cancel: 'やめる', commit: '決定' }, title: '削除の確認'
