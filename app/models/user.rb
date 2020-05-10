@@ -148,8 +148,8 @@ class User < ApplicationRecord
   end
 
   # ランキング周り
-  def self.create_ranking(obj)
-    User.find(obj.group(:user_id).order('count(user_id) desc').limit(10).pluck(:user_id))
+  def self.create_ranking(klass)
+    User.find(klass.group(:user_id).order('count(user_id) desc').limit(10).pluck(:user_id))
   end
 
   # ゲストユーザー周り
@@ -161,15 +161,15 @@ class User < ApplicationRecord
   end
 
   # フィード
-  def followee_items(obj)
-    obj.recent.where("user_id IN (?)", followee_ids)
+  def followee_items(klass)
+    klass.recent.where("user_id IN (?)", followee_ids)
   end
 
-  def mycategory_items(obj)
-    # QUestion, Postのidを取得するためのサブクエリ
+  def mycategory_items(klass)
+    # Question, Postのidを取得するためのサブクエリ
     myitems_ids = "SELECT taggable_id
                    FROM tag_relationships
-                   WHERE taggable_type = :obj_class AND category_id IN (:mycategories_ids)"
-    obj.where("id IN (#{myitems_ids})", obj_class: obj.name, mycategories_ids: category_ids).recent
+                   WHERE taggable_type = :klass_class AND category_id IN (:mycategories_ids)"
+    klass.where("id IN (#{myitems_ids})", klass_class: klass.name, mycategories_ids: category_ids).recent
   end
 end
