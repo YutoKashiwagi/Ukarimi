@@ -15,7 +15,7 @@ RSpec.describe "Stocks", type: :system do
     end
 
     example 'ストックを解除できること' do
-      user.stock(question)
+      user.stocked_questions << question
       visit question_path(question.id)
       expect { click_button 'ストック済み' }.to change { user.stocked_questions.count }.by(-1)
     end

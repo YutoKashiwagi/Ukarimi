@@ -18,7 +18,8 @@ RSpec.describe "Notifications", type: :system do
     describe 'ストック通知' do
       context '本人以外がストックした場合' do
         before do
-          other_user.stock(question)
+          other_user.stocked_questions << question
+          other_user.create_notification_stock(question)
           visit notifications_path
         end
 
@@ -28,8 +29,7 @@ RSpec.describe "Notifications", type: :system do
 
         context 'ストックボタンを連打された時' do
           before do
-            other_user.unstock(question)
-            other_user.stock(question)
+            other_user.create_notification_stock(question)
             visit notifications_path
           end
 
@@ -39,7 +39,8 @@ RSpec.describe "Notifications", type: :system do
 
       context '本人がストックした場合' do
         before do
-          user.stock(question)
+          user.stocked_questions << question
+          user.create_notification_stock(question)
           visit notifications_path
         end
 
