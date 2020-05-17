@@ -63,42 +63,8 @@ RSpec.describe User, type: :model do
   describe 'ストック関連' do
     before { user.save }
 
-    describe 'stocked?(question)' do
-      example 'ストックしている場合、trueを返すこと' do
-        user.stocked_questions << question
-        expect(user.stocked?(question)).to eq true
-      end
-
-      example 'ストックしていない場合、falseを返すこと' do
-        expect(user.stocked?(question)).to eq false
-      end
-    end
-
-    describe 'stock(question)' do
-      example 'ストックしていない場合、ストック出来ること' do
-        expect { user.stock(question) }.to change { question.user.passive_notifications.count }.by(1)
-        expect(user.stocked?(question)).to eq true
-      end
-
-      example 'ストックしている場合、nilを返すこと' do
-        user.stock(question)
-        expect(user.stock(question)).to eq nil
-      end
-    end
-
-    describe 'unstock(question)' do
-      example 'ストックしている場合、ストックを解除できること' do
-        user.stock(question)
-        expect { user.unstock(question) }.to change { user.stocked_questions.count }.by(-1)
-      end
-
-      example 'ストックしていない場合、nilを返すこと' do
-        expect(user.unstock(question)).to eq nil
-      end
-    end
-
-    describe 'dependent: :destrou' do
-      before { user.stock(question) }
+    describe 'dependent: :destroy' do
+      before { user.stocked_questions << question }
 
       example 'ユーザーを削除すると、紐づいたストックも削除されること' do
         expect { user.destroy }.to change(Stock, :count).by(-1)
@@ -122,7 +88,7 @@ RSpec.describe User, type: :model do
 
         context '事前にストックされていた場合' do
           example '再度ストックされても通知が作成されないこと' do
-            expect { user.stock(question) }.not_to change(Notification, :count)
+            expect { user.create_notification_stock(question) }.not_to change(Notification, :count)
           end
         end
       end

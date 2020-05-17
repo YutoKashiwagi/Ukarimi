@@ -7,7 +7,9 @@ class StocksController < ApplicationController
   end
 
   def create
-    current_user.stock(@question)
+    stock_service = User::StockService.new(current_user, @question)
+    stock_service.stock
+    current_user.create_notification_stock(@question)
     respond_to do |format|
       format.html { redirect_back(fallback_location: root_path) }
       format.js
@@ -15,7 +17,8 @@ class StocksController < ApplicationController
   end
 
   def destroy
-    current_user.unstock(@question)
+    stock_service = User::StockService.new(current_user, @question)
+    stock_service.unstock
     respond_to do |format|
       format.html { redirect_back(fallback_location: root_path) }
       format.js

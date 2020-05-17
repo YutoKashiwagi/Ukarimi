@@ -49,22 +49,6 @@ class User < ApplicationRecord
   validates :profile, length: { maximum: 400 }
   validates :email,   length: { maximum: 256 }
 
-  # ストック周り
-  def stock(question)
-    unless stocked?(question)
-      stocked_questions << question
-      create_notification_stock(question)
-    end
-  end
-
-  def unstock(question)
-    stocks.find_by(question_id: question.id).destroy! if stocked?(question)
-  end
-
-  def stocked?(question)
-    stocked_questions.include?(question)
-  end
-
   # フォロー周り
   def follow(other_user)
     return if self == other_user

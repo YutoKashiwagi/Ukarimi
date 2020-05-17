@@ -1,6 +1,6 @@
 - if user_signed_in?
   .stock_button
-    - if current_user.stocked?(question)
+    - if current_user.stocked_questions.include?(question)
       = form_with model: current_user.stocks.find_by(question_id: question.id), remote: :true, method: :delete do |f|
         = f.hidden_field :question_id, value: question.id
         = f.submit 'ストック済み', class: 'btn btn-success'
