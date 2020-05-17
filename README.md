@@ -84,6 +84,10 @@ Q＆Aサイトのユーザーである質問者と回答者はそれぞれ以下
   - 条件分岐等の処理はできるだけモデル層に押し込み、「コントローラを太くしない」 && 「安全なメソッドを作成する」ということを意識しました
     - https://github.com/YutoKashiwagi/Ukarimi/blob/master/app/models/user.rb
     - https://github.com/YutoKashiwagi/Ukarimi/blob/master/app/models/question.rb
+- ファットモデル対策(サービス層を導入)
+  - 今現在ユーザーモデルに処理が集中していることが課題であり、今後の機能追加も考慮してユーザーモデルでサービス層を導入しています(5/16 ~)
+    - issue: https://github.com/YutoKashiwagi/Ukarimi/issues/157#issue-614575545
+    - プルリク: https://github.com/YutoKashiwagi/Ukarimi/pull/161
 - テストをしっかりと書いている(330examples超)
   - 保守性を高めるためテストは場合分け、正常値、異常値を意識して多めに書いています
   - 機能の改修を何度も行っているためテストの重要性は身に染みており、機能の実装とテストはセットのつもりで開発しました
