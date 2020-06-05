@@ -232,7 +232,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.5)
-    puma (3.12.4)
+    puma (3.12.6)
     rack (2.2.2)
     rack-mini-profiler (2.0.1)
       rack (>= 1.2.0)
@@ -439,7 +439,7 @@ DEPENDENCIES
   mysql2
   pry-doc
   pry-rails
-  puma (= 3.12.4)
+  puma (= 3.12.6)
   rack-mini-profiler
   rails (= 5.2.0)
   ransack
