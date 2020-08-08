@@ -1,8 +1,8 @@
-# Ukarimi
+# Ukarimi (現在サーバー停止中です)
 
 <img width="1433" alt="スクリーンショット 2020-04-13 19 22 14" src="https://user-images.githubusercontent.com/58618766/79113556-2073b900-7dbc-11ea-8c74-ca0b1f9baaef.png">
 
-## URL
+## URL(現在サーバー停止中です)
 https://www.ukarimi.com
 ## 概要
 Ukarimiは大学受験用のQ＆Aサイトです。わかる、繋がるをテーマとして作成しました。一般的なQ＆Aサイトの機能に加えツイッターのようなつぶやき、フォロー機能も実装しており、ユーザー同士で繋がることが出来ます。ユーザー層を考慮し、レスポンシブ対応済みです
