@@ -17,7 +17,7 @@ gem 'devise-i18n-views' # devise日本語化のため
 gem 'dotenv-rails'
 gem 'faker'
 gem 'jbuilder', '2.7.0'
-gem 'puma', '3.12.6'
+gem 'puma', '4.3.12'
 gem 'rails', '5.2.0'
 gem 'bootsnap'
 gem 'turbolinks',   '5.0.1'
